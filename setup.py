@@ -8,7 +8,7 @@ setup(
     version="0.1.7",
     author="D&D Development Team",
     author_email="",
-    description="Complete D&D 5th Edition Rules Engine - All D&D 5e rules including gold rewards",
+    description="Complete D&D 5e Rules Engine: Official encounter tables, gold rewards, 332 monsters, 319 spells, standalone loaders. 100% offline.",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/codingame-team/dnd-5e-core",

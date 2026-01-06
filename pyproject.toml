@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "dnd-5e-core"
 version = "0.1.7"
-description = "Complete D&D 5th Edition Rules Engine with gold rewards, encounter builder, and standalone loaders"
+description = "Complete D&D 5e Rules Engine: Official encounter tables, gold rewards, 332 monsters, 319 spells, standalone loaders. 100% offline, UI-agnostic."
 readme = {file = "README.md", content-type = "text/markdown"}
 authors = [
     { name = "D&D Development Team", email = "dev@codingame-team.com" }
@@ -25,7 +25,13 @@ keywords = [
     "character-sheet",
     "combat-engine",
     "spells",
-    "monsters"
+    "monsters",
+    "encounter-builder",
+    "dmg",
+    "challenge-rating",
+    "gold-rewards",
+    "standalone",
+    "offline"
 ]
 requires-python = ">=3.10"
 classifiers = [
@@ -70,6 +76,8 @@ Issues = "https://github.com/codingame-team/dnd-5e-core/issues"
 "Bug Tracker" = "https://github.com/codingame-team/dnd-5e-core/issues"
 Changelog = "https://github.com/codingame-team/dnd-5e-core/blob/main/CHANGELOG.md"
 "Quick Start" = "https://github.com/codingame-team/dnd-5e-core/blob/main/QUICK_START_DATA.md"
+"Examples & Demos" = "https://github.com/codingame-team/DND5e-Test"
+"Full Applications" = "https://github.com/codingame-team/DnD-5th-Edition-API"
 
 [tool.setuptools]
 include-package-data = true

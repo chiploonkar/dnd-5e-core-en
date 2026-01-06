@@ -2,38 +2,61 @@
 
 ## 📖 About
 
-**Complete D&D 5th Edition Rules Engine** - A comprehensive Python package implementing all core D&D 5e mechanics. UI-agnostic design works with any interface (pygame, web, CLI). Includes 8.7MB of bundled JSON data (2000+ files) with 332 monsters, 319 spells, and complete game rules. No external APIs required - works offline!
+**Complete D&D 5th Edition Rules Engine** - A comprehensive Python package implementing all core D&D 5e mechanics and official rules. UI-agnostic design works with any interface (pygame, web, CLI, Qt). Includes 8.7MB of bundled JSON data (2000+ files) with 332 monsters, 319 spells, and complete game rules. **100% standalone** - no external APIs required, works offline!
 
 [![PyPI version](https://badge.fury.io/py/dnd-5e-core.svg)](https://pypi.org/project/dnd-5e-core/)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-A complete Python package implementing D&D 5th Edition core rules and mechanics.
+A complete Python package implementing D&D 5th Edition core rules and mechanics, including **official encounter system**, **gold rewards**, **experience tables**, and **standalone character/monster loaders**.
 
-This package contains **all game logic** for D&D 5e and is **UI-agnostic** - use it with pygame, ncurses, web, or any other interface.
+This package contains **all game logic** for D&D 5e and is **UI-agnostic** - use it with pygame, ncurses, web, Qt, or any other interface.
 
-## ✨ New in Latest Version
+## 🎮 Examples & Frontends
 
-**🎉 Integrated D&D 5e Data**: The package now includes **8.7 MB of D&D 5e JSON data** (2000+ files) with:
-- 332 monsters
-- 319 spells
-- 65 weapons
-- 30 armors
-- 237 equipment items
-- And much more!
+**Looking for examples or complete applications?**
 
-**🎮 Extended Monsters from 5e.tools**: Access to **89+ additional monsters** from 5e.tools:
+- **[DnD5e-Test](https://github.com/codingame-team/DND5e-Test)** - Demonstration scripts and examples
+  - 10+ combat scripts with random character generation
+  - Official D&D 5e encounter builder examples
+  - Character and monster creation demos
+  - All scripts work standalone with just `pip install dnd-5e-core`
+
+- **[DnD-5th-Edition-API](https://github.com/codingame-team/DnD-5th-Edition-API)** - Complete applications
+  - Full-featured ncurses interface (terminal-based)
+  - Pygame dungeon crawler with real-time combat
+  - PyQt5 Wizardry-style interface
+  - Character management, inventory, shops, and more
+
+## ✨ New in Version 0.1.7
+
+**🎯 Official D&D 5e Rules - Complete Package**:
+- **Gold Rewards System**: Official treasure tables from DMG (levels 1-20)
+- **Encounter Builder**: DMG-compliant encounter generation with balanced difficulty
+- **Standalone Loaders**: Character and monster loading without external dependencies
+- **All D&D 5e Rules**: 100% of core mechanics now in the package
+
+**🎮 Integrated D&D 5e Data**: The package includes **8.7 MB of D&D 5e JSON data** (2000+ files):
+- **332 monsters** with complete stats and abilities
+- **319 spells** with full descriptions and mechanics
+- **65 weapons** with damage, properties, and ranges
+- **30 armors** with AC calculations
+- **237 equipment items**
+- Plus: races, classes, traits, features, and more!
+
+**🐉 Extended Monsters from 5e.tools**: Access to **89+ additional monsters**:
 - Monsters not in the official API (Orc Eye of Gruumsh, Goblin Boss, etc.)
 - 47 monsters with complete actions and abilities implemented
 - Support for downloading monster tokens/images
 - Advanced search and filtering capabilities
 
-**No external API or database required** - all data is bundled and **auto-detected**.
+**📦 100% Standalone** - No external API or database required - all data is bundled and **auto-detected**.
 
 ## Features
 
 ### Complete D&D 5e Implementation
 
+**Core Mechanics:**
 - **Entities**: Monster and Character classes with full D&D 5e mechanics
 - **Races & Subraces**: All official races with ability bonuses, traits, proficiencies
 - **Classes**: All character classes with spellcasting, proficiencies
@@ -42,15 +65,26 @@ This package contains **all game logic** for D&D 5e and is **UI-agnostic** - use
 - **Combat**: Actions, Multi-attacks, Special Abilities, Conditions
 - **Abilities**: Six core abilities (STR, DEX, CON, INT, WIS, CHA) with modifiers
 - **Saving Throws**: Full saving throw system with proficiencies
-- **Experience & Leveling**: XP calculation, level progression
-- **Challenge Rating**: Encounter difficulty calculation
+
+**Official D&D 5e Rules (NEW in v0.1.7):**
+- **📊 Encounter Tables**: Official DMG encounter tables (levels 1-20)
+- **💰 Gold Rewards**: Treasure per encounter from DMG
+- **⚔️ Challenge Rating**: Accurate encounter difficulty calculation
+- **📈 Experience System**: XP tables and level progression
+- **🎲 Encounter Builder**: Generate balanced encounters by party level
+
+**Standalone Utilities (NEW in v0.1.7):**
+- **Character Generator**: Create random characters without external dependencies
+- **Monster Loader**: Load monsters from bundled data or API
+- **Data Collections**: Access all D&D 5e data easily
 
 ### Integrated Data
 
-- **✅ Bundled JSON Data**: 2000+ D&D 5e data files included
+- **✅ Bundled JSON Data**: 2000+ D&D 5e data files included (8.7 MB)
 - **✅ Auto-Detection**: No configuration needed - data is found automatically
 - **✅ Offline Mode**: Works without internet connection
 - **✅ Complete**: Monsters, spells, weapons, armors, classes, races, and more
+- **✅ Extended**: 89+ additional monsters from 5e.tools
 
 ## Installation
 
@@ -68,7 +102,54 @@ pip install -e .[dev]
 
 ## Quick Start
 
-### Load D&D 5e Data (New!)
+### NEW in v0.1.7: Standalone Character & Monster Loaders
+
+```python
+from dnd_5e_core.data import simple_character_generator, load_monsters_database
+
+# Generate random characters without external dependencies
+fighter = simple_character_generator(level=5, class_name="fighter", name="Conan")
+wizard = simple_character_generator(level=5, class_name="wizard")
+
+print(f"{fighter.name} - Level {fighter.level} {fighter.class_type.name}")
+print(f"HP: {fighter.hit_points}/{fighter.max_hit_points}")
+
+# Load all monsters at once
+monsters = load_monsters_database()
+print(f"Loaded {len(monsters)} monsters")
+```
+
+### NEW in v0.1.7: Official D&D 5e Encounter System
+
+```python
+from dnd_5e_core.mechanics import (
+    select_monsters_by_encounter_table,
+    get_encounter_gold,
+    ENCOUNTER_TABLE,
+    XP_LEVELS
+)
+
+# Generate balanced encounter for a level 5 party
+party_levels = [5, 5, 4, 6]
+monsters, encounter_type = select_monsters_by_encounter_table(
+    encounter_level=5,
+    available_monsters=monsters_db,
+    allow_pairs=True
+)
+
+print(f"Encounter: {encounter_type}")
+print(f"Monsters: {[m.name for m in monsters]}")
+
+# Get gold reward
+gold = get_encounter_gold(5)
+print(f"Treasure: {gold} gp")
+
+# Check XP table
+xp_for_level_5 = XP_LEVELS[5]
+print(f"XP needed for level 5: {xp_for_level_5}")
+```
+
+### Load D&D 5e Data
 
 ```python
 from dnd_5e_core.data import load_monster, list_monsters, load_spell
