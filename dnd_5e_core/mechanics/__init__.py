@@ -34,6 +34,11 @@ from .encounter_builder import (
     select_monsters_by_encounter_table,
     get_encounter_info
 )
+from .gold_rewards import (
+    ENCOUNTER_GOLD_TABLE,
+    get_encounter_gold,
+    calculate_treasure_hoard
+)
 
 __all__ = [
     'DamageDice',
@@ -59,5 +64,8 @@ __all__ = [
     'generate_encounter_distribution',
     'select_monsters_by_encounter_table',
     'get_encounter_info',
+    'ENCOUNTER_GOLD_TABLE',
+    'get_encounter_gold',
+    'calculate_treasure_hoard',
 ]
 
