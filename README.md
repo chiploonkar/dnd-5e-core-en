@@ -28,13 +28,18 @@ This package contains **all game logic** for D&D 5e and is **UI-agnostic** - use
   - PyQt5 Wizardry-style interface
   - Character management, inventory, shops, and more
 
-## ✨ New in Version 0.1.7
+## ✨ New in Version 0.1.8
 
-**🎯 Official D&D 5e Rules - Complete Package**:
+**📝 Enhanced PyPI Documentation**:
+- Updated description highlighting all v0.1.7 features
+- Added links to example projects and full applications
+- Better showcasing of standalone capabilities
+
+**🎯 All Features from v0.1.7** (fully documented):
 - **Gold Rewards System**: Official treasure tables from DMG (levels 1-20)
 - **Encounter Builder**: DMG-compliant encounter generation with balanced difficulty
 - **Standalone Loaders**: Character and monster loading without external dependencies
-- **All D&D 5e Rules**: 100% of core mechanics now in the package
+- **All D&D 5e Rules**: 100% of core mechanics in the package
 
 **🎮 Integrated D&D 5e Data**: The package includes **8.7 MB of D&D 5e JSON data** (2000+ files):
 - **332 monsters** with complete stats and abilities
