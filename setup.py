@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name="dnd-5e-core",
-    version="0.1.0",
+    version="0.1.4",
     author="D&D Development Team",
     author_email="",
     description="Complete D&D 5th Edition Rules Engine - Core Game Logic",
@@ -13,6 +13,7 @@ setup(
     long_description_content_type="text/markdown",
     url="https://github.com/codingame-team/dnd-5e-core",
     packages=find_packages(),
+    include_package_data=True,  # Include files specified in MANIFEST.in
     classifiers=[
         "Development Status :: 3 - Alpha",
         "Intended Audience :: Developers",

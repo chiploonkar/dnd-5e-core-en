@@ -1,0 +1,2 @@
+Complete D&D 5th Edition Rules Engine - Core game logic package with 8.7MB bundled data (332 monsters, 319 spells). UI-agnostic design for pygame, web, CLI. Offline-first, no external APIs required.
+

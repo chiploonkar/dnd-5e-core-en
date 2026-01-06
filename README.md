@@ -1,5 +1,13 @@
 # dnd-5e-core
 
+## 📖 About
+
+**Complete D&D 5th Edition Rules Engine** - A comprehensive Python package implementing all core D&D 5e mechanics. UI-agnostic design works with any interface (pygame, web, CLI). Includes 8.7MB of bundled JSON data (2000+ files) with 332 monsters, 319 spells, and complete game rules. No external APIs required - works offline!
+
+[![PyPI version](https://badge.fury.io/py/dnd-5e-core.svg)](https://pypi.org/project/dnd-5e-core/)
+[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 A complete Python package implementing D&D 5th Edition core rules and mechanics.
 
 This package contains **all game logic** for D&D 5e and is **UI-agnostic** - use it with pygame, ncurses, web, or any other interface.

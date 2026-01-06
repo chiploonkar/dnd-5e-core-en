@@ -46,7 +46,7 @@ Modules
 - data: API loaders and serialization
 """
 
-__version__ = '0.1.0'
+__version__ = '0.1.2'
 __author__ = 'D&D Development Team'
 
 # Import key classes for convenience
@@ -91,4 +91,13 @@ __all__ = [
     # UI helpers
     'Color', 'color', 'cprint',
 ]
+
+# Additional exports available via submodules
+# from dnd_5e_core.mechanics import (experience, level_up, challenge_rating)
+# from dnd_5e_core.abilities import (skill, saving_throw)
+# from dnd_5e_core.spells import (spell_slots, cantrips)
+# from dnd_5e_core.classes import multiclass
+# from dnd_5e_core.utils import (helpers, constants)
+# from dnd_5e_core.data import (api_client, serialization)
+# from dnd_5e_core.equipment import inventory
 

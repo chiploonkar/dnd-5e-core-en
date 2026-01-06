@@ -120,16 +120,20 @@ class DamageDice:
         bonus = self.bonus if self.bonus else 0
         return bonus + dice_count * roll_dice // 2
 
-    def score(self, success_type: str = "none") -> float:
+    def score(self, success_type: Optional[str] = "none") -> float:
         """
         Calculate expected score with success type modifier.
 
         Args:
-            success_type: "none" (full damage) or "half" (half damage on save)
+            success_type: "none" (full damage), "half" (half damage on save), or None (treated as "none")
 
         Returns:
             float: Expected score value
         """
+        # Handle None or empty success_type
+        if success_type is None or not success_type:
+            success_type = "none"
+
         if "d" not in self.dice:
             factor = 1.0 if success_type.lower() == "none" else 0.5
             return (int(self.dice) + self.bonus) * factor

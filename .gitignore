@@ -58,6 +58,8 @@ docs/_build/
 build/
 dist/
 *.egg-info/
+.eggs/
+*.egg
 
 # Jupyter Notebook
 .ipynb_checkpoints
