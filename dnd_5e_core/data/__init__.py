@@ -33,6 +33,10 @@ __all__ = [
     'load_collection', 'populate', 'get_collection_count', 'get_collection_item',
     'list_all_collections',
     'get_monsters_list', 'get_spells_list', 'get_classes_list', 'get_races_list',
-    'get_equipment_list', 'get_weapons_list', 'get_armors_list', 'get_magic_items_list'
+    'get_equipment_list', 'get_weapons_list', 'get_armors_list', 'get_magic_items_list',
+    # Loader utilities
+    'request_monster',
+    'load_monsters_database',
+    'simple_character_generator',
 ]
 

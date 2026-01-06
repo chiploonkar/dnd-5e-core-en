@@ -5,10 +5,10 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name="dnd-5e-core",
-    version="0.1.5",
+    version="0.1.6",
     author="D&D Development Team",
     author_email="",
-    description="Complete D&D 5th Edition Rules Engine - Core Game Logic with Official Encounter System",
+    description="Complete D&D 5th Edition Rules Engine - Standalone with no external dependencies",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/codingame-team/dnd-5e-core",

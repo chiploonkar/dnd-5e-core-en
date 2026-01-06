@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "dnd-5e-core"
-version = "0.1.5"
-description = "Complete D&D 5th Edition Rules Engine with Official Encounter System - 332 monsters, 319 spells, full offline data"
+version = "0.1.6"
+description = "Complete D&D 5th Edition Rules Engine - Standalone with character and monster loaders"
 readme = {file = "README.md", content-type = "text/markdown"}
 authors = [
     { name = "D&D Development Team", email = "dev@codingame-team.com" }
