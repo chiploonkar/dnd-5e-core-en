@@ -91,6 +91,23 @@ This package contains **all game logic** for D&D 5e and is **UI-agnostic** - use
 - **✅ Complete**: Monsters, spells, weapons, armors, classes, races, and more
 - **✅ Extended**: 89+ additional monsters from 5e.tools
 
+## 📚 Documentation
+
+**Complete API Documentation Available!**
+
+- **[API Documentation Index](./docs/api/README.md)** - Start here for complete package documentation
+- **[Quick Reference](./docs/api/INDEX.md)** - Overview of all modules and features
+
+### Module Documentation
+- [entities](./docs/api/entities.md) - Characters and monsters
+- [combat](./docs/api/combat.md) - Combat system
+- [mechanics](./docs/api/mechanics.md) - Game rules and dice
+- [equipment](./docs/api/equipment.md) - Weapons, armor, potions
+- [spells](./docs/api/spells.md) - Magic system
+- [data](./docs/api/data.md) - Data loading and serialization
+- [races-classes-abilities](./docs/api/races-classes-abilities.md) - Character customization
+- [ui-utils](./docs/api/ui-utils.md) - UI helpers and utilities
+
 ## Installation
 
 ```bash
