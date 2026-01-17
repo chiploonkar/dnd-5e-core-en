@@ -182,57 +182,269 @@ def list_all_collections(collections_path: Optional[str] = None) -> List[str]:
     return [f.stem for f in collection_files if f.name != "README.md"]
 
 
-# Convenience functions for common collections
+# Convenience functions for common collections (return indexes)
 
 def get_monsters_list(with_url: bool = False) -> List:
-    """Get list of all monsters."""
+    """
+    Get list of all monster indexes.
+
+    Args:
+        with_url: If True, return tuples of (index, url)
+
+    Returns:
+        List of monster indexes or (index, url) tuples
+    """
     return populate('monsters', 'results', with_url=with_url)
 
 
 def get_spells_list(with_url: bool = False) -> List:
-    """Get list of all spells."""
+    """
+    Get list of all spell indexes.
+
+    Args:
+        with_url: If True, return tuples of (index, url)
+
+    Returns:
+        List of spell indexes or (index, url) tuples
+    """
     return populate('spells', 'results', with_url=with_url)
 
 
 def get_classes_list(with_url: bool = False) -> List:
-    """Get list of all classes."""
+    """Get list of all class indexes."""
     return populate('classes', 'results', with_url=with_url)
 
 
 def get_races_list(with_url: bool = False) -> List:
-    """Get list of all races."""
+    """Get list of all race indexes."""
     return populate('races', 'results', with_url=with_url)
 
 
 def get_equipment_list(with_url: bool = False) -> List:
-    """Get list of all equipment."""
+    """Get list of all equipment indexes."""
     return populate('equipment', 'results', with_url=with_url)
 
 
 def get_weapons_list(with_url: bool = False) -> List:
-    """Get list of all weapons."""
+    """Get list of all weapon indexes."""
     return populate('weapons', 'results', with_url=with_url)
 
 
 def get_armors_list(with_url: bool = False) -> List:
-    """Get list of all armors."""
+    """Get list of all armor indexes."""
     return populate('armors', 'results', with_url=with_url)
 
 
 def get_magic_items_list(with_url: bool = False) -> List:
-    """Get list of all magic items."""
+    """Get list of all magic item indexes."""
     return populate('magic-items', 'results', with_url=with_url)
 
 
+# ===== Object Loading Functions =====
+# These functions return actual Monster, Spell, etc. objects instead of indexes
+
+def load_all_monsters() -> List:
+    """
+    Load all monsters as Monster objects.
+
+    Returns:
+        List of Monster objects
+
+    Example:
+        >>> monsters = load_all_monsters()
+        >>> for monster in monsters:
+        ...     print(f"{monster.name} - CR {monster.challenge_rating}")
+    """
+    from .loader import load_monster
+
+    monster_indexes = get_monsters_list()
+    monsters = []
+
+    for index in monster_indexes:
+        monster = load_monster(index)
+        if monster:
+            monsters.append(monster)
+
+    return monsters
+
+
+def load_all_spells() -> List:
+    """
+    Load all spells as Spell objects.
+
+    Returns:
+        List of Spell objects
+
+    Example:
+        >>> spells = load_all_spells()
+        >>> for spell in spells:
+        ...     print(f"{spell.name} - Level {spell.level}")
+    """
+    from .loader import load_spell
+
+    spell_indexes = get_spells_list()
+    spells = []
+
+    for index in spell_indexes:
+        spell = load_spell(index)
+        if spell:
+            spells.append(spell)
+
+    return spells
+
+
+def load_all_weapons() -> List:
+    """
+    Load all weapons as Weapon objects.
+
+    Returns:
+        List of Weapon objects
+
+    Example:
+        >>> weapons = load_all_weapons()
+        >>> for weapon in weapons:
+        ...     print(f"{weapon.name} - {weapon.damage_dice}")
+    """
+    from .loader import load_weapon
+
+    weapon_indexes = get_weapons_list()
+    weapons = []
+
+    for index in weapon_indexes:
+        weapon = load_weapon(index)
+        if weapon:
+            weapons.append(weapon)
+
+    return weapons
+
+
+def load_all_armors() -> List:
+    """
+    Load all armors as Armor objects.
+
+    Returns:
+        List of Armor objects
+
+    Example:
+        >>> armors = load_all_armors()
+        >>> for armor in armors:
+        ...     print(f"{armor.name} - AC {armor.armor_class}")
+    """
+    from .loader import load_armor
+
+    armor_indexes = get_armors_list()
+    armors = []
+
+    for index in armor_indexes:
+        armor = load_armor(index)
+        if armor:
+            armors.append(armor)
+
+    return armors
+
+
+def filter_monsters(min_cr: float = None, max_cr: float = None,
+                    name_contains: str = None) -> List:
+    """
+    Filter monsters by criteria.
+
+    Args:
+        min_cr: Minimum challenge rating
+        max_cr: Maximum challenge rating
+        name_contains: Filter by name (case-insensitive)
+
+    Returns:
+        List of Monster objects matching criteria
+
+    Example:
+        >>> # Get all CR 1-5 dragons
+        >>> dragons = filter_monsters(min_cr=1, max_cr=5, name_contains="dragon")
+    """
+    monsters = load_all_monsters()
+
+    if min_cr is not None:
+        monsters = [m for m in monsters if m.challenge_rating >= min_cr]
+
+    if max_cr is not None:
+        monsters = [m for m in monsters if m.challenge_rating <= max_cr]
+
+    if name_contains is not None:
+        name_lower = name_contains.lower()
+        monsters = [m for m in monsters if name_lower in m.name.lower()]
+
+    return monsters
+
+
+def filter_spells(level: int = None, school: str = None,
+                  class_name: str = None) -> List:
+    """
+    Filter spells by criteria.
+
+    Args:
+        level: Spell level (0-9, where 0 is cantrip)
+        school: School of magic (e.g., "evocation", "abjuration")
+        class_name: Class that can cast (e.g., "wizard", "cleric")
+
+    Returns:
+        List of Spell objects matching criteria
+
+    Example:
+        >>> # Get all wizard cantrips
+        >>> cantrips = filter_spells(level=0, class_name="wizard")
+    """
+    spells = load_all_spells()
+
+    if level is not None:
+        spells = [s for s in spells if s.level == level]
+
+    if school is not None:
+        school_lower = school.lower()
+        spells = [s for s in spells if s.school.lower() == school_lower]
+
+    if class_name is not None:
+        class_lower = class_name.lower()
+        spells = [s for s in spells if class_lower in s.allowed_classes]
+
+    return spells
+
+
 if __name__ == "__main__":
-    # Example usage
-    print("Available collections:")
+    # Example usage - Collections (indexes)
+    print("=" * 60)
+    print("COLLECTIONS - List of Indexes")
+    print("=" * 60)
+
+    print("\nAvailable collections:")
     for collection in list_all_collections():
         count = get_collection_count(collection)
         print(f"  - {collection}: {count} items")
 
-    print("\nExample: First 5 monsters:")
-    monsters = get_monsters_list()
-    for monster in monsters[:5]:
-        print(f"  - {monster}")
+    print("\nExample: First 5 monster indexes:")
+    monster_indexes = get_monsters_list()
+    for index in monster_indexes[:5]:
+        print(f"  - {index}")
+
+    # Example usage - Object Loading
+    print("\n" + "=" * 60)
+    print("OBJECT LOADING - Monster Objects")
+    print("=" * 60)
+
+    print("\nLoading first 5 monsters as objects:")
+    monsters = load_all_monsters()[:5]
+    for monster in monsters:
+        print(f"  - {monster.name}: CR {monster.challenge_rating}, HP {monster.hit_points}")
+
+    print("\n" + "=" * 60)
+    print("FILTERING - Search by Criteria")
+    print("=" * 60)
+
+    print("\nGoblins and Orcs (CR 0-1):")
+    low_cr_monsters = filter_monsters(max_cr=1, name_contains="")
+    for monster in low_cr_monsters[:5]:
+        print(f"  - {monster.name}: CR {monster.challenge_rating}")
+
+    print("\nWizard Cantrips:")
+    wizard_cantrips = filter_spells(level=0, class_name="wizard")
+    for spell in wizard_cantrips[:5]:
+        print(f"  - {spell.name} ({spell.school})")
 
