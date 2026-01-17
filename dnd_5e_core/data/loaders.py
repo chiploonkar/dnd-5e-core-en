@@ -181,6 +181,38 @@ def simple_character_generator(
     for _ in range(level - 1):
         hit_points += randint(1, class_type.hit_die) + ability_modifiers.con
 
+    # Create SpellCaster for spellcasting classes
+    spell_caster = None
+    if class_type.can_cast:
+        from ..spells.spellcaster import SpellCaster
+
+        # Determine spell slots based on level
+        spell_slots = [0] * 10  # Index 0 is unused, 1-9 are spell levels
+        if level >= 1:
+            spell_slots[1] = 2 if level == 1 else 3 if level == 2 else 4
+        if level >= 3:
+            spell_slots[2] = 2 if level == 3 else 3
+        if level >= 5:
+            spell_slots[3] = 2 if level == 5 else 3
+        if level >= 7:
+            spell_slots[4] = 1 if level == 7 else 2 if level == 8 else 3
+        if level >= 9:
+            spell_slots[5] = 1 if level == 9 else 2
+
+        # Calculate DC and ability modifier
+        ability_modifier = ability_modifiers.int if class_name == "wizard" else ability_modifiers.wis
+        proficiency_bonus = 2 + ((level - 1) // 4)  # +2 at level 1-4, +3 at 5-8, etc.
+        dc_value = 8 + proficiency_bonus + ability_modifier
+
+        spell_caster = SpellCaster(
+            level=level,
+            spell_slots=spell_slots,
+            learned_spells=[],  # Empty for now, can be populated later
+            dc_type="int" if class_name == "wizard" else "wis",
+            dc_value=dc_value,
+            ability_modifier=ability_modifier
+        )
+
     return Character(
         race=race,
         subrace=None,
@@ -200,7 +232,7 @@ def simple_character_generator(
         level=level,
         age=18 * 52 + randint(0, 299),
         gold=90 + randint(0, 99),
-        sc=None,
+        sc=spell_caster,
         conditions=[],
         speed=race.speed,
         haste_timer=0,
