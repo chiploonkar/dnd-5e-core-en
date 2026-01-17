@@ -175,7 +175,7 @@ if builder.is_implemented("Orc Eye of Gruumsh"):
 2. Mettre à jour les scripts qui utilisent `tools/download_tokens.py`:
    ```python
    # Remplacer
-   from tools.download_tokens import download_image
+   from archive.tools.download_tokens import download_image
    
    # Par
    from dnd_5e_core.utils import download_monster_token

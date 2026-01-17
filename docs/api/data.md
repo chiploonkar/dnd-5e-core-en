@@ -4,15 +4,22 @@
 
 Le module `data` fournit les fonctions de chargement et de sérialisation pour toutes les données du jeu : monstres, sorts, armes, armures, races, classes.
 
+**Important:** Toutes les fonctions `load_*()` retournent maintenant des objets de classe (Monster, Spell, Weapon, Armor) au lieu de dictionnaires JSON. Cela permet d'utiliser directement les méthodes et propriétés de ces objets.
+
 ## Fonctions de chargement
 
 ### load_monster()
 
-Charge un monstre depuis les données JSON.
+Charge un monstre depuis les données JSON et retourne un objet `Monster`.
 
 **Importation:**
 ```python
 from dnd_5e_core.data import load_monster
+```
+
+**Signature:**
+```python
+def load_monster(index: str) -> Optional[Monster]
 ```
 
 **Utilisation:**
@@ -20,15 +27,22 @@ from dnd_5e_core.data import load_monster
 # Charger un monstre de base
 goblin = load_monster("goblin")
 print(f"{goblin.name} - CR {goblin.challenge_rating}")
+print(f"HP: {goblin.hit_points}/{goblin.max_hit_points}")
+print(f"AC: {goblin.armor_class}")
+
+# Utiliser les méthodes de l'objet Monster
+goblin.hp_roll()  # Relancer les HP pour variation
+if goblin.is_spell_caster:
+    print(f"DC: {goblin.dc_value}")
 
 # Monstres puissants
 dragon = load_monster("ancient-red-dragon")
 lich = load_monster("lich")
-
-# Créer des copies
-goblin2 = load_monster("goblin")
-goblin2.hp_roll()  # Relancer les HP pour variation
 ```
+
+**Retour:**
+- Un objet `Monster` avec toutes ses propriétés et méthodes
+- `None` si le monstre n'est pas trouvé
 
 **Monstres disponibles:**
 - Créatures de bas niveau: goblin, kobold, orc, skeleton, zombie
@@ -39,61 +53,95 @@ goblin2.hp_roll()  # Relancer les HP pour variation
 
 ### load_spell()
 
-Charge un sort depuis les données JSON.
+Charge un sort depuis les données JSON et retourne un objet `Spell`.
 
 **Importation:**
 ```python
 from dnd_5e_core.data import load_spell
 ```
 
+**Signature:**
+```python
+def load_spell(index: str) -> Optional[Spell]
+```
+
 **Utilisation:**
 ```python
 # Sorts de combat
 fireball = load_spell("fireball")
+print(f"{fireball.name} - Niveau {fireball.level}")
+print(f"École: {fireball.school}")
+print(f"Portée: {fireball.range} ft")
+
+# Vérifier les propriétés
+if fireball.is_damaging:
+    print("Ce sort inflige des dégâts")
+if fireball.requires_save:
+    print(f"Jet de sauvegarde: {fireball.dc_type}")
+
+# Autres sorts
 magic_missile = load_spell("magic-missile")
-lightning_bolt = load_spell("lightning-bolt")
-
-# Sorts de soin
 cure_wounds = load_spell("cure-wounds")
-healing_word = load_spell("healing-word")
-
-# Sorts utilitaires
 shield = load_spell("shield")
-detect_magic = load_spell("detect-magic")
 ```
+
+**Retour:**
+- Un objet `Spell` avec toutes ses propriétés et méthodes
+- `None` si le sort n'est pas trouvé
 
 ---
 
 ### load_weapon()
 
-Charge une arme depuis les données JSON.
+Charge une arme depuis les données JSON et retourne un objet `Weapon`.
 
 **Importation:**
 ```python
 from dnd_5e_core.data import load_weapon
 ```
 
+**Signature:**
+```python
+def load_weapon(index: str) -> Optional[Weapon]
+```
+
 **Utilisation:**
 ```python
 # Armes de mêlée
 longsword = load_weapon("longsword")
-greatsword = load_weapon("greatsword")
-dagger = load_weapon("dagger")
+print(f"{longsword.name} - {longsword.damage_dice}")
+print(f"Type: {longsword.damage_type}")
+
+# Vérifier les propriétés
+if longsword.is_melee:
+    print("Arme de mêlée")
+if longsword.is_martial:
+    print("Arme martiale")
 
 # Armes à distance
 longbow = load_weapon("longbow")
-crossbow = load_weapon("heavy-crossbow")
+if longbow.weapon_range:
+    print(f"Portée: {longbow.weapon_range}")
 ```
+
+**Retour:**
+- Un objet `Weapon` avec toutes ses propriétés et méthodes
+- `None` si l'arme n'est pas trouvée
 
 ---
 
 ### load_armor()
 
-Charge une armure depuis les données JSON.
+Charge une armure depuis les données JSON et retourne un objet `Armor`.
 
 **Importation:**
 ```python
 from dnd_5e_core.data import load_armor
+```
+
+**Signature:**
+```python
+def load_armor(index: str) -> Optional[Armor]
 ```
 
 **Utilisation:**

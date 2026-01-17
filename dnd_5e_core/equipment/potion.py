@@ -32,10 +32,6 @@ class Potion(ABC):
     Base class for all potions.
 
     This contains pure business logic for potions.
-    For pygame positioning, use GameEntity wrapper:
-
-        from game_entity import create_game_potion
-        game_potion = create_game_potion(potion, x=10, y=20, image_name="potion.png")
     """
 
     def __init__(

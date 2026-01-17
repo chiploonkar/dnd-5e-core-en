@@ -4,7 +4,7 @@ Module pour gérer les actions et capacités spéciales des monstres de 5e.tools
 Ce module contient la logique pour construire les actions et capacités spéciales
 des monstres qui ne sont pas inclus dans l'API officielle D&D 5e.
 
-Note: Ce module est utilisé par populate_functions.py pour construire les monstres
+Note: Ce module est utilisé par extended_monsters.py pour construire les monstres
 avec leurs capacités complètes.
 """
 from typing import List, Optional, Tuple, Callable, TYPE_CHECKING

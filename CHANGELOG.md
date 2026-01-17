@@ -7,6 +7,49 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.9] - 2026-01-17
+
+### Changed
+- **BREAKING CHANGE: Data Loader Functions Now Return Objects** - All `load_*()` functions in `dnd_5e_core.data.loader` now return class objects instead of dictionaries:
+  - `load_monster(index)` returns `Monster` object (was `Dict[str, Any]`)
+  - `load_spell(index)` returns `Spell` object (was `Dict[str, Any]`)
+  - `load_weapon(index)` returns `Weapon` object (was `Dict[str, Any]`)
+  - `load_armor(index)` returns `Armor` object (was `Dict[str, Any]`)
+  
+### Added
+- Helper functions `_create_monster_from_data()` and `_create_spell_from_data()` to convert JSON data to objects
+- Full support for Monster special abilities, spellcasting, and multiattack from JSON
+- Comprehensive type hints for all loader functions
+- Updated documentation in `docs/api/data.md` with object-based examples
+
+### Fixed
+- Proficiency creation now includes proper `ProfType` determination
+- Range parsing for ranged attacks now correctly extracts normal/long ranges
+- Action creation handles all edge cases from D&D 5e API format
+- Spell range parsing supports both numeric and string formats (e.g., "120 feet", "Self")
+
+### Documentation
+- Added `LOADER_UPDATE.md` explaining the migration from dict to object returns
+- Updated all examples in `docs/api/data.md` to use object properties instead of `.get()`
+- Added comprehensive usage examples showing property access and method calls
+
+### Migration Guide
+Old code (v0.1.8 and earlier):
+```python
+goblin = load_monster("goblin")
+name = goblin.get("name")
+cr = goblin.get("challenge_rating")
+```
+
+New code (v0.1.9+):
+```python
+goblin = load_monster("goblin")  # Returns Monster object
+name = goblin.name
+cr = goblin.challenge_rating
+if goblin.is_alive:
+    goblin.hp_roll()  # Use object methods
+```
+
 ## [0.1.4] - 2026-01-05
 
 ### Added

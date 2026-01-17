@@ -76,10 +76,6 @@ class WeaponData(Equipment):
     Weapon data structure for D&D 5e weapons.
 
     This contains pure business logic for weapons.
-    For pygame positioning, use GameEntity wrapper:
-
-        from game_entity import create_game_weapon
-        game_weapon = create_game_weapon(weapon, x=10, y=20, image_name="sword.png")
     """
     # Core D&D 5e attributes
     index: str
