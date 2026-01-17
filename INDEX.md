@@ -1,208 +1,154 @@
-# 📑 Index de la Documentation - dnd-5e-core
+# dnd-5e-core - Documentation Index
 
-Bienvenue! Ce document vous guide vers le bon fichier selon vos besoins.
+Guide complet pour naviguer dans la documentation du package.
 
----
+## 📚 Documentation Principale
 
-## 🎯 Je veux...
+### Pour Commencer
+1. **[README.md](README.md)** - Vue d'ensemble du package
+   - Installation
+   - Fonctionnalités
+   - Quick Start
+   - Exemples
 
-### 📖 Comprendre ce qui a été fait
-👉 **Lisez:** `SUMMARY_SOLUTIONS.md`
-- Réponses à toutes vos questions
-- Résumé des modifications
-- Vue d'ensemble complète
+2. **[COMBAT_EXAMPLES.md](COMBAT_EXAMPLES.md)** - Exemples de combat complets
+   - Combat avec spellcasting
+   - Équipement d'armes et armures
+   - Formation de groupe
+   - Exemples prêts à copier
 
-### 🚀 Publier le package maintenant
-👉 **Suivez:** `PUBLICATION_CHECKLIST.md`
-- Checklist étape par étape
-- Commandes prêtes à copier-coller
-- Tests et vérifications
+3. **[CHANGELOG.md](CHANGELOG.md)** - Historique des versions
+   - Nouvelles fonctionnalités
+   - Corrections de bugs
+   - Changements importants
 
-### 📚 Comprendre PyPI vs GitHub
-👉 **Lisez:** `PUBLICATION_EXPLAINED.md`
-- Explications détaillées
-- Workflows recommandés
-- Configuration des credentials
-- Automatisation CI/CD
+### Documentation API Complète
 
-### 🐙 Configurer GitHub correctement
-👉 **Suivez:** `GITHUB_ABOUT_SETUP.md`
-- Section "About" du dépôt
-- Topics et tags
-- Badges pour README
-- Social preview
+**[docs/](docs/)** - Documentation technique détaillée :
+- **[docs/api/](docs/api/)** - Documentation de chaque module
+  - [entities.md](docs/api/entities.md) - Characters & Monsters
+  - [combat.md](docs/api/combat.md) - Combat System
+  - [spells.md](docs/api/spells.md) - Magic System
+  - [equipment.md](docs/api/equipment.md) - Weapons, Armor, Items
+  - [mechanics.md](docs/api/mechanics.md) - Game Mechanics
+  - [data.md](docs/api/data.md) - Data Loading
+  - Et plus...
 
-### 🔍 Voir le contenu "About" suggéré
-👉 **Lisez:** `ABOUT.md`
-- Description du projet
-- Fonctionnalités
-- Use cases
-- Audience cible
+### Pour Contribuer
 
----
+**[CONTRIBUTING.md](CONTRIBUTING.md)** - Guide de contribution
+- Comment contribuer
+- Standards de code
+- Process de PR
+- Tests requis
 
-## ❓ Questions Spécifiques
+## 🧪 Tests et Exemples
 
-### Le dossier egg-info est-il nécessaire?
-👉 **Réponse rapide:** NON ❌
-📄 **Détails:** `SUMMARY_SOLUTIONS.md` → Section "Question 1"
+**[tests/](tests/)** - Scripts de test et exemples
 
-### Où publier le package?
-👉 **Réponse rapide:** PyPI + GitHub (les deux)
-📄 **Détails:** `SUMMARY_SOLUTIONS.md` → Section "Question 2"
+**[tests/README.md](tests/README.md)** - Guide des tests
+- Tests unitaires
+- Exemples d'utilisation
+- Comment exécuter les tests
+- **[tests/examples/](tests/examples/)** - Exemples de code
 
-### Manque-t-il des métadonnées?
-👉 **Réponse rapide:** Non, tout est OK ✅
-📄 **Détails:** `SUMMARY_SOLUTIONS.md` → Section "Question 3"
+### Principaux Tests
+- `test_spell_loading.py` - Chargement des sorts
+- `test_extended_monsters.py` - Monstres étendus
+- `test_collections_migration.py` - Collections
+- `verify_package.py` - Vérification d'installation
 
-### Comment corriger le TypeError dans test.py?
-👉 **Réponse rapide:** Déjà corrigé ✅
-📄 **Détails:** `SUMMARY_SOLUTIONS.md` → Section "Problème Résolu"
-
----
-
-## 📁 Structure des Documents
+## 📦 Structure du Projet
 
 ```
-Documentation de Publication/
+dnd-5e-core/
+├── README.md              # Documentation principale
+├── CHANGELOG.md           # Historique des versions
+├── COMBAT_EXAMPLES.md     # Exemples de combat
+├── CONTRIBUTING.md        # Guide de contribution
+├── INDEX.md               # Ce fichier
 │
-├── 🎯 DÉMARRAGE RAPIDE
-│   ├── DOCS_README.md               Vue d'ensemble de la doc
-│   └── INDEX.md                     Ce fichier (navigation)
+├── dnd_5e_core/          # Code du package
+│   ├── abilities/        # Système de capacités
+│   ├── classes/          # Classes de personnages
+│   ├── combat/           # Système de combat
+│   ├── data/             # Chargeurs de données
+│   ├── entities/         # Personnages, monstres
+│   ├── equipment/        # Équipement
+│   ├── mechanics/        # Mécaniques de jeu
+│   ├── races/            # Races
+│   ├── spells/           # Système de sorts
+│   └── ui/               # Utilitaires UI
 │
-├── 📖 RÉPONSES & SOLUTIONS
-│   ├── SUMMARY_SOLUTIONS.md         ⭐ À LIRE EN PREMIER
-│   │                                Toutes vos questions
-│   └── MISSION-ACCOMPLIE.md         Résumé visuel
+├── data/                 # Données D&D 5e (8.7 MB)
+├── docs/                 # Documentation API
+├── tests/                # Tests et exemples
+│   ├── examples/         # Exemples d'utilisation
+│   └── *.py              # Scripts de test
 │
-├── 🚀 GUIDES DE PUBLICATION
-│   ├── PUBLICATION_CHECKLIST.md     ⭐ GUIDE PRATIQUE
-│   │                                Checklist complète
-│   ├── PUBLICATION_EXPLAINED.md     Explications détaillées
-│   │                                PyPI + GitHub
-│   └── PUBLICATION_GUIDE.md         Guide original
-│
-├── 🐙 GITHUB
-│   ├── GITHUB_ABOUT_SETUP.md        Configuration "About"
-│   └── ABOUT.md                     Contenu suggéré
-│
-└── 📊 MÉTADONNÉES
-    ├── METADATA_SUMMARY.md          Résumé des métadonnées
-    └── VERSION_0.1.1_READY.md       Notes de version
+└── archive/              # Documents historiques
 ```
 
----
+## 🎯 Par Cas d'Usage
 
-## 🎓 Parcours Recommandé
+### Je veux créer un personnage
+→ [README.md - Create a Character](README.md#create-a-character)
+→ [docs/api/entities.md](docs/api/entities.md)
 
-### Pour les Débutants
-1. 📄 `SUMMARY_SOLUTIONS.md` - Comprendre ce qui a été fait
-2. 📋 `PUBLICATION_CHECKLIST.md` - Suivre la checklist
-3. 🐙 `GITHUB_ABOUT_SETUP.md` - Configurer GitHub
+### Je veux faire un combat
+→ [COMBAT_EXAMPLES.md](COMBAT_EXAMPLES.md)
+→ [docs/api/combat.md](docs/api/combat.md)
 
-### Pour les Expérimentés
-1. 📋 `PUBLICATION_CHECKLIST.md` - Aller directement à la publication
-2. 📚 `PUBLICATION_EXPLAINED.md` - Automatiser avec GitHub Actions
+### Je veux utiliser des sorts
+→ [COMBAT_EXAMPLES.md - Spellcasting](COMBAT_EXAMPLES.md#spellcaster-vs-spellcaster-combat)
+→ [docs/api/spells.md](docs/api/spells.md)
 
-### Pour Résoudre un Problème
-1. ❓ Vérifier la section "Questions Spécifiques" ci-dessus
-2. 📄 `SUMMARY_SOLUTIONS.md` - Toutes les solutions
+### Je veux charger des monstres
+→ [README.md - Load D&D 5e Data](README.md#load-dd-5e-data)
+→ [docs/api/data.md](docs/api/data.md)
 
----
+### Je veux générer des rencontres
+→ [README.md - Encounter System](README.md#new-in-v017-official-dd-5e-encounter-system)
+→ [docs/api/mechanics.md](docs/api/mechanics.md)
+
+### Je veux voir des exemples
+→ [COMBAT_EXAMPLES.md](COMBAT_EXAMPLES.md)
+→ [tests/examples/](tests/examples/)
+
+### Je veux contribuer
+→ [CONTRIBUTING.md](CONTRIBUTING.md)
+
+## 📖 Ressources Externes
+
+### Projets Utilisant dnd-5e-core
+- **[DnD5e-Scenarios](https://github.com/codingame-team/DnD5e-Scenarios)** - Scénarios et exemples
+- **[DnD-5th-Edition-API](https://github.com/codingame-team/DnD-5th-Edition-API)** - Applications complètes
+
+### Données D&D 5e
+- **[D&D 5e API](https://www.dnd5eapi.co/)** - Source de données
+- **[5e.tools](https://5e.tools/)** - Monstres étendus
+
+## 📝 Notes
+
+- **archive/** contient l'historique de développement (non nécessaire pour l'utilisation)
+- **docs/** contient la documentation API technique
+- **tests/** contient tous les tests et exemples
+- **data/** contient les données D&D 5e bundlées (auto-détecté)
 
 ## 🔍 Recherche Rapide
 
-### Mots-clés → Fichiers
-
-| Cherchez | Document |
-|----------|----------|
-| **egg-info** | SUMMARY_SOLUTIONS.md |
-| **PyPI** | PUBLICATION_EXPLAINED.md |
-| **GitHub** | GITHUB_ABOUT_SETUP.md |
-| **métadonnées** | SUMMARY_SOLUTIONS.md |
-| **build** | PUBLICATION_CHECKLIST.md |
-| **twine** | PUBLICATION_CHECKLIST.md |
-| **test.py** | SUMMARY_SOLUTIONS.md |
-| **checklist** | PUBLICATION_CHECKLIST.md |
-| **badges** | GITHUB_ABOUT_SETUP.md |
+| Sujet | Fichier |
+|-------|---------|
+| Installation | [README.md](README.md#installation) |
+| Quick Start | [README.md](README.md#quick-start) |
+| Combat | [COMBAT_EXAMPLES.md](COMBAT_EXAMPLES.md) |
+| API Reference | [docs/api/](docs/api/) |
+| Tests | [tests/README.md](tests/README.md) |
+| Changelog | [CHANGELOG.md](CHANGELOG.md) |
+| Contribution | [CONTRIBUTING.md](CONTRIBUTING.md) |
+| Historique | [archive/](archive/) |
 
 ---
 
-## 📋 Commandes Rapides
-
-### Build
-```bash
-python -m build
-```
-📄 **Détails:** `PUBLICATION_CHECKLIST.md` → Section "Build"
-
-### Publier sur PyPI
-```bash
-twine upload dist/*
-```
-📄 **Détails:** `PUBLICATION_CHECKLIST.md` → Section "Publication PyPI"
-
-### Créer un Tag Git
-```bash
-git tag -a v0.1.1 -m "Version 0.1.1"
-git push origin v0.1.1
-```
-📄 **Détails:** `PUBLICATION_CHECKLIST.md` → Section "GitHub"
-
----
-
-## ✅ État Actuel
-
-- ✅ Code testé et fonctionnel
-- ✅ Métadonnées PyPI complètes
-- ✅ Documentation créée (5 guides)
-- ✅ test.py corrigé
-- ✅ Prêt pour publication
-
----
-
-## 🆘 Besoin d'Aide?
-
-### Je ne sais pas par où commencer
-👉 Lisez `SUMMARY_SOLUTIONS.md` d'abord
-
-### Je veux publier rapidement
-👉 Suivez `PUBLICATION_CHECKLIST.md`
-
-### J'ai une erreur lors du build
-👉 Vérifiez la section "Vérification du Build" dans `PUBLICATION_CHECKLIST.md`
-
-### Je ne comprends pas PyPI vs GitHub
-👉 Lisez `PUBLICATION_EXPLAINED.md` → Section "Où publier"
-
-### La configuration GitHub est floue
-👉 Suivez `GITHUB_ABOUT_SETUP.md` étape par étape
-
----
-
-## 🎉 Prêt à Commencer?
-
-**Recommandation:**
-1. 📄 Ouvrez `SUMMARY_SOLUTIONS.md` (5 min de lecture)
-2. 📋 Suivez `PUBLICATION_CHECKLIST.md` (15 min)
-3. 🎊 Votre package est publié!
-
----
-
-## 📞 Fichiers de Contact
-
-Tous les documents sont dans:
-```
-/Users/display/PycharmProjects/dnd-5e-core/
-```
-
-**Les plus importants:**
-- `SUMMARY_SOLUTIONS.md` ⭐⭐⭐
-- `PUBLICATION_CHECKLIST.md` ⭐⭐⭐
-- `PUBLICATION_EXPLAINED.md` ⭐⭐
-- `GITHUB_ABOUT_SETUP.md` ⭐⭐
-
----
-
-**Bonne navigation! 🧭**
+**Pour commencer** : Lisez [README.md](README.md) puis [COMBAT_EXAMPLES.md](COMBAT_EXAMPLES.md)
 

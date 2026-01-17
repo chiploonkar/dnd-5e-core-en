@@ -618,21 +618,72 @@ The package can load data from:
 2. **Local JSON files** - For offline mode
 3. **Custom data** - Implement your own loader
 
+## 📁 Project Structure
+
+```
+dnd-5e-core/
+├── dnd_5e_core/          # Main package code
+│   ├── abilities/        # Ability scores system
+│   ├── classes/          # Character classes
+│   ├── combat/           # Combat system
+│   ├── data/             # Data loaders and collections
+│   ├── entities/         # Characters, monsters, sprites
+│   ├── equipment/        # Weapons, armor, items
+│   ├── mechanics/        # Game mechanics (dice, CR, encounters)
+│   ├── races/            # Character races
+│   ├── spells/           # Spell system
+│   └── ui/               # UI utilities (colors, display)
+├── data/                 # Bundled D&D 5e JSON data (8.7 MB)
+├── docs/                 # Complete API documentation
+├── tests/                # Test suite and examples
+│   ├── examples/         # Usage examples
+│   └── test_*.py         # Unit tests
+├── archive/              # Development history docs
+├── README.md             # This file
+├── CHANGELOG.md          # Version history
+├── COMBAT_EXAMPLES.md    # Combat system examples
+├── CONTRIBUTING.md       # Contribution guide
+└── pyproject.toml        # Package configuration
+```
+
 ## Testing
 
+Run all tests:
 ```bash
 pytest tests/
 ```
 
+Run specific test:
+```bash
+pytest tests/test_spell_loading.py -v
+```
+
+Verify package installation:
+```bash
+python tests/verify_package.py
+```
+
+See **[tests/README.md](tests/README.md)** for details on all test scripts.
+
 ## Documentation
 
-See `/docs` folder for detailed documentation:
-- Entity System
+### Main Documentation
+- **[README.md](README.md)** - This file (package overview)
+- **[CHANGELOG.md](CHANGELOG.md)** - Version history and changes
+- **[COMBAT_EXAMPLES.md](COMBAT_EXAMPLES.md)** - Complete combat examples
+- **[CONTRIBUTING.md](CONTRIBUTING.md)** - How to contribute
+
+### API Documentation
+See **[docs/](docs/)** folder for detailed API documentation:
+- Entity System (Characters, Monsters)
 - Combat Mechanics
 - Spellcasting System
 - Equipment Guide
-- **Extended Monsters from 5e.tools** - See [EXTENDED_MONSTERS_MIGRATION.md](docs/EXTENDED_MONSTERS_MIGRATION.md)
-- API Reference
+- Extended Monsters from 5e.tools
+- Complete API Reference
+
+### Development History
+See **[archive/](archive/)** folder for historical development documents (not needed for usage)
 
 ## License
 
