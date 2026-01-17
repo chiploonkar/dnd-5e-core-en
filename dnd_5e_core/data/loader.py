@@ -503,6 +503,243 @@ def _create_spell_from_data(index: str, data: Dict[str, Any]) -> Optional['Spell
     )
 
 
+def _create_race_from_data(index: str, data: Dict[str, Any]) -> Optional['Race']:
+    """
+    Create a Race object from JSON data.
+
+    Args:
+        index: Race index
+        data: Race JSON data
+
+    Returns:
+        Race object
+    """
+    from ..races.race import Race
+    from ..races.language import Language
+    from ..races.trait import Trait
+    from ..classes.proficiency import Proficiency, ProfType
+
+    # Ability bonuses
+    ability_bonuses = {}
+    for bonus in data.get('ability_bonuses', []):
+        ability_bonuses[bonus['ability_score']['index']] = bonus['bonus']
+
+    # Languages
+    languages = []
+    for lang_data in data.get('languages', []):
+        language = Language(
+            index=lang_data.get('index', ''),
+            name=lang_data.get('name', ''),
+            desc=lang_data.get('desc', ''),
+            type=lang_data.get('type', 'Standard'),
+            typical_speakers=lang_data.get('typical_speakers', []),
+            script=lang_data.get('script', '')
+        )
+        languages.append(language)
+
+    # Traits
+    traits = []
+    for trait_data in data.get('traits', []):
+        # Trait desc peut être une liste dans le JSON
+        desc_value = trait_data.get('desc', [])
+        if isinstance(desc_value, list):
+            desc_str = '\n'.join(desc_value)
+        else:
+            desc_str = str(desc_value)
+
+        trait = Trait(
+            index=trait_data.get('index', ''),
+            name=trait_data.get('name', ''),
+            desc=desc_str
+        )
+        traits.append(trait)
+
+    # Starting proficiencies
+    proficiencies = []
+    for prof_data in data.get('starting_proficiencies', []):
+        prof_index = prof_data.get('index', '')
+        prof_name = prof_data.get('name', prof_index)
+
+        # Déterminer le type
+        if 'skill' in prof_index:
+            prof_type = ProfType.SKILL
+        elif 'weapon' in prof_index or prof_index in ['simple-weapons', 'martial-weapons']:
+            prof_type = ProfType.WEAPON
+        elif 'armor' in prof_index or prof_index in ['light-armor', 'medium-armor', 'heavy-armor', 'shields']:
+            prof_type = ProfType.ARMOR
+        elif 'tool' in prof_index:
+            prof_type = ProfType.TOOLS
+        else:
+            prof_type = ProfType.OTHER
+
+        prof = Proficiency(
+            index=prof_index,
+            name=prof_name,
+            type=prof_type,
+            ref=None
+        )
+        proficiencies.append(prof)
+
+    # Proficiency options
+    proficiency_options = []
+    if 'starting_proficiency_options' in data:
+        for option_data in data['starting_proficiency_options']:
+            choose = option_data.get('choose', 1)
+            from_list = []
+
+            for prof_data in option_data.get('from', []):
+                prof_index = prof_data.get('index', '')
+                prof_name = prof_data.get('name', prof_index)
+
+                if 'skill' in prof_index:
+                    prof_type = ProfType.SKILL
+                else:
+                    prof_type = ProfType.OTHER
+
+                prof = Proficiency(
+                    index=prof_index,
+                    name=prof_name,
+                    type=prof_type,
+                    ref=None
+                )
+                from_list.append(prof)
+
+            proficiency_options.append((choose, from_list))
+
+    return Race(
+        index=index,
+        name=data['name'],
+        speed=data.get('speed', 30),
+        ability_bonuses=ability_bonuses,
+        alignment=data.get('alignment', ''),
+        age=data.get('age', ''),
+        size=data.get('size', 'Medium'),
+        size_description=data.get('size_description', ''),
+        starting_proficiencies=proficiencies,
+        starting_proficiency_options=proficiency_options,
+        languages=languages,
+        language_desc=data.get('language_desc', ''),
+        traits=traits,
+        subraces=[]  # Les subraces sont chargées séparément
+    )
+
+
+def _create_class_from_data(index: str, data: Dict[str, Any]) -> Optional['ClassType']:
+    """
+    Create a ClassType object from JSON data.
+
+    Args:
+        index: Class index
+        data: Class JSON data
+
+    Returns:
+        ClassType object
+    """
+    from ..classes.class_type import ClassType
+    from ..classes.proficiency import Proficiency, ProfType
+    from ..abilities.abilities import AbilityType
+    from ..equipment.equipment import Inventory
+
+    # Proficiencies
+    proficiencies = []
+    for prof_data in data.get('proficiencies', []):
+        prof_index = prof_data.get('index', '')
+        prof_name = prof_data.get('name', prof_index)
+
+        # Déterminer le type
+        if 'skill' in prof_index:
+            prof_type = ProfType.SKILL
+        elif 'saving-throw' in prof_index:
+            prof_type = ProfType.ST
+        elif 'weapon' in prof_index or prof_index in ['simple-weapons', 'martial-weapons']:
+            prof_type = ProfType.WEAPON
+        elif 'armor' in prof_index or prof_index in ['light-armor', 'medium-armor', 'heavy-armor', 'shields']:
+            prof_type = ProfType.ARMOR
+        elif 'tool' in prof_index:
+            prof_type = ProfType.TOOLS
+        else:
+            prof_type = ProfType.OTHER
+
+        prof = Proficiency(
+            index=prof_index,
+            name=prof_name,
+            type=prof_type,
+            ref=None
+        )
+        proficiencies.append(prof)
+
+    # Proficiency choices
+    proficiency_choices = []
+    if 'proficiency_choices' in data:
+        for choice_data in data['proficiency_choices']:
+            choose = choice_data.get('choose', 1)
+            from_list = []
+
+            for prof_data in choice_data.get('from', []):
+                prof_index = prof_data.get('index', '')
+                prof_name = prof_data.get('name', prof_index)
+
+                if 'skill' in prof_index:
+                    prof_type = ProfType.SKILL
+                else:
+                    prof_type = ProfType.OTHER
+
+                prof = Proficiency(
+                    index=prof_index,
+                    name=prof_name,
+                    type=prof_type,
+                    ref=None
+                )
+                from_list.append(prof)
+
+            proficiency_choices.append((choose, from_list))
+
+    # Saving throws
+    saving_throws = []
+    for st_data in data.get('saving_throws', []):
+        ability_index = st_data.get('index', '').replace('saving-throw-', '').upper()
+        if ability_index in ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA']:
+            saving_throws.append(AbilityType[ability_index])
+
+    # Spellcasting info
+    spellcasting_data = data.get('spellcasting', {})
+    can_cast = spellcasting_data != {} and spellcasting_data is not None
+    spellcasting_level = spellcasting_data.get('level', 0) if can_cast else 0
+    spellcasting_ability = spellcasting_data.get('spellcasting_ability', {}).get('index', '') if can_cast else ''
+
+    # Spell slots
+    spell_slots = {}
+    if can_cast and 'spell_slots_level_1' in data:
+        for i in range(1, 10):
+            key = f'spell_slots_level_{i}'
+            if key in data:
+                spell_slots[i] = data[key]
+
+    # Spells known
+    spells_known = []
+    cantrips_known = []
+
+    return ClassType(
+        index=index,
+        name=data['name'],
+        hit_die=data.get('hit_die', 8),
+        proficiency_choices=proficiency_choices,
+        proficiencies=proficiencies,
+        saving_throws=saving_throws,
+        starting_equipment=[],  # Simplified pour l'instant
+        starting_equipment_options=[],
+        class_levels=[],
+        multi_classing=[],
+        subclasses=[sc.get('index', '') for sc in data.get('subclasses', [])],
+        spellcasting_level=spellcasting_level,
+        spellcasting_ability=spellcasting_ability,
+        can_cast=can_cast,
+        spell_slots=spell_slots,
+        spells_known=spells_known,
+        cantrips_known=cantrips_known
+    )
+
+
 # ===== Loader Functions =====
 
 def load_monster(index: str) -> Optional['Monster']:
@@ -680,43 +917,83 @@ def load_armor(index: str) -> Optional['Armor']:
     )
 
 
-def load_race(index: str) -> Optional[Dict[str, Any]]:
+def load_race(index: str) -> Optional['Race']:
     """
-    Load race data from local JSON file.
+    Load race data from local JSON file and return a Race object.
 
     Args:
         index: Race index (e.g., "elf", "dwarf", "human")
 
     Returns:
-        Dict with race data or None
+        Race object or None
     """
-    return load_json_file("races", index)
+    data = load_json_file("races", index)
+    if data is None:
+        return None
+
+    return _create_race_from_data(index, data)
 
 
-def load_class(index: str) -> Optional[Dict[str, Any]]:
+def load_class(index: str) -> Optional['ClassType']:
     """
-    Load class data from local JSON file.
+    Load class data from local JSON file and return a ClassType object.
 
     Args:
         index: Class index (e.g., "fighter", "wizard", "rogue")
 
     Returns:
-        Dict with class data or None
+        ClassType object or None
     """
-    return load_json_file("classes", index)
+    data = load_json_file("classes", index)
+    if data is None:
+        return None
+
+    return _create_class_from_data(index, data)
 
 
-def load_equipment(index: str) -> Optional[Dict[str, Any]]:
+def load_equipment(index: str):
     """
-    Load equipment data from local JSON file.
+    Load equipment data from local JSON file and return appropriate object.
+
+    Returns Weapon, Armor, or Equipment object depending on equipment category.
 
     Args:
         index: Equipment index
 
     Returns:
-        Dict with equipment data or None
+        Weapon, Armor, or Equipment object, or None
     """
-    return load_json_file("equipment", index)
+    data = load_json_file("equipment", index)
+    if data is None:
+        return None
+
+    # Déterminer le type d'équipement
+    category = data.get('equipment_category', {}).get('index', '')
+
+    if category == 'weapon':
+        return load_weapon(index)
+    elif category == 'armor':
+        return load_armor(index)
+    else:
+        # Pour les autres équipements, retourner un objet Equipment basique
+        from ..equipment.equipment import Equipment, Cost, EquipmentCategory
+
+        return Equipment(
+            index=index,
+            name=data['name'],
+            cost=Cost(
+                quantity=data.get('cost', {}).get('quantity', 0),
+                unit=data.get('cost', {}).get('unit', 'gp')
+            ),
+            weight=data.get('weight', 0),
+            desc=data.get('desc') if isinstance(data.get('desc'), list) else None,
+            category=EquipmentCategory(
+                index=data.get('equipment_category', {}).get('index', 'adventuring-gear'),
+                name=data.get('equipment_category', {}).get('name', 'Adventuring Gear'),
+                url=data.get('equipment_category', {}).get('url', '/api/equipment-categories/adventuring-gear')
+            ),
+            equipped=False
+        )
 
 
 def list_monsters() -> List[str]:
