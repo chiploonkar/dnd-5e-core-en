@@ -128,6 +128,8 @@ def simple_character_generator(
 
     # Create simple class
     hit_dice = {"fighter": 10, "wizard": 6, "rogue": 8, "cleric": 8}
+    is_caster = class_name in ["wizard", "cleric"]
+
     class_type = ClassType(
         index=class_name,
         name=class_name.capitalize(),
@@ -139,8 +141,13 @@ def simple_character_generator(
         starting_equipment_options=[],
         class_levels=[],
         multi_classing=[],
-        can_cast=class_name in ["wizard", "cleric"],
-        spellcasting_ability="int" if class_name == "wizard" else "wis"
+        subclasses=[],
+        spellcasting_level=1 if is_caster else 0,
+        spellcasting_ability="int" if class_name == "wizard" else "wis" if is_caster else "",
+        can_cast=is_caster,
+        spell_slots={} if not is_caster else {1: 2, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0},
+        spells_known=[],
+        cantrips_known=[]
     )
 
     # Generate abilities
