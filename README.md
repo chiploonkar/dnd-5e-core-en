@@ -57,6 +57,222 @@ This package contains **all game logic** for D&D 5e and is **UI-agnostic** - use
 
 **📦 100% Standalone** - No external API or database required - all data is bundled and **auto-detected**.
 
+## 💥 Combat Examples
+
+**📖 [Complete Combat Examples Guide](./COMBAT_EXAMPLES.md)** - Detailed examples with full code and explanations
+
+### Complete Combat with Spellcasting and Equipment
+
+The `CombatSystem` automatically handles spells, special attacks, healing, and weapon attacks. Here's a complete example:
+
+```python
+from dnd_5e_core import load_monster
+from dnd_5e_core.data.loaders import simple_character_generator
+from dnd_5e_core.data import load_weapon, load_armor
+from dnd_5e_core.combat import CombatSystem
+
+# Create a wizard
+wizard = simple_character_generator(level=5, race_name='elf', class_name='wizard', name='Gandalf')
+
+# Create fighters for front row
+fighter1 = simple_character_generator(level=5, class_name='fighter', name='Conan')
+fighter2 = simple_character_generator(level=5, class_name='fighter', name='Aragorn')
+fighter3 = simple_character_generator(level=5, class_name='fighter', name='Beorn')
+
+# Equip fighters with weapons and armor
+longsword = load_weapon("longsword")
+battleaxe = load_weapon("battleaxe")
+greatsword = load_weapon("greatsword")
+
+chain_mail = load_armor("chain-mail")
+scale_mail = load_armor("scale-mail")
+ring_mail = load_armor("ring-mail")
+
+# Equip Fighter 1
+if fighter1.inventory and longsword:
+    for i, item in enumerate(fighter1.inventory):
+        if item is None:
+            fighter1.inventory[i] = longsword
+            break
+    fighter1.equip(longsword)
+    
+if fighter1.inventory and chain_mail:
+    for i, item in enumerate(fighter1.inventory):
+        if item is None:
+            fighter1.inventory[i] = chain_mail
+            break
+    fighter1.equip(chain_mail)
+
+# Equip Fighter 2 and 3 similarly...
+
+# Load a monster
+ogre = load_monster('ogre')
+
+# Party formation: fighters in front (0-2), wizard in back (3) for spellcasting
+# This is IMPORTANT: wizards must be in position 3+ to cast spells!
+party = [fighter1, fighter2, fighter3, wizard]
+
+print(f"⚔️ Party Formation:")
+print(f"   Front Row (Melee): {fighter1.name}, {fighter2.name}, {fighter3.name}")
+print(f"   Back Row (Spells): {wizard.name} 🔮")
+
+# Start combat
+combat = CombatSystem(verbose=True)
+alive_chars = [c for c in party if c.hit_points > 0]
+alive_monsters = [ogre]
+
+round_num = 1
+while alive_chars and alive_monsters and round_num <= 10:
+    print(f"\n=== Round {round_num} ===")
+    
+    # Character turns
+    for char in alive_chars[:]:
+        if not alive_monsters:
+            break
+        if char.hit_points <= 0:
+            if char in alive_chars:
+                alive_chars.remove(char)
+            continue
+        
+        combat.character_turn(
+            character=char,
+            alive_chars=alive_chars,
+            alive_monsters=alive_monsters,
+            party=party
+        )
+    
+    # Monster turns
+    for monster in alive_monsters[:]:
+        if not alive_chars:
+            break
+        if monster.hit_points <= 0:
+            if monster in alive_monsters:
+                alive_monsters.remove(monster)
+            continue
+        
+        combat.monster_turn(
+            monster=monster,
+            alive_monsters=alive_monsters,
+            alive_chars=alive_chars,
+            party=party,
+            round_num=round_num
+        )
+    
+    round_num += 1
+
+# Results
+if alive_chars:
+    print(f"\n✅ VICTORY!")
+    if hasattr(wizard, 'sc') and wizard.sc:
+        print(f"\n{wizard.name}'s Spells Cast:")
+        print(f"   Spell Slots Before: [4, 3, 2, 0, 0]")
+        print(f"   Spell Slots After:  {wizard.sc.spell_slots[1:6]}")
+```
+
+**Output Example:**
+```
+⚔️ Party Formation:
+   Front Row (Melee): Conan, Aragorn, Beorn
+   Back Row (Spells): Gandalf 🔮
+
+=== Round 1 ===
+Conan attacks Ogre!
+Conan slashes Ogre for 5 hit points!
+Aragorn attacks Ogre!
+Aragorn slashes Ogre for 6 hit points!
+Beorn attacks Ogre!
+Beorn slashes Ogre for 10 hit points!
+Gandalf attacks Ogre!
+Gandalf CAST SPELL ** ICE STORM ** on Ogre
+Ogre is hit for 18 hit points!
+Ogre bludgeones Conan for 12 hit points!
+
+✅ VICTORY!
+Gandalf's Spells Cast: 3 spells used
+```
+
+### Key Combat Features Demonstrated
+
+1. **🔮 Character Spellcasting**: 
+   - Wizards automatically cast spells when in back row (position 3+)
+   - Spell slots are tracked and consumed
+   - Cantrips and leveled spells both work
+   
+2. **👹 Monster Spellcasting**:
+   ```python
+   mage = load_monster('mage')  # Spellcasting monster
+   # Mage will automatically cast spells like Cone of Cold, Ice Storm
+   ```
+
+3. **⚔️ Equipped Weapons**:
+   - Characters use equipped weapons ("slashes" vs "punches")
+   - Damage dice rolled automatically
+   - AC from armor properly calculated
+
+4. **🎯 Special Attacks**:
+   ```python
+   dragon = load_monster('young-red-dragon')
+   # Dragon uses multi-attack and breath weapon automatically
+   ```
+
+5. **🩹 Automatic Healing**:
+   - Characters with healing spells heal wounded allies
+   - Potions are used when HP is low
+   
+6. **📊 Combat Intelligence**:
+   - `CombatSystem` handles all tactical decisions
+   - Priority: Heal → Potions → Spells → Special Attacks → Weapons
+
+### Spellcaster vs Spellcaster Combat
+
+```python
+# Create two wizards
+wizard1 = simple_character_generator(level=5, class_name='wizard', name='Gandalf')
+wizard2 = simple_character_generator(level=5, class_name='wizard', name='Saruman')
+
+# Show their spells
+print(f"{wizard1.name}'s Spells:")
+for spell in wizard1.sc.learned_spells[:5]:
+    print(f"  - {spell.name} (Level {spell.level})")
+
+# Add front-row guards so wizards are in ranged position
+party1 = [guard1, guard2, guard3, wizard1]
+party2 = [guard4, guard5, guard6, wizard2]
+
+# Combat proceeds with spell-vs-spell battles!
+```
+
+### Monster Special Attacks
+
+```python
+# Load a monster with special abilities
+dragon = load_monster('young-red-dragon')
+
+if hasattr(dragon, 'sa') and dragon.sa:
+    print(f"Special Attacks: {[sa.name for sa in dragon.sa]}")
+    # Output: Multi-attack, Breath Weapon
+
+# During combat, dragon will automatically use these
+# combat.monster_turn() handles special attack logic
+```
+
+### Party Formation Tips
+
+**⚠️ Important for Spellcasting:**
+
+Characters in positions **0-2** are considered **melee** (front row)
+Characters in positions **3+** are considered **ranged** (back row)
+
+**Wizards and other spellcasters MUST be in positions 3+ to cast spells!**
+
+```python
+# ✅ CORRECT - Wizard will cast spells
+party = [fighter1, fighter2, fighter3, wizard]  # wizard at position 3
+
+# ❌ WRONG - Wizard will only use weapon
+party = [wizard]  # wizard at position 0 (melee)
+```
+
 ## Features
 
 ### Complete D&D 5e Implementation
@@ -280,40 +496,46 @@ download_monster_token("Orc Eye of Gruumsh", source="MM", save_folder="tokens")
 
 ### Combat System
 
+**See the [Combat Examples](#-combat-examples) section above for complete working examples!**
+
+The `CombatSystem` class handles all combat logic automatically:
+
 ```python
 from dnd_5e_core.combat import CombatSystem
 
-combat = CombatSystem()
+combat = CombatSystem(verbose=True)
 
-# Add participants
-combat.add_character(wizard)
-combat.add_monster(orc)
+# Characters automatically:
+# - Cast spells if in ranged position (3+)
+# - Use healing spells on wounded allies
+# - Drink potions when low HP
+# - Attack with equipped weapons
 
-# Start combat
-combat.start()
+# Character turn
+combat.character_turn(
+    character=wizard,
+    alive_chars=party,
+    alive_monsters=[ogre],
+    party=party
+)
 
-# Combat round
-while not combat.is_finished():
-    current_actor = combat.current_turn()
+# Monster turn (handles spellcasting, special attacks, etc.)
+combat.monster_turn(
+    monster=ogre,
+    alive_monsters=[ogre],
+    alive_chars=party,
+    party=party,
+    round_num=1
+)
+```
 
-    if isinstance(current_actor, Character):
-        # Character attacks monster
-        target = combat.get_monsters()[0]
-        action = current_actor.actions[0]
-        damage = current_actor.attack(target, action)
-        print(f"{current_actor.name} attacks {target.name} for {damage} damage!")
-
-    elif isinstance(current_actor, Monster):
-        # Monster attacks character
-        target = combat.get_characters()[0]
-        action = current_actor.actions[0]
-        damage = current_actor.attack(target, action)
-        print(f"{current_actor.name} attacks {target.name} for {damage} damage!")
-
-    combat.next_turn()
-
-winners = combat.get_winners()
-print(f"Combat finished! Winners: {[w.name for w in winners]}")
+**Combat Features:**
+- ✅ Automatic spell casting for characters and monsters
+- ✅ Special attacks (dragon breath, multi-attack, etc.)
+- ✅ Healing spells and potions
+- ✅ Weapon damage calculation
+- ✅ Saving throws and DC checks
+- ✅ Tactical decision making
 ```
 
 ### Spellcasting
