@@ -126,9 +126,28 @@ def simple_character_generator(
         subraces=[]
     )
 
-    # Create simple class
-    hit_dice = {"fighter": 10, "wizard": 6, "rogue": 8, "cleric": 8}
-    is_caster = class_name in ["wizard", "cleric"]
+    # Create simple class with correct spellcasting info
+    hit_dice = {
+        "barbarian": 12, "fighter": 10, "paladin": 10, "ranger": 10,
+        "bard": 8, "cleric": 8, "druid": 8, "monk": 8, "rogue": 8, "warlock": 8,
+        "sorcerer": 6, "wizard": 6
+    }
+
+    # Define all spellcasting classes with their primary ability and caster type
+    spellcasting_classes = {
+        "bard": ("cha", 1),        # Full caster, Charisma
+        "cleric": ("wis", 1),      # Full caster, Wisdom
+        "druid": ("wis", 1),       # Full caster, Wisdom
+        "sorcerer": ("cha", 1),    # Full caster, Charisma
+        "wizard": ("int", 1),      # Full caster, Intelligence
+        "paladin": ("cha", 2),     # Half caster, Charisma
+        "ranger": ("wis", 2),      # Half caster, Wisdom
+        "warlock": ("cha", 1),     # Pact caster, Charisma
+    }
+
+    is_caster = class_name in spellcasting_classes
+    spellcasting_ability = spellcasting_classes[class_name][0] if is_caster else ""
+    spellcasting_level = spellcasting_classes[class_name][1] if is_caster else 0
 
     class_type = ClassType(
         index=class_name,
@@ -142,10 +161,10 @@ def simple_character_generator(
         class_levels=[],
         multi_classing=[],
         subclasses=[],
-        spellcasting_level=1 if is_caster else 0,
-        spellcasting_ability="int" if class_name == "wizard" else "wis" if is_caster else "",
+        spellcasting_level=spellcasting_level,
+        spellcasting_ability=spellcasting_ability,
         can_cast=is_caster,
-        spell_slots={} if not is_caster else {1: 2, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0},
+        spell_slots={},
         spells_known=[],
         cantrips_known=[]
     )
@@ -181,34 +200,78 @@ def simple_character_generator(
     for _ in range(level - 1):
         hit_points += randint(1, class_type.hit_die) + ability_modifiers.con
 
-    # Create SpellCaster for spellcasting classes
+    # Create SpellCaster for spellcasting classes with actual spell loading
     spell_caster = None
     if class_type.can_cast:
         from ..spells.spellcaster import SpellCaster
+        from .collections import load_all_spells
+        from random import sample
 
-        # Determine spell slots based on level
-        spell_slots = [0] * 10  # Index 0 is unused, 1-9 are spell levels
-        if level >= 1:
-            spell_slots[1] = 2 if level == 1 else 3 if level == 2 else 4
-        if level >= 3:
-            spell_slots[2] = 2 if level == 3 else 3
-        if level >= 5:
-            spell_slots[3] = 2 if level == 5 else 3
-        if level >= 7:
-            spell_slots[4] = 1 if level == 7 else 2 if level == 8 else 3
-        if level >= 9:
-            spell_slots[5] = 1 if level == 9 else 2
+        # Load all spells
+        try:
+            all_spells = load_all_spells()
+        except Exception as e:
+            print(f"Warning: Could not load spells: {e}")
+            all_spells = []
+
+        # Filter learnable spells (same logic as get_spell_caster in main.py)
+        learnable_spells = [
+            s for s in all_spells
+            if class_type.index in s.allowed_classes
+            and s.level <= level
+            and (s.damage_type or s.heal_at_slot_level)
+        ]
+
+        learned_spells = []
+        if learnable_spells:
+            # Separate cantrips and slot spells
+            cantrips_spells = [s for s in learnable_spells if s.level == 0]
+            slot_spells = [s for s in learnable_spells if s.level > 0]
+
+            # Determine number of cantrips (simplified)
+            n_cantrips = min(len(cantrips_spells), 3 if level < 4 else 4 if level < 10 else 5)
+
+            # Determine number of spells known (simplified)
+            n_slot_spells = min(len(slot_spells), level + 1)
+
+            # Select random spells
+            if cantrips_spells and n_cantrips > 0:
+                learned_spells += sample(cantrips_spells, min(n_cantrips, len(cantrips_spells)))
+            if slot_spells and n_slot_spells > 0:
+                learned_spells += sample(slot_spells, min(n_slot_spells, len(slot_spells)))
+
+        # Calculate spell slots based on level and caster type
+        spell_slots = [0] * 10  # Index 0 unused, 1-9 are spell levels
+
+        if class_type.spellcasting_level == 1:  # Full caster
+            if level >= 1: spell_slots[1] = 2 if level == 1 else 3 if level == 2 else 4
+            if level >= 3: spell_slots[2] = 2 if level == 3 else 3
+            if level >= 5: spell_slots[3] = 2 if level == 5 else 3
+            if level >= 7: spell_slots[4] = 1 if level == 7 else 2 if level == 8 else 3
+            if level >= 9: spell_slots[5] = 1 if level == 9 else 2
+            if level >= 11: spell_slots[6] = 1
+            if level >= 13: spell_slots[7] = 1
+            if level >= 15: spell_slots[8] = 1
+            if level >= 17: spell_slots[9] = 1
+        elif class_type.spellcasting_level == 2:  # Half caster (Paladin, Ranger)
+            # Half casters get slots as if they were half their level (rounded down)
+            effective_level = level // 2
+            if effective_level >= 1: spell_slots[1] = 2 if effective_level == 1 else 3 if effective_level == 2 else 4
+            if effective_level >= 3: spell_slots[2] = 2 if effective_level == 3 else 3
+            if effective_level >= 5: spell_slots[3] = 2 if effective_level == 5 else 3
+            if effective_level >= 7: spell_slots[4] = 1 if effective_level == 7 else 2 if effective_level == 8 else 3
+            if effective_level >= 9: spell_slots[5] = 1 if effective_level == 9 else 2
 
         # Calculate DC and ability modifier
-        ability_modifier = ability_modifiers.int if class_name == "wizard" else ability_modifiers.wis
-        proficiency_bonus = 2 + ((level - 1) // 4)  # +2 at level 1-4, +3 at 5-8, etc.
+        ability_modifier = getattr(ability_modifiers, class_type.spellcasting_ability, 0)
+        proficiency_bonus = 2 + ((level - 1) // 4)  # +2 at 1-4, +3 at 5-8, +4 at 9-12, etc.
         dc_value = 8 + proficiency_bonus + ability_modifier
 
         spell_caster = SpellCaster(
             level=level,
             spell_slots=spell_slots,
-            learned_spells=[],  # Empty for now, can be populated later
-            dc_type="int" if class_name == "wizard" else "wis",
+            learned_spells=learned_spells,
+            dc_type=class_type.spellcasting_ability,
             dc_value=dc_value,
             ability_modifier=ability_modifier
         )
