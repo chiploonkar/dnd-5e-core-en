@@ -5,7 +5,7 @@ Data loading from local JSON files
 
 from .loader import (
     set_data_directory, get_data_directory,
-    load_monster, load_spell, load_weapon, load_armor,
+    load_monster, load_spell, load_weapon, load_armor, load_magic_item,
     load_race, load_class, load_equipment,
     list_monsters, list_spells, list_equipment, list_weapons, list_armors,
     list_races, list_classes,
@@ -26,7 +26,7 @@ from .collections import (
 __all__ = [
     # Data loader functions (individual objects)
     'set_data_directory', 'get_data_directory',
-    'load_monster', 'load_spell', 'load_weapon', 'load_armor',
+    'load_monster', 'load_spell', 'load_weapon', 'load_armor', 'load_magic_item',
     'load_race', 'load_class', 'load_equipment',
     'list_monsters', 'list_spells', 'list_equipment', 'list_weapons', 'list_armors',
     'list_races', 'list_classes',

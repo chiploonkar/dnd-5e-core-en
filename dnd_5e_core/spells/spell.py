@@ -44,6 +44,16 @@ class Spell:
     school: str  # School of magic (evocation, abjuration, etc.)
     id: int = -1
 
+    # 🆕 Defensive/Buff properties
+    duration: Optional[str] = None  # "1 round", "10 minutes", "8 hours", etc.
+    concentration: bool = False  # Requires concentration
+    ac_bonus: Optional[int] = None  # AC bonus (Shield +5, Shield of Faith +2)
+    saving_throw_bonus: Optional[int] = None  # Bonus to saving throws
+    ability_bonuses: Optional[Dict[str, int]] = None  # Ability score bonuses
+    conditions_immunity: Optional[List[str]] = None  # Conditions prevented
+    damage_resistance: Optional[List[str]] = None  # Damage types resisted
+    damage_immunity: Optional[List[str]] = None  # Damage types immune
+
     def __repr__(self):
         return f"{self.name} (Level {self.level}, {self.school})"
 
@@ -66,6 +76,20 @@ class Spell:
         """Check if spell deals damage"""
         return (self.damage_at_slot_level is not None or
                 self.damage_at_character_level is not None)
+
+    @property
+    def is_defensive(self) -> bool:
+        """Check if spell provides defensive bonuses"""
+        return (self.ac_bonus is not None or
+                self.saving_throw_bonus is not None or
+                self.damage_resistance is not None or
+                self.damage_immunity is not None or
+                self.conditions_immunity is not None)
+
+    @property
+    def is_buff(self) -> bool:
+        """Check if spell provides stat bonuses"""
+        return self.ability_bonuses is not None
 
     @property
     def has_area_effect(self) -> bool:

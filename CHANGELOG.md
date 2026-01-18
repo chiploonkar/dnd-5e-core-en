@@ -7,6 +7,100 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-01-18
+
+### 🎉 Major Features Added
+
+#### Magic Items System
+- **Complete Magic Items Implementation** with combat actions and character enhancements
+  - `MagicItem` class with passive bonuses (AC, saving throws, ability scores)
+  - `MagicItemAction` for active combat abilities (attacks, healing, defense)
+  - `MagicItemEffect` for special conditions and buffs
+  - Attunement system (max 3 attuned items per character)
+  - Charges/uses per day with automatic recharge tracking
+  - Rarity system (Common, Uncommon, Rare, Very Rare, Legendary, Artifact)
+  
+- **Predefined Magic Items** ready to use:
+  - Ring of Protection (+1 AC, +1 saves)
+  - Cloak of Protection (+1 AC, +1 saves)
+  - Wand of Magic Missiles (7 charges/day)
+  - Staff of Healing (10 charges/day)
+  - Belt of Giant Strength (STR 21)
+  - Amulet of Health (CON 19)
+  - Bracers of Defense (+2 AC)
+  - Necklace of Fireballs (6 beads)
+  
+- **Magic Item Loader**: `load_magic_item(index)` from JSON data
+- **Registry System**: `get_magic_item(index)` for predefined items
+
+#### Defensive Spells System
+- **Enhanced Spell Properties** for defense and buffs:
+  - `duration` (e.g., "1 round", "8 hours", "10 minutes")
+  - `concentration` (boolean flag)
+  - `ac_bonus` (Shield +5, Shield of Faith +2, Mage Armor +3)
+  - `saving_throw_bonus` (bonuses to saves)
+  - `ability_bonuses` (stat improvements)
+  - `damage_resistance` / `damage_immunity`
+  - `conditions_immunity`
+  
+- **New Spell Properties**:
+  - `is_defensive` - Check if spell provides defensive bonuses
+  - `is_buff` - Check if spell provides stat bonuses
+  
+- **Defensive Spells Parsed**:
+  - Shield (Level 1, +5 AC, 1 round)
+  - Mage Armor (Level 1, +3 AC, 8 hours)
+  - Shield of Faith (Level 1, +2 AC, 10 minutes, concentration)
+  - Protection from Energy, Protection from Evil and Good, etc.
+
+### Added
+- `dnd_5e_core.equipment.magic_item` - Complete magic items system
+- `dnd_5e_core.equipment.predefined_magic_items` - 8 ready-to-use magic items
+- `tests/test_magic_items_and_defense.py` - Comprehensive test suite
+- Spell loader now parses defensive properties from descriptions
+- Character integration: `ac_bonus` attribute properly used by magic items
+
+### Changed
+- Spell loader enhanced to detect AC bonuses, saving throw bonuses from descriptions
+- Character `armor_class` property now includes `ac_bonus` from magic items
+- Equipment module exports expanded with magic item classes
+
+### Fixed
+- Magic items correctly use Character's `ac_bonus` attribute (read-only `armor_class` property)
+- Defensive spell properties properly initialized from JSON data
+
+### Documentation
+- Added comprehensive magic items usage examples
+- Test script demonstrates all new features
+- Updated README with magic items and defensive spells sections
+
+### Examples
+
+**Using Magic Items:**
+```python
+from dnd_5e_core.equipment import create_ring_of_protection
+from dnd_5e_core.data.loaders import simple_character_generator
+
+wizard = simple_character_generator(level=5, class_name='wizard')
+ring = create_ring_of_protection()
+
+ring.attune(wizard)
+ring.equipped = True
+ring.apply_to_character(wizard)
+
+print(f"AC: {wizard.armor_class}")  # +1 from ring
+```
+
+**Using Defensive Spells:**
+```python
+from dnd_5e_core.data import load_spell
+
+shield = load_spell("shield")
+print(f"{shield.name}: +{shield.ac_bonus} AC")
+print(f"Duration: {shield.duration}")
+print(f"Is Defensive: {shield.is_defensive}")
+```
+
 ## [0.1.9] - 2026-01-17
 
 ### Changed

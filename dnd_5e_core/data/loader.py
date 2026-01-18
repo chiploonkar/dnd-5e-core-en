@@ -485,6 +485,32 @@ def _create_spell_from_data(index: str, data: Dict[str, Any]) -> Optional['Spell
     else:
         range_ft = int(range_value)
 
+    # 🆕 Parse defensive/buff spell properties
+    duration = data.get('duration')
+    concentration = data.get('concentration', 'False').lower() == 'true'
+
+    # Parse description for defensive bonuses
+    desc_text = ' '.join(data.get('desc', [])).lower()
+    ac_bonus = None
+    saving_throw_bonus = None
+
+    # Check for AC bonuses (Shield +5, Shield of Faith +2, Mage Armor sets AC)
+    if '+5 bonus to ac' in desc_text:
+        ac_bonus = 5
+    elif '+2 bonus to ac' in desc_text:
+        ac_bonus = 2
+    elif '+1 bonus to ac' in desc_text:
+        ac_bonus = 1
+    elif 'base ac becomes 13' in desc_text:  # Mage Armor
+        ac_bonus = 3  # Simplified: ~average bonus
+
+    # Check for saving throw bonuses
+    if 'bonus to saving throw' in desc_text:
+        if '+2' in desc_text:
+            saving_throw_bonus = 2
+        elif '+1' in desc_text:
+            saving_throw_bonus = 1
+
     return Spell(
         index=index,
         name=data['name'],
@@ -499,7 +525,11 @@ def _create_spell_from_data(index: str, data: Dict[str, Any]) -> Optional['Spell
         dc_success=dc_success,
         range=range_ft,
         area_of_effect=area_of_effect,
-        school=data.get('school', {}).get('index', 'evocation')
+        school=data.get('school', {}).get('index', 'evocation'),
+        duration=duration,
+        concentration=concentration,
+        ac_bonus=ac_bonus,
+        saving_throw_bonus=saving_throw_bonus
     )
 
 
@@ -915,6 +945,24 @@ def load_armor(index: str) -> Optional['Armor']:
         str_minimum=str_minimum,
         stealth_disadvantage=stealth_disadvantage
     )
+
+
+def load_magic_item(index: str) -> Optional['MagicItem']:
+    """
+    Load magic item data from local JSON file and return a MagicItem object.
+
+    Args:
+        index: Magic item index (e.g., "ring-of-protection", "potion-of-healing")
+
+    Returns:
+        MagicItem object or None
+    """
+    data = load_json_file("magic-items", index)
+    if data is None:
+        return None
+
+    from ..equipment.magic_item import create_magic_item_from_data
+    return create_magic_item_from_data(data)
 
 
 def load_race(index: str) -> Optional['Race']:
