@@ -66,10 +66,26 @@ class MagicItemAction:
     save_ability: Optional[str] = None  # "dex", "con", etc.
     uses_per_day: Optional[int] = None  # Limited uses, None = unlimited
     recharge: Optional[str] = None  # "dawn", "short rest", "long rest"
+    conditions: List = field(default_factory=list)  # Conditions to apply on hit
 
     def __post_init__(self):
         """Initialize tracking for limited uses"""
         self.remaining_uses = self.uses_per_day if self.uses_per_day else None
+
+    def can_use(self) -> bool:
+        """Check if action can be used (has uses remaining)"""
+        if self.uses_per_day is None:
+            return True
+        return self.remaining_uses > 0 if self.remaining_uses is not None else True
+
+    def use(self):
+        """Use one charge of this action"""
+        if self.remaining_uses is not None and self.remaining_uses > 0:
+            self.remaining_uses -= 1
+
+    def recharge_uses(self):
+        """Recharge uses (called on rest)"""
+        self.remaining_uses = self.uses_per_day
 
 
 @dataclass
@@ -182,10 +198,103 @@ class MagicItem(Equipment):
                 current = getattr(character.abilities, ability)
                 setattr(character.abilities, ability, current + bonus)
 
-                # Update modifiers too
-                if hasattr(character, 'ability_modifiers'):
-                    mod = (current + bonus - 10) // 2
-                    setattr(character.ability_modifiers, ability, mod)
+    def perform_action(self, action: MagicItemAction, target, user: 'Character', verbose: bool = False) -> tuple:
+        """
+        Perform a magic item action on a target.
+
+        Args:
+            action: The MagicItemAction to perform
+            target: The target (Character or Monster)
+            user: The character using the item
+            verbose: If True, print messages
+
+        Returns:
+            tuple: (messages: str, damage: int, healing: int)
+        """
+        from ..mechanics.dice import DamageDice
+        from copy import copy
+
+        messages = []
+        total_damage = 0
+        total_healing = 0
+
+        # Check if action can be used
+        if not action.can_use():
+            msg = f"{self.name} has no uses remaining!"
+            if verbose:
+                print(msg)
+            return msg, 0, 0
+
+        # Use the action
+        action.use()
+
+        messages.append(f"{user.name} uses {self.name} - {action.name}!")
+
+        # Handle attack action
+        if action.action_type == "attack" and action.damage_dice:
+            # Roll damage
+            dice = DamageDice(action.damage_dice)
+            damage = dice.roll()
+            total_damage = damage
+
+            damage_type_str = f" {action.damage_type}" if action.damage_type else ""
+            messages.append(f"{target.name} takes {damage}{damage_type_str} damage!")
+
+            # Apply damage
+            if hasattr(target, 'take_damage'):
+                target.take_damage(damage)
+            elif hasattr(target, 'hit_points'):
+                target.hit_points = max(0, target.hit_points - damage)
+
+        # Handle healing action
+        elif action.action_type == "healing" and action.healing_dice:
+            dice = DamageDice(action.healing_dice)
+            healing = dice.roll()
+            total_healing = healing
+
+            messages.append(f"{target.name} is healed for {healing} hit points!")
+
+            # Apply healing
+            if hasattr(target, 'heal'):
+                target.heal(healing)
+            elif hasattr(target, 'hit_points') and hasattr(target, 'max_hit_points'):
+                target.hit_points = min(target.max_hit_points, target.hit_points + healing)
+
+        # Apply conditions
+        if action.conditions:
+            applied_conditions = []
+            for condition in action.conditions:
+                condition_copy = copy(condition)
+
+                # Apply to target
+                if hasattr(condition_copy, 'apply_to_character') and hasattr(target, 'conditions'):
+                    condition_copy.apply_to_character(target)
+                    applied_conditions.append(condition_copy.name)
+                elif hasattr(condition_copy, 'apply_to_monster') and hasattr(target, 'conditions'):
+                    condition_copy.apply_to_monster(target)
+                    applied_conditions.append(condition_copy.name)
+
+            if applied_conditions:
+                effects_str = ", ".join(applied_conditions)
+                messages.append(f"{target.name} is now {effects_str}!")
+
+        # Handle saving throw for conditions/effects
+        if action.save_dc and action.save_ability:
+            if hasattr(target, 'saving_throw'):
+                success = target.saving_throw(action.save_ability, action.save_dc)
+                if success:
+                    messages.append(f"{target.name} succeeds on the saving throw!")
+                    # Halve damage or negate conditions based on effect
+                    total_damage //= 2
+                else:
+                    messages.append(f"{target.name} fails the saving throw!")
+
+        result_msg = '\n'.join(messages)
+        if verbose:
+            print(result_msg)
+
+        return result_msg, total_damage, total_healing
+
 
     def remove_from_character(self, character: 'Character'):
         """

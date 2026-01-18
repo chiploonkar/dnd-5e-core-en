@@ -10,7 +10,7 @@ from typing import Optional, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from ..abilities import AbilityType
-    from ..entities import Monster
+    from ..entities import Monster, Character
 
 
 class ConditionType(Enum):
@@ -73,6 +73,87 @@ class Condition:
         if self.dc_type and self.dc_value:
             return f"{self.name} (DC {self.dc_value} {self.dc_type.value})"
         return self.name
+
+    def apply_to_character(self, character: 'Character') -> None:
+        """
+        Apply this condition to a character.
+
+        Args:
+            character: The character to apply the condition to
+        """
+        if character.conditions is None:
+            character.conditions = []
+
+        # Don't add duplicate conditions
+        if not any(c.index == self.index for c in character.conditions):
+            character.conditions.append(self)
+
+    def apply_to_monster(self, monster: 'Monster') -> None:
+        """
+        Apply this condition to a monster.
+
+        Args:
+            monster: The monster to apply the condition to
+        """
+        if not hasattr(monster, 'conditions') or monster.conditions is None:
+            monster.conditions = []
+
+        # Don't add duplicate conditions
+        if not any(c.index == self.index for c in monster.conditions):
+            monster.conditions.append(self)
+
+    def attempt_save(self, creature) -> bool:
+        """
+        Attempt a saving throw to resist or escape this condition.
+
+        Args:
+            creature: The creature attempting the save (Character or Monster)
+
+        Returns:
+            True if the save is successful, False otherwise
+        """
+        if not self.dc_type or not self.dc_value:
+            return False
+
+        from random import randint
+
+        # Get ability modifier
+        ability_mod = 0
+        if hasattr(creature, 'abilities'):
+            # Utiliser get_modifier() pour obtenir le modificateur
+            ability_mod = creature.abilities.get_modifier(self.dc_type.value)
+
+        # Roll saving throw (d20)
+        roll = randint(1, 20) + ability_mod
+
+        # Success if roll meets or exceeds DC
+        success = roll >= self.dc_value
+
+        # If successful, remove condition
+        if success and hasattr(creature, 'conditions') and creature.conditions:
+            creature.conditions = [c for c in creature.conditions if c.index != self.index]
+
+        return success
+
+    def remove_from_character(self, character: 'Character') -> None:
+        """
+        Remove this condition from a character.
+
+        Args:
+            character: The character to remove the condition from
+        """
+        if character.conditions:
+            character.conditions = [c for c in character.conditions if c.index != self.index]
+
+    def remove_from_monster(self, monster: 'Monster') -> None:
+        """
+        Remove this condition from a monster.
+
+        Args:
+            monster: The monster to remove the condition from
+        """
+        if hasattr(monster, 'conditions') and monster.conditions:
+            monster.conditions = [c for c in monster.conditions if c.index != self.index]
 
 
 # ============================================================================
