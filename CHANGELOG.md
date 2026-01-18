@@ -7,6 +7,115 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.6] - 2026-01-18
+
+### Added
+- **ClassAbilities** - Système complet des capacités de classe
+  - 24 capacités implémentées pour toutes les classes
+  - Barbarian: Rage, Reckless Attack
+  - Fighter: Action Surge, Second Wind, Extra Attack
+  - Rogue: Sneak Attack, Cunning Action, Uncanny Dodge
+  - Monk: Ki Points, Flurry of Blows, Martial Arts
+  - Cleric: Channel Divinity
+  - Paladin: Lay on Hands, Divine Smite
+  - Bard: Bardic Inspiration
+  - Sorcerer: Sorcery Points, Metamagic
+  - Ranger: Hunter's Mark
+  - Warlock: Eldritch Invocations
+
+- **RacialTraits** - Système complet des traits raciaux
+  - 20 traits implémentés pour toutes les races
+  - Elf: Darkvision, Fey Ancestry, Trance, Keen Senses, Mask of the Wild
+  - Dwarf: Dwarven Resilience, Stonecunning, Dwarven Toughness
+  - Halfling: Lucky, Brave, Halfling Nimbleness, Naturally Stealthy
+  - Human: Versatility
+  - Dragonborn: Breath Weapon, Damage Resistance
+  - Gnome: Gnome Cunning
+  - Half-Orc: Relentless Endurance, Savage Attacks
+  - Tiefling: Hellish Resistance, Infernal Legacy
+
+- **Subclass System** - Sous-classes et multiclassing
+  - Support de 40+ sous-classes (Champion, Evocation, Life Domain, etc.)
+  - Support de 20+ sous-races (High Elf, Hill Dwarf, etc.)
+  - Système de multiclassing avec calcul automatique des spell slots
+  - `MulticlassCharacter` pour gérer plusieurs classes
+
+### Fixed
+- Parsing robuste des `saving_throws` (gestion des AbilityType)
+- Parsing sécurisé des données JSON de subclasses et subraces
+- Corrections dans le système de progression des classes
+
+### Changed
+- Archivage de 36 fichiers obsolètes vers `archive/2026-01-docs/` et `archive/2026-01-scripts/`
+- Structure du projet épurée (6 documents MD essentiels à la racine)
+- Script `build_package.sh` amélioré avec options complètes
+
+## [0.2.4] - 2026-01-18
+
+### Added
+- **ConditionParser** - Système de parsing automatique des conditions depuis descriptions textuelles
+  - Parse 9 conditions standard D&D 5e (Restrained, Grappled, Poisoned, Paralyzed, Stunned, Frightened, Prone, Blinded, Charmed)
+  - Extraction automatique des DC (Difficulty Class) et types de sauvegarde
+  - Support de plusieurs formats ("DC 15 Constitution" ou "Constitution save DC 15")
+  - Fonction `parse_condition_from_description()` pour analyse textuelle
+  - Fonction `extract_conditions_from_action()` pour parser les actions JSON
+  
+- **Magic Items with Conditions** - Objets magiques appliquant des conditions
+  - `MagicItemAction.conditions` - Liste de conditions appliquées par l'action
+  - `MagicItemAction.can_use()`, `use()`, `recharge_uses()` - Gestion des charges
+  - `MagicItem.perform_action()` - Méthode pour utiliser un objet magique en combat
+  - Factory `create_magic_item_with_conditions()` pour création simplifiée
+  - 5 objets magiques prédéfinis : Wand of Paralysis, Staff of Entanglement, Ring of Blinding, Cloak of Fear, Poisoned Dagger
+  
+- **Monster Condition Application** - Application automatique des conditions par les monstres
+  - Parsing automatique des conditions lors du chargement des monstres
+  - Les conditions sont ajoutées à `Action.effects`
+  - `Monster.attack()` applique automatiquement les conditions aux cibles
+  - Support des créatures de référence (pour grappled, frightened, etc.)
+  
+- **Documentation & Tests**
+  - `docs/CONDITIONS_SYSTEM.md` - Guide complet du système de conditions
+  - `tests/test_conditions_system.py` - Suite de tests complète
+  - `quick_validate_conditions.py` - Script de validation rapide
+  - `IMPLEMENTATION_CONDITIONS.md` - Documentation d'implémentation
+
+### Changed
+- **Monster.attack()** - Amélioration de l'application des conditions
+  - Crée une copie de chaque condition avant application
+  - Définit la créature de référence pour certaines conditions
+  - Utilise `apply_to_character()` quand disponible
+  - Fallback vers application manuelle si nécessaire
+  - Messages informatifs sur les conditions appliquées
+
+### Fixed
+- **Condition Application** - Corrections pour une application robuste
+  - Vérification de l'existence de `apply_to_character()` avant utilisation
+  - Évite les duplications de conditions
+  - Gestion correcte des conditions nécessitant une référence à la créature
+
+## [0.2.3] - 2026-01-18
+
+### Changed
+- **ARCHITECTURE MAJEURE** - Réorganisation complète des données dans le package
+  - Tous les fichiers JSON (monsters, spells, equipment, etc.) sont maintenant dans `dnd_5e_core/data/`
+  - Suppression de l'ancien dossier `data/` à la racine du projet
+  - Les données sont maintenant **toujours incluses** dans le package installé
+  - Plus besoin de configuration manuelle du chemin des données
+  
+### Fixed
+- **Data Loading** - Fonction `get_data_directory()` simplifiée
+  - Cherche uniquement dans `dnd_5e_core/data/` (à côté du module)
+  - Fonctionne automatiquement en mode développement et en mode installé
+  - Support pour `load_monster()` avec fichiers groupés (`bestiary-sublist-data.json`)
+  
+### Added
+- **Condition System** - Nouvelles méthodes pour la classe `Condition`
+  - `apply_to_character(character)` - Applique la condition à un personnage
+  - `apply_to_monster(monster)` - Applique la condition à un monstre
+  - `attempt_save(creature)` - Tente un jet de sauvegarde contre la condition
+  - `remove_from_character(character)` - Retire la condition d'un personnage
+  - `remove_from_monster(monster)` - Retire la condition d'un monstre
+
 ## [0.2.2] - 2026-01-18
 
 ### Fixed

@@ -288,8 +288,6 @@ class Monster:
 
         return messages, total_damage
 
-        return total_damage
-
     def attack(self, target: 'Character', actions: Optional[List['Action']] = None, distance: float = 5.0, verbose: bool = False) -> tuple:
         """
         Perform an attack.
@@ -376,13 +374,31 @@ class Monster:
                     display_msg.append(f"{self.name} {action_verb} {target.name} for {attack_damage} hit points!")
 
                     # Apply effects/conditions
-                    if attack_action.effects and hasattr(target, 'conditions'):
-                        target.conditions = [copy(e) for e in attack_action.effects]
-                        for e in target.conditions:
-                            if e.index == "restrained":
-                                e.creature = self
-                        effects = ", ".join([e.index for e in attack_action.effects])
-                        display_msg.append(f"{target.name} is {effects}!")
+                    if attack_action.effects:
+                        applied_conditions = []
+                        for effect in attack_action.effects:
+                            # Create a copy of the condition
+                            condition_copy = copy(effect)
+
+                            # Set the creature reference if needed
+                            if condition_copy.index in ["restrained", "grappled", "frightened", "charmed"]:
+                                condition_copy.creature = self
+
+                            # Try to apply the condition
+                            if hasattr(condition_copy, 'apply_to_character'):
+                                condition_copy.apply_to_character(target)
+                                applied_conditions.append(condition_copy.name)
+                            elif hasattr(target, 'conditions'):
+                                # Fallback: manual application
+                                if target.conditions is None:
+                                    target.conditions = []
+                                if not any(c.index == condition_copy.index for c in target.conditions):
+                                    target.conditions.append(condition_copy)
+                                    applied_conditions.append(condition_copy.name)
+
+                        if applied_conditions:
+                            effects_str = ", ".join(applied_conditions)
+                            display_msg.append(f"{target.name} is now {effects_str}!")
                 else:
                     display_msg.append(f"{self.name} misses {target.name}!")
 

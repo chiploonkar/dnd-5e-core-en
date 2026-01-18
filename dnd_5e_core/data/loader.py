@@ -57,27 +57,13 @@ def get_data_directory() -> Path:
     global _DATA_DIR
 
     if _DATA_DIR is None:
-        # Try to find data directory automatically
+        # Data is always in dnd_5e_core/data (next to this file)
         current_file = Path(__file__)
+        _DATA_DIR = current_file.parent
 
-        # Try common locations
-        possible_paths = [
-            # If data is in the dnd-5e-core package itself (preferred)
-            current_file.parent.parent.parent / "data",
-            # If used from DnD-5th-Edition-API project (fallback)
-            current_file.parent.parent.parent.parent.parent / "DnD-5th-Edition-API" / "data",
-            # If data is in current working directory
-            Path.cwd() / "data",
-        ]
-
-        for path in possible_paths:
-            if path.exists() and path.is_dir():
-                _DATA_DIR = path
-                break
-
-        if _DATA_DIR is None:
+        if not _DATA_DIR.exists() or not _DATA_DIR.is_dir():
             raise FileNotFoundError(
-                "Data directory not found. Please use set_data_directory() to specify the path."
+                f"Data directory not found at {_DATA_DIR}. Please use set_data_directory() to specify the path."
             )
 
     return _DATA_DIR
@@ -162,6 +148,7 @@ def _create_monster_from_data(index: str, data: Dict[str, Any]) -> Optional['Mon
     from ..spells.spell import Spell
     from ..spells.spellcaster import SpellCaster
     from ..combat.special_ability import SpecialAbility, AreaOfEffect
+    from ..combat.condition_parser import ConditionParser
 
     # Abilities
     abilities = Abilities(
@@ -325,6 +312,10 @@ def _create_monster_from_data(index: str, data: Dict[str, Any]) -> Optional['Mon
 
                     if damages:
                         action_type = ActionType.MIXED if is_melee_attack and is_ranged_attack else ActionType.MELEE if is_melee_attack else ActionType.RANGED
+
+                        # Parse conditions from action description
+                        conditions = ConditionParser.extract_conditions_from_action(action, None)
+
                         actions.append(Action(
                             name=action['name'],
                             desc=action.get('desc', ''),
@@ -333,7 +324,8 @@ def _create_monster_from_data(index: str, data: Dict[str, Any]) -> Optional['Mon
                             long_range=long_range,
                             attack_bonus=action.get('attack_bonus'),
                             multi_attack=None,
-                            damages=damages
+                            damages=damages,
+                            effects=conditions if conditions else None
                         ))
 
             # Handle special abilities with DC
@@ -782,7 +774,28 @@ def load_monster(index: str) -> Optional['Monster']:
     Returns:
         Monster object or None
     """
+    # Try loading from individual file first
     data = load_json_file("monsters", index)
+
+    # If not found, try loading from bestiary-sublist-data.json
+    if data is None:
+        try:
+            data_dir = get_data_directory()
+            bestiary_file = data_dir / "monsters" / "bestiary-sublist-data.json"
+
+            if bestiary_file.exists():
+                with open(bestiary_file, 'r', encoding='utf-8') as f:
+                    bestiary_data = json.load(f)
+
+                # Search for the monster in the bestiary data
+                for monster_data in bestiary_data:
+                    if monster_data.get('index') == index:
+                        data = monster_data
+                        break
+        except Exception as e:
+            if os.getenv('DEBUG'):
+                print(f"Error loading monster from bestiary: {e}")
+
     if data is None:
         return None
 

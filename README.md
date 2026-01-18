@@ -28,6 +28,62 @@ This package contains **all game logic** for D&D 5e and is **UI-agnostic** - use
   - PyQt5 Wizardry-style interface
   - Character management, inventory, shops, and more
 
+## ✨ New in Version 0.2.5 (January 2026)
+
+**🎓 Complete Class Progression System**:
+- **Automatic spell slots** based on official API data for all caster classes
+- **Level-up system** with automatic HP, features, and spell slot progression
+- **Class-specific features** (Barbarian rage, Monk ki, Rogue sneak attack, etc.)
+- **20 levels of progression** for all 12 classes
+- Seamlessly integrated into `simple_character_generator()`
+
+```python
+# Spell slots are now automatically correct!
+wizard = simple_character_generator(5, 'elf', 'wizard', 'Gandalf')
+print(wizard.sc.spell_slots)  # [0, 4, 3, 2, 0, ...] ✅ Correct for level 5!
+
+# Automatic level up with all benefits
+wizard = level_up_character(wizard, 6)
+# Applies: HP gain, spell slots update, new features, etc.
+```
+
+**🎯 Subclasses & Subraces System** ✨ NEW:
+- **Subclasses** for all classes (School of Evocation, Champion, Life Domain, etc.)
+- **Subraces** for all races (High Elf, Hill Dwarf, Lightfoot Halfling, etc.)
+- Load from official D&D 5e API data
+
+```python
+from dnd_5e_core.mechanics.subclass_system import load_subclass, load_subrace
+
+# Load a subclass
+champion = load_subclass('champion')  # Fighter subclass
+print(f"{champion.name}: {champion.subclass_flavor}")
+
+# Load a subrace
+high_elf = load_subrace('high-elf')
+print(f"{high_elf.name}: +{high_elf.ability_bonuses}")
+```
+
+**⚔️ Multiclassing System** ✨ NEW:
+- Full support for multiclass characters
+- Automatic spell slot calculation for multiclass casters
+- Track levels in multiple classes
+
+```python
+from dnd_5e_core.mechanics.subclass_system import MulticlassCharacter
+
+# Create a Fighter 5 / Wizard 3
+gish = MulticlassCharacter("Elric")
+for _ in range(5):
+    gish.add_class_level('fighter')
+for _ in range(3):
+    gish.add_class_level('wizard')
+
+print(f"{gish}")  # "Fighter 5 / Wizard 3"
+print(f"Total level: {gish.get_total_level()}")  # 8
+print(f"Spell slots: {gish.get_spell_slots_multiclass()}")  # Calculated correctly!
+```
+
 ## ✨ New in Version 0.1.8
 
 **📝 Enhanced PyPI Documentation**:

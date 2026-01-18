@@ -240,9 +240,14 @@ def simple_character_generator(
             if slot_spells and n_slot_spells > 0:
                 learned_spells += sample(slot_spells, min(n_slot_spells, len(slot_spells)))
 
-        # Calculate spell slots based on level and caster type
-        spell_slots = [0] * 10  # Index 0 unused, 1-9 are spell levels
+    # Calculate spell slots using progression data if available
+    spell_slots = [0] * 10  # Index 0 unused, 1-9 are spell levels
 
+    try:
+        from .progression_loader import get_spell_slots_for_level
+        spell_slots = get_spell_slots_for_level(class_type.index, level)
+    except Exception:
+        # Fallback to hardcoded values if progression data not available
         if class_type.spellcasting_level == 1:  # Full caster
             if level >= 1: spell_slots[1] = 2 if level == 1 else 3 if level == 2 else 4
             if level >= 3: spell_slots[2] = 2 if level == 3 else 3
@@ -304,10 +309,67 @@ def simple_character_generator(
     )
 
 
+def level_up_character(character, new_level: int = None, verbose: bool = True):
+    """
+    Fait passer un personnage au niveau supérieur en appliquant tous les bénéfices
+
+    Args:
+        character: Instance de Character
+        new_level: Nouveau niveau (si None, level+1)
+        verbose: Afficher les messages
+
+    Returns:
+        Character modifié
+    """
+    if new_level is None:
+        new_level = character.level + 1
+
+    if new_level <= character.level:
+        if verbose:
+            print(f"⚠️  Le personnage est déjà niveau {character.level}")
+        return character
+
+    if new_level > 20:
+        if verbose:
+            print(f"⚠️  Niveau maximum atteint (20)")
+        return character
+
+    try:
+        from .progression_loader import apply_level_up_benefits
+
+        if verbose:
+            print(f"\n🎉 {character.name} passe du niveau {character.level} au niveau {new_level}!")
+
+        # Appliquer les bénéfices
+        character.level = new_level
+        apply_level_up_benefits(character, new_level)
+
+    except Exception as e:
+        if verbose:
+            print(f"⚠️  Impossible d'utiliser le système de progression: {e}")
+            print(f"   Utilisation du système de base...")
+
+        # Fallback: Augmentation basique
+        from random import randint
+
+        hp_gain = randint(1, character.class_type.hit_die) + character.abilities.get_modifier('con')
+        hp_gain = max(1, hp_gain)
+
+        character.level = new_level
+        character.max_hit_points += hp_gain
+        character.hit_points += hp_gain
+
+        if verbose:
+            print(f"   ❤️  HP: +{hp_gain} ({character.max_hit_points} total)")
+
+    return character
+
+
 __all__ = [
     'populate',
     'request_monster',
     'load_monsters_database',
     'simple_character_generator',
+    'level_up_character',
 ]
 
