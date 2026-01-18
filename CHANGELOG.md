@@ -7,6 +7,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.2] - 2026-01-18
+
+### Fixed
+- **Condition Class Implementation** - Migrated complete `Condition` class from `dao_classes.py`
+  - Added `ConditionType` enum with all D&D 5e standard conditions
+  - Implemented `Condition` dataclass with proper typing
+  - Added 14 condition helper functions:
+    * `create_restrained_condition()` - Speed 0, disadvantage on attacks
+    * `create_poisoned_condition()` - Disadvantage on attacks and ability checks
+    * `create_frightened_condition()` - Disadvantage while source visible
+    * `create_grappled_condition()` - Speed becomes 0
+    * `create_paralyzed_condition()` - Incapacitated, auto-fail STR/DEX saves
+    * `create_stunned_condition()` - Incapacitated, advantage against
+    * `create_prone_condition()` - Disadvantage on attacks
+    * `create_blinded_condition()` - Disadvantage, attacks have advantage
+    * `create_charmed_condition()` - Can't attack charmer
+    * `create_incapacitated_condition()` - Can't take actions
+    * `create_unconscious_condition()` - Multiple severe effects
+  - Fixed import errors in `combat/__init__.py`
+  - Proper integration with `AbilityType` from abilities module
+  - Creature tracking for conditions like grapple and restrained
+
+### Changed
+- `dnd_5e_core.combat.condition` - Now fully functional with complete implementation
+- Fixed `dataclass` import in `DnD5e-Scenarios/src/utils/treasure_manager.py`
+
 ## [0.2.1] - 2026-01-18
 
 ### 🎉 Major Features Added
