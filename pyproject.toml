@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "dnd-5e-core"
 version = "0.2.6"
-description = "Complete D&D 5e Rules Engine with Condition Parsing, Magic Items & Combat System: 332 monsters, 319+ spells, automatic condition application. 100% offline."
+description = "Ultimate D&D 5e Rules Engine: 24 Class Abilities, 20 Racial Traits, 40+ Subclasses, Multiclassing, Advanced Combat System, 332 Monsters, 319+ Spells, Magic Items, Conditions. 100% Offline."
 readme = {file = "README.md", content-type = "text/markdown"}
 authors = [
     { name = "D&D Development Team", email = "dev@codingame-team.com" }
@@ -31,7 +31,28 @@ keywords = [
     "challenge-rating",
     "gold-rewards",
     "standalone",
-    "offline"
+    "offline",
+    "class-abilities",
+    "racial-traits",
+    "subclasses",
+    "multiclassing",
+    "magic-items",
+    "conditions",
+    "character-creation",
+    "leveling-system",
+    "ability-scores",
+    "saving-throws",
+    "proficiencies",
+    "equipment",
+    "potions",
+    "weapons",
+    "armor",
+    "dice-rolling",
+    "initiative",
+    "turn-based",
+    "fantasy",
+    "role-playing-game",
+    "ttrpg"
 ]
 requires-python = ">=3.10"
 classifiers = [
@@ -86,4 +107,3 @@ include-package-data = true
 where = ["."]
 include = ["dnd_5e_core*"]
 exclude = ["tests*", "docs*"]
-
