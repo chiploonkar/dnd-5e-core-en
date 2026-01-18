@@ -10,8 +10,9 @@ from .condition import (
     create_frightened_condition, create_grappled_condition,
     create_paralyzed_condition, create_stunned_condition,
     create_prone_condition, create_blinded_condition,
-    create_charmed_condition
+    create_charmed_condition, create_incapacitated_condition
 )
+from .condition_parser import ConditionParser, parse_magic_item_conditions
 from .action import ActionType, Action
 from .special_ability import AreaOfEffect, SpecialAbility
 from .combat_system import CombatSystem, execute_combat_turn
@@ -25,7 +26,8 @@ __all__ = [
     'create_frightened_condition', 'create_grappled_condition',
     'create_paralyzed_condition', 'create_stunned_condition',
     'create_prone_condition', 'create_blinded_condition',
-    'create_charmed_condition',
+    'create_charmed_condition', 'create_incapacitated_condition',
+    'ConditionParser', 'parse_magic_item_conditions',
     'ActionType', 'Action',
     'AreaOfEffect', 'SpecialAbility',
     'CombatSystem', 'execute_combat_turn',

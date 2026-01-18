@@ -46,7 +46,7 @@ Modules
 - data: API loaders and serialization
 """
 
-__version__ = '0.1.9'
+__version__ = '0.2.6'
 __author__ = 'D&D Development Team'
 
 # Import key classes for convenience
@@ -57,6 +57,8 @@ from .equipment import (
     Weapon, Armor
 )
 from .mechanics import DamageDice
+from .mechanics.class_abilities import ClassAbilities
+from .mechanics.racial_traits import RacialTraits
 from .abilities import Abilities, AbilityType
 from .races import Language, Trait, SubRace, Race
 from .classes import ProfType, Proficiency, ClassType
