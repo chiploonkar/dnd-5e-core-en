@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "dnd-5e-core"
-version = "0.2.0"
-description = "Complete D&D 5e Rules Engine with Magic Items & Defensive Spells: 332 monsters, 319+ spells, combat actions, encounter builder. 100% offline."
+version = "0.2.1"
+description = "Complete D&D 5e Rules Engine with Magic Items, Defensive Spells & Conditions: 332 monsters, 319+ spells, combat conditions, treasure system. 100% offline."
 readme = {file = "README.md", content-type = "text/markdown"}
 authors = [
     { name = "D&D Development Team", email = "dev@codingame-team.com" }

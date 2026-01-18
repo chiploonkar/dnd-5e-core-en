@@ -7,6 +7,99 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.1] - 2026-01-18
+
+### 🎉 Major Features Added
+
+#### Conditions System
+- **Complete Conditions Implementation** for D&D 5e combat
+  - `Condition` class with all D&D 5e conditions
+  - Automatic effects application (disadvantage, advantage, speed, etc.)
+  - Save system with DC and ability checks
+  - Duration tracking (rounds or until saved)
+  - 9 predefined condition creators:
+    * `create_restrained_condition()` - Speed 0, disadvantage on attacks
+    * `create_poisoned_condition()` - Disadvantage on attacks and ability checks
+    * `create_frightened_condition()` - Disadvantage while source visible
+    * `create_grappled_condition()` - Speed becomes 0
+    * `create_paralyzed_condition()` - Incapacitated, auto-fail STR/DEX saves
+    * `create_stunned_condition()` - Incapacitated, advantage against
+    * `create_prone_condition()` - Disadvantage on attacks
+    * `create_blinded_condition()` - Disadvantage, attacks have advantage
+    * `create_charmed_condition()` - Can't attack charmer
+
+- **Condition Effects on Combat**:
+  - `disadvantage_on_attacks` - Attack rolls with disadvantage
+  - `advantage_against` - Attacks against creature have advantage  
+  - `speed_zero` - Movement speed becomes 0
+  - `incapacitated` - Can't take actions
+  - `auto_fail_str_dex` - Auto-fail STR and DEX saves
+  - `disadvantage_on_saves` - Disadvantage on saving throws
+  - `disadvantage_on_ability_checks` - Disadvantage on ability checks
+
+- **Condition Management**:
+  - `apply_to_character(character)` - Apply condition
+  - `remove_from_character(character)` - Remove condition
+  - `should_save(round_num)` - Check if should attempt save
+  - `attempt_save(character)` - Attempt saving throw
+  - Source tracking (monster or spell that applied condition)
+
+### Added
+- `dnd_5e_core.combat.condition` - Complete conditions system
+- `tests/test_conditions.py` - Comprehensive conditions test suite
+- Conditions exported from `dnd_5e_core.combat` module
+- DnD5e-Scenarios integration modules:
+  - `src/utils/character_manager.py` - Character sheet display and party management
+  - `src/utils/treasure_manager.py` - Treasure generation and distribution
+  - `demo_complete.py` - Full integration demonstration
+  - `test_magic_items_combat.py` - Combat with magic items test
+
+### Changed
+- `combat/__init__.py` - Added all condition exports
+- Updated examples to show condition usage
+
+### Documentation
+- Added condition system documentation
+- Test scripts demonstrate all condition features
+- Character sheet display with conditions
+- Party management menu system
+
+### Examples
+
+**Using Conditions:**
+```python
+from dnd_5e_core.combat import create_restrained_condition
+
+# Apply restrained condition
+restrained = create_restrained_condition(creature=spider, save_dc=11)
+restrained.apply_to_character(fighter)
+
+# Check effects
+print(f"Speed zero: {restrained.speed_zero}")  # True
+print(f"Disadvantage: {restrained.disadvantage_on_attacks}")  # True
+
+# Attempt save
+if restrained.attempt_save(fighter):
+    restrained.remove_from_character(fighter)
+```
+
+**Character Sheet Display:**
+```python
+from character_manager import display_character_sheet
+
+display_character_sheet(wizard)
+# Shows: abilities, HP, AC, inventory, magic items, spells, conditions
+```
+
+**Treasure System:**
+```python
+from treasure_manager import generate_treasure_by_cr, distribute_treasure_to_party
+
+treasures = generate_treasure_by_cr(challenge_rating=2.0, num_monsters=3)
+distribute_treasure_to_party(treasures, party)
+# Automatically distributes gold, magic items, equipment
+```
+
 ## [0.2.0] - 2026-01-18
 
 ### 🎉 Major Features Added

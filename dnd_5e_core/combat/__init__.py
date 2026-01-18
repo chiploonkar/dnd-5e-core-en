@@ -4,7 +4,14 @@ Contains all combat-related classes and systems
 """
 
 from .damage import Damage
-from .condition import Condition
+from .condition import (
+    Condition, ConditionType,
+    create_restrained_condition, create_poisoned_condition,
+    create_frightened_condition, create_grappled_condition,
+    create_paralyzed_condition, create_stunned_condition,
+    create_prone_condition, create_blinded_condition,
+    create_charmed_condition
+)
 from .action import ActionType, Action
 from .special_ability import AreaOfEffect, SpecialAbility
 from .combat_system import CombatSystem, execute_combat_turn
@@ -13,7 +20,12 @@ from ..equipment import RangeType
 
 __all__ = [
     'Damage',
-    'Condition',
+    'Condition', 'ConditionType',
+    'create_restrained_condition', 'create_poisoned_condition',
+    'create_frightened_condition', 'create_grappled_condition',
+    'create_paralyzed_condition', 'create_stunned_condition',
+    'create_prone_condition', 'create_blinded_condition',
+    'create_charmed_condition',
     'ActionType', 'Action',
     'AreaOfEffect', 'SpecialAbility',
     'CombatSystem', 'execute_combat_turn',
