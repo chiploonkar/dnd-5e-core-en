@@ -1,0 +1,18 @@
+================================================================================
+✅ VERSION INCRÉMENTÉE - dnd-5e-core v0.2.7
+================================================================================
+PROBLÈME RÉSOLU:
+❌ "File already exists ('dnd_5e_core-0.2.6-py3-none-any.whl')"
+SOLUTION:
+✅ Version 0.2.6 → 0.2.7 dans tous les fichiers
+✅ pyproject.toml, setup.py, __init__.py synchronisés
+✅ CHANGELOG.md mis à jour
+✅ Script quick_publish.sh créé
+COMMANDES:
+  cd /Users/display/PycharmProjects/dnd-5e-core
+  ./quick_publish.sh
+RÉSULTAT ATTENDU:
+  ✅ Publication dnd-5e-core-0.2.7 sur PyPI
+  ✅ Installation: pip install dnd-5e-core==0.2.7
+STATUS: ✅ PRÊT À PUBLIER
+================================================================================

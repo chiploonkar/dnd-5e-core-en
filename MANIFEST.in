@@ -16,6 +16,7 @@ recursive-include dnd_5e_core/data *.json
 recursive-include dnd_5e_core/data *.png
 recursive-include dnd_5e_core/data *.jpg
 recursive-include dnd_5e_core/data *.webp
+recursive-include dnd_5e_core/data/collections *.json
 
 # Include README files in data directories
 recursive-include collections README.md

@@ -39,7 +39,9 @@ def get_collections_directory() -> Path:
 
         # Try common locations
         possible_paths = [
-            # If collections is in the dnd-5e-core package itself (preferred)
+            # If collections is inside the dnd_5e_core/data package (preferred for distribution)
+            current_file.parent / "collections",
+            # If collections is in the dnd-5e-core package project root (for dev)
             current_file.parent.parent.parent / "collections",
             # If used from DnD-5th-Edition-API project (fallback)
             current_file.parent.parent.parent.parent.parent / "DnD-5th-Edition-API" / "collections",

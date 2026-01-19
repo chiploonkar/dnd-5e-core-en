@@ -1,0 +1,25 @@
+================================================================================
+✅ DESCRIPTION PyPI OPTIMISÉE - v0.2.6
+================================================================================
+NOUVELLE DESCRIPTION:
+"Ultimate D&D 5e Rules Engine: 24 Class Abilities, 20 Racial Traits, 40+ Subclasses, Multiclassing, Advanced Combat System, 332 Monsters, 319+ Spells, Magic Items, Conditions. 100% Offline."
+MOTS-CLÉS AJOUTÉS (14):
+• class-abilities, racial-traits, subclasses, multiclassing
+• character-creation, leveling-system, ability-scores
+• saving-throws, proficiencies, equipment
+• potions, weapons, armor, dice-rolling
+• initiative, turn-based, fantasy, role-playing-game, ttrpg
+CHANGELOG SYNTHÉTISÉ:
+• Versions majeures préservées
+• Détails techniques réduits
+• Lisibilité améliorée
+• ~65% de réduction (570 → ~200 lignes)
+IMPACT PyPI:
+• Découvrabilité améliorée
+• Positionnement "Ultimate"
+• Sidebar enrichie
+• Mots-clés pertinents
+PRÊT POUR PUBLICATION:
+./publish_final.sh
+STATUS: ✅ OPTIMISÉ
+================================================================================

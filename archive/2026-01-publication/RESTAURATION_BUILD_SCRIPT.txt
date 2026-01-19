@@ -1,0 +1,32 @@
+================================================================================
+✅ RESTAURATION DU SCRIPT DE BUILD
+================================================================================
+Date: 18 Janvier 2026
+FICHIERS RESTAURÉS:
+  ✅ build_package.sh (200 lignes)
+     - Script complet de build et publication PyPI
+     - Options: --clean, --build, --test, --publish, --all
+     - Gestion TestPyPI et PyPI production
+     - Vérifications automatiques
+     - Interface colorée
+  ✅ PUBLICATION_PYPI_GUIDE.md (350 lignes)
+     - Guide complet de publication
+     - Workflow étape par étape
+     - Configuration PyPI/TestPyPI
+     - Gestion d'erreurs
+     - Checklist de publication
+FONCTIONNALITÉS:
+  - Nettoyage automatique (dist/, build/, *.egg-info)
+  - Build avec python-build (moderne)
+  - Vérification avec twine check
+  - Publication sur TestPyPI (test)
+  - Publication sur PyPI (production)
+  - Protection contre les erreurs
+UTILISATION:
+  ./build_package.sh --help        # Afficher l'aide
+  ./build_package.sh --clean       # Nettoyer
+  ./build_package.sh --build       # Construire
+  ./build_package.sh --test        # Publier sur TestPyPI
+  ./build_package.sh --publish     # Publier sur PyPI   ./build_package.sh --all         # Tout faire
+STATUS: ✅ PRÊT À L'EMPLOI
+================================================================================

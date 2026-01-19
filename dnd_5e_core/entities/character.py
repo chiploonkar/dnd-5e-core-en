@@ -197,23 +197,6 @@ class Character:
 		return self._get_ability("cha")
 
 	@property
-	def multi_attacks(self) -> int:
-		"""Calculate number of attacks per turn"""
-		if self.class_type.index == "fighter":
-			if self.level < 5:
-				attack_counts = 1
-			elif self.level < 11:
-				attack_counts = 2
-			else:
-				attack_counts = 3
-		elif self.class_type.index in ("paladin", "ranger", "monk", "barbarian"):
-			attack_counts = 2 if self.level >= 5 else 1
-		else:
-			attack_counts = 1
-
-		return attack_counts + self.multi_attack_bonus
-
-	@property
 	def armor_class(self):
 		equipped_armors: List[Armor] = [item for item in self.inventory if isinstance(item, Armor) and item.equipped and item.name != "Shield"]
 		equipped_shields: List[Armor] = [item for item in self.inventory if isinstance(item, Armor) and item.name == "Shield" and item.equipped]
@@ -235,165 +218,10 @@ class Character:
 
 		return self.weapon.damage_dice
 
-	@property
-	def prof_weapons(self) -> List['Weapon']:
-		"""Get all proficient weapons"""
-		from ..classes.proficiency import ProfType
-		weapons = []
-		for p in self.proficiencies:
-			if p.type == ProfType.WEAPON:
-				if isinstance(p.ref, list):
-					weapons.extend(p.ref)
-				else:
-					weapons.append(p.ref)
-		return [w for w in weapons if w is not None]
-
-	@property
-	def prof_armors(self) -> List['Armor']:
-		"""Get all proficient armors"""
-		from ..classes.proficiency import ProfType
-		armors = []
-		for p in self.proficiencies:
-			if p.type == ProfType.ARMOR:
-				if isinstance(p.ref, list):
-					armors.extend(p.ref)
-				else:
-					armors.append(p.ref)
-		return [a for a in armors if a is not None]
-
 	# ===== Methods =====
 
 	def can_cast(self, spell: Spell) -> bool:
 		return self.is_spell_caster and spell in self.sc.learned_spells and (self.sc.spell_slots[spell.level - 1] > 0 or spell.is_cantrip)
-
-	def drink(self, potion: 'Potion') -> bool:
-		"""
-		Drink a potion and apply its effects.
-
-		Args:
-			potion: The potion to drink
-
-		Returns:
-			bool: True if potion was successfully drunk
-		"""
-		from ..equipment.potion import HealingPotion, SpeedPotion, StrengthPotion
-		import time
-		from random import randint
-
-		if not hasattr(potion, "min_level"):
-			potion.min_level = 1
-
-		if self.level < potion.min_level:
-			return False
-
-		if isinstance(potion, StrengthPotion):
-			self.str_effect_modifier = potion.value
-			self.str_effect_timer = time.time()
-		elif isinstance(potion, SpeedPotion):
-			self.hasted = True
-			self.haste_timer = time.time()
-			self.speed *= 2
-			self.ac_bonus = 2
-			self.multi_attack_bonus = 1
-			if not hasattr(self, "st_advantages"):
-				self.st_advantages = []
-			self.st_advantages += ["dex"]
-		else:  # HealingPotion
-			hp_to_recover = self.max_hit_points - self.hit_points
-			dice_count, roll_dice = map(int, potion.hit_dice.split("d"))
-			hp_restored = potion.bonus + sum([randint(1, roll_dice) for _ in range(dice_count)])
-			self.hit_points = min(self.hit_points + hp_restored, self.max_hit_points)
-
-		return True
-
-	def equip(self, item) -> bool:
-		"""
-		Equip or unequip an item (weapon or armor).
-
-		Args:
-			item: The item to equip/unequip
-
-		Returns:
-			bool: True if item was successfully equipped/unequipped
-		"""
-		from ..equipment.armor import Armor
-		from ..equipment.weapon import Weapon
-
-		if isinstance(item, Armor):
-			if item.index == "shield":
-				if self.shield:
-					if item == self.shield:
-						# un-equip shield
-						item.equipped = not item.equipped
-						return True
-					else:
-						# Cannot equip - already have shield equipped
-						return False
-				else:
-					if self.weapon:
-						is_two_handed = [p for p in self.weapon.properties if p.index == "two-handed"]
-						if is_two_handed:
-							# Cannot equip shield with 2-handed weapon
-							return False
-						else:
-							# equip shield
-							item.equipped = not item.equipped
-							return True
-					else:
-						# equip shield
-						item.equipped = not item.equipped
-						return True
-			else:
-				if self.armor:
-					if item == self.armor:
-						# un-equip armor
-						item.equipped = not item.equipped
-						return True
-					else:
-						# Cannot equip - already have armor equipped
-						return False
-				else:
-					if self.strength < item.str_minimum:
-						# Cannot equip - not strong enough
-						return False
-					else:
-						# equip armor
-						item.equipped = not item.equipped
-						return True
-		elif isinstance(item, Weapon):
-			if self.weapon:
-				if item == self.weapon:
-					# un-equip weapon
-					item.equipped = not item.equipped
-					return True
-				else:
-					# Cannot equip - already have weapon equipped
-					return False
-			else:
-				is_two_handed = [p for p in item.properties if p.index == "two-handed"]
-				if is_two_handed and self.shield:
-					# Cannot equip 2-handed weapon with shield
-					return False
-				else:
-					# equip weapon
-					item.equipped = not item.equipped
-					return True
-		else:
-			# Cannot equip this type of item
-			return False
-
-	def victory(self, monster: 'Monster', gold_reward: int = 0):
-		"""
-		Handle victory over a monster.
-
-		Args:
-			monster: The defeated monster
-			gold_reward: Gold found (optional)
-		"""
-		self.xp += monster.xp
-		self.kills.append(monster)
-		if gold_reward > 0:
-			self.gold += gold_reward
 
 	def take_damage(self, damage: int):
 		"""Take damage"""
@@ -406,25 +234,6 @@ class Character:
 	@property
 	def is_full(self) -> bool:
 		return all(item for item in self.inventory)
-
-	def treasure(self, weapons, armors, equipments: List[Equipment], potions, solo_mode=False):
-		if self.is_full:
-			return
-		free_slot = min([i for i, item in enumerate(self.inventory) if item is None])
-		treasure_dice = randint(1, 3)
-		if treasure_dice == 1:
-			self.inventory[free_slot] = choice(potions)
-		elif treasure_dice == 2:
-			new_weapon: Weapon = choice(self.prof_weapons)
-			self.inventory[free_slot] = new_weapon
-		else:
-			if self.prof_armors:
-				new_armor: Armor = choice(self.prof_armors)
-				if new_armor.armor_class["base"] > self.armor_class:
-					for item in self.inventory:
-						if isinstance(item, Armor) and item.equipped:
-							item.equipped = False  # new_armor.equipped = True
-				self.inventory[free_slot] = new_armor
 
 	def get_best_slot_level(self, heal_spell: Spell, target: Character) -> int:
 		max_slot_level = max(i for i, slot in enumerate(self.sc.spell_slots) if slot)
@@ -445,140 +254,6 @@ class Character:
 			if char.hit_points < char.max_hit_points:
 				hp_gained: int = min(dd.roll(), char.max_hit_points - char.hit_points)
 				char.hit_points += hp_gained
-
-	def cast_attack(self, spell: Spell, monster: Monster) -> int:
-		ability_modifier: int = int(self.ability_modifiers.get_value_by_index(name=self.class_type.spellcasting_ability))
-		damage_dices: List[DamageDice] = spell.get_spell_damages(caster_level=self.level, ability_modifier=ability_modifier)
-		damage_roll: int = 0
-		for dd in damage_dices:
-			damage_roll += dd.roll()
-		if spell.dc_type:
-			st_success: bool = monster.saving_throw(dc_type=self.class_type.spellcasting_ability, dc_value=self.dc_value)
-			if st_success:
-				if spell.dc_success == "half":
-					damage_roll //= 2
-				elif spell.dc_success == "none":
-					damage_roll = 0
-		return damage_roll
-
-	def update_spell_slots(self, spell: Spell, slot_level: Optional[int] = None):
-		slot_level: int = slot_level + 1 if slot_level else spell.level
-		if self.class_type.name == "Warlock":
-			# all of your spell slots are the same level
-			for level, slot in enumerate(self.sc.spell_slots):
-				if slot:
-					self.sc.spell_slots[level] -= 1
-		else:
-			self.sc.spell_slots[slot_level - 1] -= 1
-
-	def attack(self, monster: Optional['Monster'] = None, character: Optional['Character'] = None, in_melee: bool = True, cast: bool = True, actions: Optional[List] = None) -> int:
-		"""
-		Attack a monster or character.
-
-		Pure business logic - no UI output.
-		The caller is responsible for displaying attack messages using dnd_5e_core.ui.
-
-		Args:
-			monster: Target monster
-			character: Target character (for PvP)
-			in_melee: Whether in melee range
-			cast: Whether to use spells if available
-			actions: Available actions (unused, for compatibility)
-
-		Returns:
-			int: Total damage dealt
-		"""
-		# Determine target (prioritize monster parameter for backward compatibility)
-		target = monster if monster is not None else character
-		if target is None:
-			return 0
-
-		def prof_bonus(x):
-			return x // 5 + 2 if x < 5 else (x - 5) // 4 + 3
-
-		damage_roll = 0
-		castable_spells: List['Spell'] = []
-
-		# Check for castable spells
-		if self.is_spell_caster:
-			cantric_spells: List['Spell'] = [s for s in self.sc.learned_spells if not s.level]
-			slot_spells: List['Spell'] = [s for s in self.sc.learned_spells if s.level and self.sc.spell_slots[s.level - 1] > 0 and s.damage_type]
-			castable_spells = cantric_spells + slot_spells
-
-		# Use spell if available and not in melee
-		if cast and castable_spells and not in_melee:
-			attack_spell: 'Spell' = max(castable_spells, key=lambda s: s.level)
-			damage_roll = self.cast_attack(attack_spell, target)
-			if not attack_spell.is_cantrip:
-				self.update_spell_slots(spell=attack_spell)
-		else:
-			# Melee/weapon attacks
-			damage_multi = 0
-			for _ in range(self.multi_attacks):
-				if self.hit_points <= 0:
-					break
-
-				attack_roll = (randint(1, 20) + self.ability_modifiers.get_value_by_index("str") + prof_bonus(self.level))
-
-				if attack_roll >= target.armor_class:
-					damage_roll = self.damage_dice.roll()
-
-				if damage_roll:
-					# UI layer should display attack message:
-					# attack_type = (self.weapon.damage_type.index.replace("ing", "es") if self.weapon else "punches")
-					# cprint(f"{color.RED}{self.name}{color.END} {attack_type} {color.GREEN}{target.name}{color.END} for {damage_roll} hit points!")
-
-					# Check if restrained (damage to self)
-					if any([e for e in (self.conditions or []) if e.index == "restrained"]):
-						damage_roll //= 2
-						self.hit_points -= damage_roll
-						# UI layer should display: f"{self.name} inflicts himself {damage_roll} hit points!"
-						if self.hit_points <= 0:
-							pass  # UI layer should display: f"{self.name} *** IS DEAD ***!"
-					damage_multi += damage_roll
-				else:
-					pass  # UI layer should display: f"{self.name} misses {target.name}!"
-
-			damage_roll = damage_multi
-
-		return damage_roll
-
-	def saving_throw(self, dc_type: str, dc_value: int) -> bool:
-		"""
-		Perform a saving throw against a spell or effect.
-
-		Pure business logic - no UI output.
-
-		Args:
-			dc_type: Ability type for ST (e.g., 'dex', 'con', 'wis')
-			dc_value: Difficulty class to beat
-
-		Returns:
-			bool: True if saving throw succeeds
-		"""
-
-		def ability_mod(x):
-			return (x - 10) // 2
-
-		def prof_bonus(x):
-			return x // 5 + 2 if x < 5 else (x - 5) // 4 + 3
-
-		st_type: str = f"saving-throw-{dc_type}"
-		prof_modifiers: List[int] = [p.value for p in self.proficiencies if st_type == p.index]
-
-		if prof_modifiers:
-			ability_modifier: int = prof_modifiers[0]
-		else:
-			ability_modifier: int = (ability_mod(self.abilities.get_value_by_index(dc_type)) + prof_bonus(self.level))
-
-		# Check for advantage on this saving throw
-		has_advantage = (hasattr(self, "st_advantages") and self.st_advantages and dc_type in self.st_advantages)
-
-		if has_advantage:
-			# Roll with advantage (best of 2 rolls)
-			return any(randint(1, 20) + ability_modifier > dc_value for _ in range(2))
-		else:
-			return randint(1, 20) + ability_modifier > dc_value
 
 	def gain_level(self, tome_spells: List = None, verbose: bool = False) -> tuple:
 		"""
@@ -1167,11 +842,13 @@ class Character:
 
 		# Warlock uses different slot mechanics
 		if hasattr(self.class_type, 'name') and self.class_type.name == "Warlock":
-			# Warlock implementation would go here
-			pass
+			# all of your spell slots are the same level
+			for level, slot in enumerate(self.sc.spell_slots):
+				if slot:
+					self.sc.spell_slots[level] -= 1
 		else:
 			# Standard spellcaster
-			if slot_level > 0 and slot_level <= len(self.sc.spell_slots):
+			if 0 < slot_level <= len(self.sc.spell_slots):
 				self.sc.spell_slots[slot_level - 1] -= 1
 
 	@property
@@ -1303,53 +980,9 @@ class Character:
 			self.level >= p.min_level
 		]
 
-		if available_potions:
-			# Choose potion that heals just enough (avoid waste)
-			return min(available_potions, key=lambda p: p.max_hp_restored)
-		else:
-			# Choose best available potion
-			return max(healing_potions, key=lambda p: p.max_hp_restored)
-
-	def choose_best_potion(self):
-		"""
-		Choose the best healing potion based on HP to recover.
-
-		Returns:
-			HealingPotion: The best potion to use
-		"""
-		from ..equipment import HealingPotion
-
-		hp_to_recover = self.max_hit_points - self.hit_points
-		healing_potions = [p for p in self.inventory if isinstance(p, HealingPotion)]
-
-		if not healing_potions:
-			return None
-
-		available_potions = [
-			p for p in healing_potions
-			if p.max_hp_restored >= hp_to_recover and
-			hasattr(p, "min_level") and
-			self.level >= p.min_level
-		]
-
 		return (
 			min(available_potions, key=lambda p: p.max_hp_restored)
 			if available_potions
 			else max(healing_potions, key=lambda p: p.max_hp_restored)
 		)
-
-	def cancel_haste_effect(self):
-		"""Cancel the haste effect and reset attributes."""
-		self.hasted = False
-		self.speed = 25 if self.race.index in ["dwarf", "halfling", "gnome"] else 30
-		self.ac_bonus = 0
-		self.multi_attack_bonus = 0
-		if not hasattr(self, "st_advantages"):
-			self.st_advantages = ["dex"]
-		if "dex" in self.st_advantages:
-			self.st_advantages.remove("dex")
-
-	def cancel_strength_effect(self):
-		"""Cancel the strength effect."""
-		self.str_effect_modifier = -1
 

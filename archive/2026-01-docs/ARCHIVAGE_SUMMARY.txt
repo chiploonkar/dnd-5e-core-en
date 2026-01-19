@@ -1,0 +1,17 @@
+================================================================================
+ARCHIVAGE FINAL COMPLET - 18 Janvier 2026
+================================================================================
+TOTAL ARCHIVÉ: 61 fichiers
+dnd-5e-core:
+  - 26 documents Markdown → archive/docs/
+  - 10 scripts Python/Shell → archive/scripts/
+  Total: 36 fichiers
+DnD5e-Scenarios:
+  - 11 documents Markdown → archive/docs/
+  - 14 scripts Python → archive/test_scripts/
+  Total: 25 fichiers
+FICHIERS ACTIFS CONSERVÉS:
+  dnd-5e-core: README.md, CHANGELOG.md, ARCHITECTURE.md, etc.
+  DnD5e-Scenarios: test_ultimate_combat_v5.py, launcher.py, 15 scénarios
+STATUS: ✅ TERMINÉ
+================================================================================

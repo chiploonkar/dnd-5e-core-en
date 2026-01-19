@@ -7,6 +7,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.7] - 2026-01-18
+
+### Added
+- **PyPI Optimization** - Amélioration complète des métadonnées PyPI
+  - Description mise à jour avec les nouvelles fonctionnalités majeures
+  - 32 mots-clés ajoutés pour une meilleure découvrabilité
+  - Métadonnées complètes pour le positionnement "Ultimate D&D 5e Rules Engine"
+
+### Changed
+- **CHANGELOG Synthesis** - Synthèse des anciennes versions pour lisibilité
+  - Réduction de ~570 à ~200 lignes (65% de réduction)
+  - Conservation des changements majeurs
+  - Suppression des détails techniques répétitifs
+
+### Fixed
+- **Version Consistency** - Synchronisation parfaite des versions
+  - pyproject.toml, setup.py, et __init__.py alignés
+  - Prévention des conflits de publication PyPI
+
 ## [0.2.6] - 2026-01-18
 
 ### Added

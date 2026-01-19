@@ -210,8 +210,13 @@ def simple_character_generator(
         # Load all spells
         try:
             all_spells = load_all_spells()
+            if not all_spells:
+                print(f"⚠️  Warning: No spells loaded (load_all_spells returned empty list)")
         except Exception as e:
-            print(f"Warning: Could not load spells: {e}")
+            import traceback
+            print(f"⚠️  Warning: Could not load spells: {e}")
+            print("Full traceback:")
+            traceback.print_exc()
             all_spells = []
 
         # Filter learnable spells (same logic as get_spell_caster in main.py)
@@ -222,7 +227,7 @@ def simple_character_generator(
             and (s.damage_type or s.heal_at_slot_level)
         ]
 
-        learned_spells = []
+        learned_spells = []  # Initialize to empty list
         if learnable_spells:
             # Separate cantrips and slot spells
             cantrips_spells = [s for s in learnable_spells if s.level == 0]
@@ -240,32 +245,32 @@ def simple_character_generator(
             if slot_spells and n_slot_spells > 0:
                 learned_spells += sample(slot_spells, min(n_slot_spells, len(slot_spells)))
 
-    # Calculate spell slots using progression data if available
-    spell_slots = [0] * 10  # Index 0 unused, 1-9 are spell levels
+        # Calculate spell slots using progression data if available
+        spell_slots = [0] * 10  # Index 0 unused, 1-9 are spell levels
 
-    try:
-        from .progression_loader import get_spell_slots_for_level
-        spell_slots = get_spell_slots_for_level(class_type.index, level)
-    except Exception:
-        # Fallback to hardcoded values if progression data not available
-        if class_type.spellcasting_level == 1:  # Full caster
-            if level >= 1: spell_slots[1] = 2 if level == 1 else 3 if level == 2 else 4
-            if level >= 3: spell_slots[2] = 2 if level == 3 else 3
-            if level >= 5: spell_slots[3] = 2 if level == 5 else 3
-            if level >= 7: spell_slots[4] = 1 if level == 7 else 2 if level == 8 else 3
-            if level >= 9: spell_slots[5] = 1 if level == 9 else 2
-            if level >= 11: spell_slots[6] = 1
-            if level >= 13: spell_slots[7] = 1
-            if level >= 15: spell_slots[8] = 1
-            if level >= 17: spell_slots[9] = 1
-        elif class_type.spellcasting_level == 2:  # Half caster (Paladin, Ranger)
-            # Half casters get slots as if they were half their level (rounded down)
-            effective_level = level // 2
-            if effective_level >= 1: spell_slots[1] = 2 if effective_level == 1 else 3 if effective_level == 2 else 4
-            if effective_level >= 3: spell_slots[2] = 2 if effective_level == 3 else 3
-            if effective_level >= 5: spell_slots[3] = 2 if effective_level == 5 else 3
-            if effective_level >= 7: spell_slots[4] = 1 if effective_level == 7 else 2 if effective_level == 8 else 3
-            if effective_level >= 9: spell_slots[5] = 1 if effective_level == 9 else 2
+        try:
+            from .progression_loader import get_spell_slots_for_level
+            spell_slots = get_spell_slots_for_level(class_type.index, level)
+        except Exception:
+            # Fallback to hardcoded values if progression data not available
+            if class_type.spellcasting_level == 1:  # Full caster
+                if level >= 1: spell_slots[1] = 2 if level == 1 else 3 if level == 2 else 4
+                if level >= 3: spell_slots[2] = 2 if level == 3 else 3
+                if level >= 5: spell_slots[3] = 2 if level == 5 else 3
+                if level >= 7: spell_slots[4] = 1 if level == 7 else 2 if level == 8 else 3
+                if level >= 9: spell_slots[5] = 1 if level == 9 else 2
+                if level >= 11: spell_slots[6] = 1
+                if level >= 13: spell_slots[7] = 1
+                if level >= 15: spell_slots[8] = 1
+                if level >= 17: spell_slots[9] = 1
+            elif class_type.spellcasting_level == 2:  # Half caster (Paladin, Ranger)
+                # Half casters get slots as if they were half their level (rounded down)
+                effective_level = level // 2
+                if effective_level >= 1: spell_slots[1] = 2 if effective_level == 1 else 3 if effective_level == 2 else 4
+                if effective_level >= 3: spell_slots[2] = 2 if effective_level == 3 else 3
+                if effective_level >= 5: spell_slots[3] = 2 if effective_level == 5 else 3
+                if effective_level >= 7: spell_slots[4] = 1 if effective_level == 7 else 2 if effective_level == 8 else 3
+                if effective_level >= 9: spell_slots[5] = 1 if effective_level == 9 else 2
 
         # Calculate DC and ability modifier
         ability_modifier = getattr(ability_modifiers, class_type.spellcasting_ability, 0)
