@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.8] - 2026-01-20
+
+### Fixed
+- **Spell Loading Fix** - Correction critique du chargement des sorts dans `simple_character_generator`
+  - Déplacement du répertoire `collections` dans `dnd_5e_core/data/collections` pour inclusion dans le package
+  - Correction de l'indentation dans `loaders.py` pour créer `spell_caster` même si `get_spell_slots_for_level()` échoue
+  - Initialisation de `learned_spells` pour éviter les erreurs de référence
+  - Amélioration des messages d'erreur pour le débogage du chargement des sorts
+  - Mise à jour de `MANIFEST.in` pour inclure les fichiers collections dans le package distribué
+
+### Changed
+- **Package Data Structure** - Réorganisation des données pour une distribution correcte
+  - Les données JSON sont maintenant correctement incluses dans le package PyPI
+  - Auto-détection améliorée des répertoires de données
+
 ## [0.2.7] - 2026-01-18
 
 ### Added
