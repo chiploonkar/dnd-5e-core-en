@@ -855,7 +855,15 @@ class Character:
 	def multi_attacks(self) -> int:
 		"""
 		Calculate number of attacks per round based on class and level.
+
+		If class abilities have been applied (has_class_abilities=True),
+		use the explicit multi_attack_bonus. Otherwise, calculate from class and level.
 		"""
+		# If class abilities have been explicitly applied, use multi_attack_bonus
+		if hasattr(self, 'has_class_abilities') and self.has_class_abilities:
+			return 1 + self.multi_attack_bonus
+
+		# Otherwise, use default calculation for backward compatibility
 		if not hasattr(self, 'class_type'):
 			return 1
 

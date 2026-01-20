@@ -77,7 +77,9 @@ def simple_character_generator(
     level: int = 1,
     race_name: Optional[str] = None,
     class_name: Optional[str] = None,
-    name: Optional[str] = None
+    name: Optional[str] = None,
+    apply_class_abilities: bool = True,
+    apply_racial_traits: bool = True
 ):
     """
     Generate a simple character with basic attributes.
@@ -90,6 +92,8 @@ def simple_character_generator(
         race_name: Race name (optional, random if not provided)
         class_name: Class name (optional, random if not provided)
         name: Character name (optional, random if not provided)
+        apply_class_abilities: Automatically apply class abilities (default: True)
+        apply_racial_traits: Automatically apply racial traits (default: True)
 
     Returns:
         Character instance
@@ -286,7 +290,7 @@ def simple_character_generator(
             ability_modifier=ability_modifier
         )
 
-    return Character(
+    character = Character(
         race=race,
         subrace=None,
         class_type=class_type,
@@ -312,6 +316,107 @@ def simple_character_generator(
         hasted=False,
         st_advantages=[]
     )
+
+    # 🆕 PHASE 1: Apply Class Abilities automatically
+    if apply_class_abilities:
+        from ..mechanics.class_abilities import ClassAbilities
+
+        # Store class abilities manager
+        character.class_abilities_manager = class_name
+
+        # Apply automatic benefits based on class and level
+        if class_name == "fighter" and level >= 5:
+            # Extra Attack at level 5
+            # Use multi_attack_bonus to add extra attacks
+            if level >= 20:
+                character.multi_attack_bonus = 3  # 4 total attacks
+            elif level >= 11:
+                character.multi_attack_bonus = 2  # 3 total attacks
+            else:
+                character.multi_attack_bonus = 1  # 2 total attacks
+
+        elif class_name == "barbarian":
+            # Initialize rage system
+            character.rage_active = False
+            character.rage_uses_left = ClassAbilities._get_rage_uses(level)
+            character.rage_damage_bonus = 0
+            # Barbarians also get Extra Attack at level 5
+            if level >= 5:
+                character.multi_attack_bonus = 1  # 2 total attacks
+
+        elif class_name == "rogue" and level >= 1:
+            # Sneak Attack damage
+            character.sneak_attack_dice = (level + 1) // 2
+
+        elif class_name == "monk" and level >= 1:
+            # Ki points
+            character.ki_points = level
+            character.ki_points_max = level
+            # Monks get Extra Attack at level 5
+            if level >= 5:
+                character.multi_attack_bonus = 1  # 2 total attacks
+
+        elif class_name == "paladin" and level >= 1:
+            # Lay on Hands pool
+            character.lay_on_hands_pool = level * 5
+            # Paladins get Extra Attack at level 5
+            if level >= 5:
+                character.multi_attack_bonus = 1  # 2 total attacks
+
+        elif class_name == "ranger" and level >= 5:
+            # Rangers get Extra Attack at level 5
+            character.multi_attack_bonus = 1  # 2 total attacks
+
+        # Store reference to know abilities are applied
+        character.has_class_abilities = True
+
+    # 🆕 PHASE 1: Apply Racial Traits automatically
+    if apply_racial_traits:
+        from ..mechanics.racial_traits import RacialTraits
+
+        # Store racial traits manager
+        character.racial_traits_manager = race_name
+
+        # Apply automatic benefits based on race
+        if race_name in ["elf", "half-elf"]:
+            RacialTraits.apply_darkvision(character, 60)
+            RacialTraits.apply_fey_ancestry(character)
+            if race_name == "elf":
+                RacialTraits.apply_trance(character)
+                RacialTraits.apply_keen_senses(character)
+
+        elif race_name == "dwarf":
+            RacialTraits.apply_darkvision(character, 60)
+            RacialTraits.apply_dwarven_resilience(character)
+            RacialTraits.apply_stonecunning(character)
+            RacialTraits.apply_dwarven_toughness(character)
+
+        elif race_name == "halfling":
+            RacialTraits.apply_lucky(character)
+            RacialTraits.apply_brave(character)
+            RacialTraits.apply_halfling_nimbleness(character)
+
+        elif race_name == "gnome":
+            RacialTraits.apply_darkvision(character, 60)
+            RacialTraits.apply_gnome_cunning(character)
+
+        elif race_name == "half-orc":
+            RacialTraits.apply_darkvision(character, 60)
+            RacialTraits.apply_relentless_endurance(character)
+            RacialTraits.apply_savage_attacks(character)
+
+        elif race_name == "tiefling":
+            RacialTraits.apply_darkvision(character, 60)
+            RacialTraits.apply_hellish_resistance(character)
+
+        elif race_name == "dragonborn":
+            # Breath weapon will be applied dynamically
+            character.breath_weapon_uses = 1
+
+        # Store reference to know traits are applied
+        character.has_racial_traits = True
+
+    return character
 
 
 def level_up_character(character, new_level: int = None, verbose: bool = True):

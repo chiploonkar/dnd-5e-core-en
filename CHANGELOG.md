@@ -7,6 +7,50 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.9] - 2026-01-20
+
+### Added
+- **Phase 1: Automatic Class Abilities Integration** 🎯
+  - `simple_character_generator()` now automatically applies class abilities
+  - New parameters: `apply_class_abilities` and `apply_racial_traits` (both default to `True`)
+  - Fighter: Extra Attack (2 at L5, 3 at L11, 4 at L20) applied automatically
+  - Barbarian: Rage system initialized (uses per day based on level)
+  - Rogue: Sneak Attack dice calculated automatically
+  - Monk: Ki points initialized (equal to level)
+  - Paladin: Lay on Hands pool initialized (level × 5)
+  - Ranger: Extra Attack at level 5
+  - All characters marked with `has_class_abilities=True` flag
+
+- **Phase 1: Automatic Racial Traits Integration** 🎯
+  - Elf: Darkvision (60ft), Fey Ancestry, Trance, Keen Senses applied automatically
+  - Dwarf: Darkvision (60ft), Dwarven Resilience, Stonecunning, Dwarven Toughness
+  - Halfling: Lucky, Brave, Halfling Nimbleness
+  - Gnome: Darkvision (60ft), Gnome Cunning
+  - Half-Orc: Darkvision (60ft), Relentless Endurance, Savage Attacks
+  - Tiefling: Darkvision (60ft), Hellish Resistance
+  - Dragonborn: Breath Weapon uses initialized
+  - All characters marked with `has_racial_traits=True` flag
+
+- **Test Suite for Phase 1**
+  - `tests/test_phase1_integration.py` - 8 comprehensive tests
+  - Validates automatic application of abilities and traits
+  - Tests backward compatibility (disable features)
+  - All tests passing ✅
+
+### Changed
+- **Character.multi_attacks Property**
+  - Modified to prioritize explicit `multi_attack_bonus` when `has_class_abilities=True`
+  - Maintains backward compatibility with old calculation method
+  - Prevents double-counting of extra attacks
+
+### Documentation
+- **CODE_REVIEW_REPORT.md** - Comprehensive code review (20+ pages)
+  - Analysis of package usage in DnD-5th-Edition-API and DnD5e-Scenarios
+  - Identified underutilized features (ClassAbilities, RacialTraits, Conditions, etc.)
+  - Technical solutions with before/after code examples
+- **INTEGRATION_PLAN.md** - Technical implementation plan for Phase 1
+- **EXECUTIVE_SUMMARY.md** - Executive summary with priorities and ROI estimates
+
 ## [0.2.8] - 2026-01-20
 
 ### Fixed
