@@ -200,13 +200,14 @@ class FiveEToolsSpellParser:
             extracted = self.SPELL_PATTERN.findall(spells_data)
             spells.extend(extracted)
 
-        # Nettoyer et valider
+        # Nettoyer et normaliser
         cleaned_spells = []
         for spell in spells:
-            spell_clean = spell.strip().lower()
-            # Vérifier si le sort existe dans notre base
-            if spell_clean in self.known_spells or True:  # Accepter tous pour l'instant
-                cleaned_spells.append(spell)
+            # Normaliser: lowercase + espaces → tirets
+            # "Detect Magic" → "detect-magic"
+            # "cure wounds" → "cure-wounds"
+            spell_normalized = spell.strip().lower().replace(' ', '-')
+            cleaned_spells.append(spell_normalized)
 
         return cleaned_spells
 
