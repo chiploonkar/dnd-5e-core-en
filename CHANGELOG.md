@@ -7,6 +7,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-01-20
+
+### Validated
+- **Phase 3 & 4: Magic Items & Multiclassing** ✅
+  - Magic Items system already fully implemented
+  - 10+ predefined magic items ready to use
+  - Defensive items (Ring/Cloak of Protection, Bracers of Defense)
+  - Offensive items (Wand of Magic Missiles, Wand of Paralysis, Poisoned Dagger)
+  - Healing items (Staff of Healing)
+  - Stat-enhancing items (Belt of Giant Strength, Amulet of Health)
+  - Multiclassing system fully implemented
+  - Ability prerequisites validation
+  - Spell slots calculation for multiclass spellcasters
+  
+### Tests
+- **test_phase3_phase4.py** - 5 comprehensive tests (100% passing ✅)
+  - Tests magic items creation (10 items)
+  - Tests magic items with characters
+  - Tests multiclass prerequisites
+  - Tests multiclass spell slots calculation
+  - Tests defensive capabilities
+
+### Documentation
+- Phase 3 & 4 validated as already implemented
+- No development required - code fully functional
+
 ## [0.3.0] - 2026-01-20
 
 ### Added
