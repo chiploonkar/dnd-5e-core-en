@@ -1,0 +1,22 @@
+{
+  "index": "sea-hag",
+  "name": "Sea Hag",
+  "size": "Medium",
+  "type": "fey",
+  "subtype": "None",
+  "alignment": "chaotic evil",
+  "cr": 2,
+  "xp": 450,
+  "hp": {
+    "average": 52,
+    "dice": "7d8"
+  },
+  "ac": 14,
+  "source": "MM",
+  "str": 16,
+  "dex": 13,
+  "con": 16,
+  "int": 12,
+  "wis": 12,
+  "cha": 13
+}

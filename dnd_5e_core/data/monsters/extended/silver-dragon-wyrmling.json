@@ -1,0 +1,22 @@
+{
+  "index": "silver-dragon-wyrmling",
+  "name": "Silver Dragon Wyrmling",
+  "size": "Medium",
+  "type": "dragon",
+  "subtype": "None",
+  "alignment": "lawful good",
+  "cr": 2,
+  "xp": 450,
+  "hp": {
+    "average": 45,
+    "dice": "6d8"
+  },
+  "ac": 17,
+  "source": "MM",
+  "str": 19,
+  "dex": 10,
+  "con": 17,
+  "int": 12,
+  "wis": 11,
+  "cha": 15
+}

@@ -1,0 +1,22 @@
+{
+  "index": "mule",
+  "name": "Mule",
+  "size": "Medium",
+  "type": "beast",
+  "subtype": "None",
+  "alignment": "unaligned",
+  "cr": 0.125,
+  "xp": 25,
+  "hp": {
+    "average": 11,
+    "dice": "2d8"
+  },
+  "ac": 10,
+  "source": "MM",
+  "str": 14,
+  "dex": 10,
+  "con": 13,
+  "int": 2,
+  "wis": 10,
+  "cha": 5
+}

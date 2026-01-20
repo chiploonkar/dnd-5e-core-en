@@ -1,0 +1,22 @@
+{
+  "index": "clay-golem",
+  "name": "Clay Golem",
+  "size": "Large",
+  "type": "construct",
+  "subtype": "None",
+  "alignment": "unaligned",
+  "cr": 9,
+  "xp": 5000,
+  "hp": {
+    "average": 133,
+    "dice": "14d10"
+  },
+  "ac": 14,
+  "source": "MM",
+  "str": 20,
+  "dex": 9,
+  "con": 18,
+  "int": 3,
+  "wis": 8,
+  "cha": 1
+}

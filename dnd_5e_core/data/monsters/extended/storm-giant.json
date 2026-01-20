@@ -1,0 +1,22 @@
+{
+  "index": "storm-giant",
+  "name": "Storm Giant",
+  "size": "Huge",
+  "type": "giant",
+  "subtype": "None",
+  "alignment": "chaotic good",
+  "cr": 13,
+  "xp": 10000,
+  "hp": {
+    "average": 230,
+    "dice": "20d12"
+  },
+  "ac": 16,
+  "source": "MM",
+  "str": 29,
+  "dex": 14,
+  "con": 20,
+  "int": 16,
+  "wis": 18,
+  "cha": 18
+}

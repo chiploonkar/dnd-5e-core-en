@@ -1,0 +1,22 @@
+{
+  "index": "giant-boar",
+  "name": "Giant Boar",
+  "size": "Large",
+  "type": "beast",
+  "subtype": "None",
+  "alignment": "unaligned",
+  "cr": 2,
+  "xp": 450,
+  "hp": {
+    "average": 42,
+    "dice": "5d10"
+  },
+  "ac": 12,
+  "source": "MM",
+  "str": 17,
+  "dex": 10,
+  "con": 16,
+  "int": 2,
+  "wis": 7,
+  "cha": 5
+}

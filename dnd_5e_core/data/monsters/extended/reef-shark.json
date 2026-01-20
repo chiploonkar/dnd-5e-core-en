@@ -1,0 +1,22 @@
+{
+  "index": "reef-shark",
+  "name": "Reef Shark",
+  "size": "Medium",
+  "type": "beast",
+  "subtype": "None",
+  "alignment": "unaligned",
+  "cr": 0.5,
+  "xp": 100,
+  "hp": {
+    "average": 22,
+    "dice": "4d8"
+  },
+  "ac": 12,
+  "source": "MM",
+  "str": 14,
+  "dex": 13,
+  "con": 13,
+  "int": 1,
+  "wis": 10,
+  "cha": 4
+}

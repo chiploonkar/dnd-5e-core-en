@@ -1,0 +1,22 @@
+{
+  "index": "remorhaz",
+  "name": "Remorhaz",
+  "size": "Huge",
+  "type": "monstrosity",
+  "subtype": "None",
+  "alignment": "unaligned",
+  "cr": 11,
+  "xp": 7200,
+  "hp": {
+    "average": 195,
+    "dice": "17d12"
+  },
+  "ac": 17,
+  "source": "MM",
+  "str": 24,
+  "dex": 13,
+  "con": 21,
+  "int": 4,
+  "wis": 10,
+  "cha": 5
+}

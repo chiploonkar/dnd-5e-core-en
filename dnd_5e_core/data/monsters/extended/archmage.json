@@ -1,0 +1,22 @@
+{
+  "index": "archmage",
+  "name": "Archmage",
+  "size": "Medium",
+  "type": "humanoid",
+  "subtype": "any race",
+  "alignment": "any alignment",
+  "cr": 12,
+  "xp": 8400,
+  "hp": {
+    "average": 99,
+    "dice": "18d8"
+  },
+  "ac": 12,
+  "source": "MM",
+  "str": 10,
+  "dex": 14,
+  "con": 12,
+  "int": 20,
+  "wis": 15,
+  "cha": 16
+}

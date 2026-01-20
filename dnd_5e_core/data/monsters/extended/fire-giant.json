@@ -1,0 +1,22 @@
+{
+  "index": "fire-giant",
+  "name": "Fire Giant",
+  "size": "Huge",
+  "type": "giant",
+  "subtype": "None",
+  "alignment": "lawful evil",
+  "cr": 9,
+  "xp": 5000,
+  "hp": {
+    "average": 162,
+    "dice": "13d12"
+  },
+  "ac": 18,
+  "source": "MM",
+  "str": 25,
+  "dex": 9,
+  "con": 23,
+  "int": 10,
+  "wis": 14,
+  "cha": 13
+}

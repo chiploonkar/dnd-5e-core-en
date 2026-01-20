@@ -1,0 +1,22 @@
+{
+  "index": "couatl",
+  "name": "Couatl",
+  "size": "Medium",
+  "type": "celestial",
+  "subtype": "None",
+  "alignment": "lawful good",
+  "cr": 4,
+  "xp": 1100,
+  "hp": {
+    "average": 97,
+    "dice": "13d8"
+  },
+  "ac": 19,
+  "source": "MM",
+  "str": 16,
+  "dex": 20,
+  "con": 17,
+  "int": 18,
+  "wis": 20,
+  "cha": 18
+}

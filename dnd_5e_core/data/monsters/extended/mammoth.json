@@ -1,0 +1,22 @@
+{
+  "index": "mammoth",
+  "name": "Mammoth",
+  "size": "Huge",
+  "type": "beast",
+  "subtype": "None",
+  "alignment": "unaligned",
+  "cr": 6,
+  "xp": 2300,
+  "hp": {
+    "average": 126,
+    "dice": "11d12"
+  },
+  "ac": 13,
+  "source": "MM",
+  "str": 24,
+  "dex": 9,
+  "con": 21,
+  "int": 3,
+  "wis": 11,
+  "cha": 6
+}

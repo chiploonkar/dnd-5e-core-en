@@ -1,0 +1,22 @@
+{
+  "index": "hezrou",
+  "name": "Hezrou",
+  "size": "Large",
+  "type": "fiend",
+  "subtype": "demon",
+  "alignment": "chaotic evil",
+  "cr": 8,
+  "xp": 3900,
+  "hp": {
+    "average": 136,
+    "dice": "13d10"
+  },
+  "ac": 16,
+  "source": "MM",
+  "str": 19,
+  "dex": 17,
+  "con": 20,
+  "int": 5,
+  "wis": 12,
+  "cha": 13
+}

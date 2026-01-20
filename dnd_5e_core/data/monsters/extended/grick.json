@@ -1,0 +1,22 @@
+{
+  "index": "grick",
+  "name": "Grick",
+  "size": "Medium",
+  "type": "monstrosity",
+  "subtype": "None",
+  "alignment": "neutral",
+  "cr": 2,
+  "xp": 450,
+  "hp": {
+    "average": 27,
+    "dice": "6d8"
+  },
+  "ac": 14,
+  "source": "MM",
+  "str": 14,
+  "dex": 14,
+  "con": 11,
+  "int": 3,
+  "wis": 14,
+  "cha": 5
+}

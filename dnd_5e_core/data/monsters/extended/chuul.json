@@ -1,0 +1,22 @@
+{
+  "index": "chuul",
+  "name": "Chuul",
+  "size": "Large",
+  "type": "aberration",
+  "subtype": "None",
+  "alignment": "chaotic evil",
+  "cr": 4,
+  "xp": 1100,
+  "hp": {
+    "average": 93,
+    "dice": "11d10"
+  },
+  "ac": 16,
+  "source": "MM",
+  "str": 19,
+  "dex": 10,
+  "con": 16,
+  "int": 5,
+  "wis": 11,
+  "cha": 5
+}

@@ -1,0 +1,22 @@
+{
+  "index": "druid",
+  "name": "Druid",
+  "size": "Medium",
+  "type": "humanoid",
+  "subtype": "any race",
+  "alignment": "any alignment",
+  "cr": 2,
+  "xp": 450,
+  "hp": {
+    "average": 27,
+    "dice": "5d8"
+  },
+  "ac": 11,
+  "source": "MM",
+  "str": 10,
+  "dex": 12,
+  "con": 13,
+  "int": 12,
+  "wis": 15,
+  "cha": 11
+}

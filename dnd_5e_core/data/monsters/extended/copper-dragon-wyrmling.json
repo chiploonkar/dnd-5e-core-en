@@ -1,0 +1,22 @@
+{
+  "index": "copper-dragon-wyrmling",
+  "name": "Copper Dragon Wyrmling",
+  "size": "Medium",
+  "type": "dragon",
+  "subtype": "None",
+  "alignment": "chaotic good",
+  "cr": 1,
+  "xp": 200,
+  "hp": {
+    "average": 22,
+    "dice": "4d8"
+  },
+  "ac": 16,
+  "source": "MM",
+  "str": 15,
+  "dex": 12,
+  "con": 13,
+  "int": 14,
+  "wis": 11,
+  "cha": 13
+}

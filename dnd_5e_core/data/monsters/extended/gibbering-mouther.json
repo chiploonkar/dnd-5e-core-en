@@ -1,0 +1,22 @@
+{
+  "index": "gibbering-mouther",
+  "name": "Gibbering Mouther",
+  "size": "Medium",
+  "type": "aberration",
+  "subtype": "None",
+  "alignment": "neutral",
+  "cr": 2,
+  "xp": 450,
+  "hp": {
+    "average": 67,
+    "dice": "9d8"
+  },
+  "ac": 9,
+  "source": "MM",
+  "str": 10,
+  "dex": 8,
+  "con": 16,
+  "int": 3,
+  "wis": 10,
+  "cha": 6
+}

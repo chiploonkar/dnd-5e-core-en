@@ -1,0 +1,22 @@
+{
+  "index": "constrictor-snake",
+  "name": "Constrictor Snake",
+  "size": "Large",
+  "type": "beast",
+  "subtype": "None",
+  "alignment": "unaligned",
+  "cr": 0.25,
+  "xp": 50,
+  "hp": {
+    "average": 13,
+    "dice": "2d10"
+  },
+  "ac": 12,
+  "source": "MM",
+  "str": 15,
+  "dex": 14,
+  "con": 12,
+  "int": 1,
+  "wis": 10,
+  "cha": 3
+}

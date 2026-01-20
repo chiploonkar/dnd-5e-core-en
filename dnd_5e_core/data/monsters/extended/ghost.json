@@ -1,0 +1,22 @@
+{
+  "index": "ghost",
+  "name": "Ghost",
+  "size": "Medium",
+  "type": "undead",
+  "subtype": "None",
+  "alignment": "any alignment",
+  "cr": 4,
+  "xp": 1100,
+  "hp": {
+    "average": 45,
+    "dice": "10d8"
+  },
+  "ac": 11,
+  "source": "MM",
+  "str": 7,
+  "dex": 13,
+  "con": 10,
+  "int": 10,
+  "wis": 12,
+  "cha": 17
+}

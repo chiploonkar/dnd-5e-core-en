@@ -1,0 +1,22 @@
+{
+  "index": "giant-scorpion",
+  "name": "Giant Scorpion",
+  "size": "Large",
+  "type": "beast",
+  "subtype": "None",
+  "alignment": "unaligned",
+  "cr": 3,
+  "xp": 700,
+  "hp": {
+    "average": 52,
+    "dice": "7d10"
+  },
+  "ac": 15,
+  "source": "MM",
+  "str": 15,
+  "dex": 13,
+  "con": 15,
+  "int": 1,
+  "wis": 9,
+  "cha": 3
+}

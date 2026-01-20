@@ -1,0 +1,22 @@
+{
+  "index": "giant-bat",
+  "name": "Giant Bat",
+  "size": "Large",
+  "type": "beast",
+  "subtype": "None",
+  "alignment": "unaligned",
+  "cr": 0.25,
+  "xp": 50,
+  "hp": {
+    "average": 22,
+    "dice": "4d10"
+  },
+  "ac": 13,
+  "source": "MM",
+  "str": 15,
+  "dex": 16,
+  "con": 11,
+  "int": 2,
+  "wis": 12,
+  "cha": 6
+}

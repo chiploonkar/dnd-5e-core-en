@@ -1,0 +1,22 @@
+{
+  "index": "homunculus",
+  "name": "Homunculus",
+  "size": "Tiny",
+  "type": "construct",
+  "subtype": "None",
+  "alignment": "neutral",
+  "cr": 0,
+  "xp": 10,
+  "hp": {
+    "average": 5,
+    "dice": "2d4"
+  },
+  "ac": 13,
+  "source": "MM",
+  "str": 4,
+  "dex": 15,
+  "con": 11,
+  "int": 10,
+  "wis": 10,
+  "cha": 7
+}

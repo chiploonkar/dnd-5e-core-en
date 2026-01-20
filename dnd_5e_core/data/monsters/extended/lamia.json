@@ -1,0 +1,22 @@
+{
+  "index": "lamia",
+  "name": "Lamia",
+  "size": "Large",
+  "type": "monstrosity",
+  "subtype": "None",
+  "alignment": "chaotic evil",
+  "cr": 4,
+  "xp": 1100,
+  "hp": {
+    "average": 97,
+    "dice": "13d10"
+  },
+  "ac": 13,
+  "source": "MM",
+  "str": 16,
+  "dex": 13,
+  "con": 15,
+  "int": 14,
+  "wis": 15,
+  "cha": 16
+}

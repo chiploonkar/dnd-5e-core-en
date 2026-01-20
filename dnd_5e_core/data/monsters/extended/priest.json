@@ -1,0 +1,22 @@
+{
+  "index": "priest",
+  "name": "Priest",
+  "size": "Medium",
+  "type": "humanoid",
+  "subtype": "any race",
+  "alignment": "any alignment",
+  "cr": 2,
+  "xp": 450,
+  "hp": {
+    "average": 27,
+    "dice": "5d8"
+  },
+  "ac": 13,
+  "source": "MM",
+  "str": 10,
+  "dex": 10,
+  "con": 12,
+  "int": 13,
+  "wis": 16,
+  "cha": 13
+}

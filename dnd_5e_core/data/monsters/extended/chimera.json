@@ -1,0 +1,22 @@
+{
+  "index": "chimera",
+  "name": "Chimera",
+  "size": "Large",
+  "type": "monstrosity",
+  "subtype": "None",
+  "alignment": "chaotic evil",
+  "cr": 6,
+  "xp": 2300,
+  "hp": {
+    "average": 114,
+    "dice": "12d10"
+  },
+  "ac": 14,
+  "source": "MM",
+  "str": 19,
+  "dex": 11,
+  "con": 19,
+  "int": 3,
+  "wis": 14,
+  "cha": 10
+}

@@ -1,0 +1,22 @@
+{
+  "index": "roc",
+  "name": "Roc",
+  "size": "Gargantuan",
+  "type": "monstrosity",
+  "subtype": "None",
+  "alignment": "unaligned",
+  "cr": 11,
+  "xp": 7200,
+  "hp": {
+    "average": 248,
+    "dice": "16d20"
+  },
+  "ac": 15,
+  "source": "MM",
+  "str": 28,
+  "dex": 10,
+  "con": 20,
+  "int": 3,
+  "wis": 10,
+  "cha": 9
+}

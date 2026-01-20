@@ -1,0 +1,22 @@
+{
+  "index": "pit-fiend",
+  "name": "Pit Fiend",
+  "size": "Large",
+  "type": "fiend",
+  "subtype": "devil",
+  "alignment": "lawful evil",
+  "cr": 20,
+  "xp": 25000,
+  "hp": {
+    "average": 300,
+    "dice": "24d10"
+  },
+  "ac": 19,
+  "source": "MM",
+  "str": 26,
+  "dex": 14,
+  "con": 24,
+  "int": 22,
+  "wis": 18,
+  "cha": 24
+}

@@ -1,0 +1,22 @@
+{
+  "index": "giant-wolf-spider",
+  "name": "Giant Wolf Spider",
+  "size": "Medium",
+  "type": "beast",
+  "subtype": "None",
+  "alignment": "unaligned",
+  "cr": 0.25,
+  "xp": 50,
+  "hp": {
+    "average": 11,
+    "dice": "2d8"
+  },
+  "ac": 13,
+  "source": "MM",
+  "str": 12,
+  "dex": 16,
+  "con": 13,
+  "int": 3,
+  "wis": 12,
+  "cha": 4
+}

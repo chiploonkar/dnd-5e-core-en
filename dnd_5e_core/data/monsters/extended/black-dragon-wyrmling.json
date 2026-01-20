@@ -1,0 +1,22 @@
+{
+  "index": "black-dragon-wyrmling",
+  "name": "Black Dragon Wyrmling",
+  "size": "Medium",
+  "type": "dragon",
+  "subtype": "None",
+  "alignment": "chaotic evil",
+  "cr": 2,
+  "xp": 450,
+  "hp": {
+    "average": 33,
+    "dice": "6d8"
+  },
+  "ac": 17,
+  "source": "MM",
+  "str": 15,
+  "dex": 14,
+  "con": 13,
+  "int": 10,
+  "wis": 11,
+  "cha": 13
+}

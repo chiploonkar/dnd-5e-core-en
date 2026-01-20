@@ -1,0 +1,22 @@
+{
+  "index": "berserker",
+  "name": "Berserker",
+  "size": "Medium",
+  "type": "humanoid",
+  "subtype": "any race",
+  "alignment": "any chaotic alignment",
+  "cr": 2,
+  "xp": 450,
+  "hp": {
+    "average": 67,
+    "dice": "9d8"
+  },
+  "ac": 13,
+  "source": "MM",
+  "str": 16,
+  "dex": 12,
+  "con": 17,
+  "int": 9,
+  "wis": 11,
+  "cha": 9
+}

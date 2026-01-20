@@ -1,0 +1,22 @@
+{
+  "index": "solar",
+  "name": "Solar",
+  "size": "Large",
+  "type": "celestial",
+  "subtype": "None",
+  "alignment": "lawful good",
+  "cr": 21,
+  "xp": 33000,
+  "hp": {
+    "average": 243,
+    "dice": "18d10"
+  },
+  "ac": 21,
+  "source": "MM",
+  "str": 26,
+  "dex": 22,
+  "con": 26,
+  "int": 25,
+  "wis": 25,
+  "cha": 30
+}

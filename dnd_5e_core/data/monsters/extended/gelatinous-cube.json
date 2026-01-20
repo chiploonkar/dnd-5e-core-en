@@ -1,0 +1,22 @@
+{
+  "index": "gelatinous-cube",
+  "name": "Gelatinous Cube",
+  "size": "Large",
+  "type": "ooze",
+  "subtype": "None",
+  "alignment": "unaligned",
+  "cr": 2,
+  "xp": 450,
+  "hp": {
+    "average": 84,
+    "dice": "8d10"
+  },
+  "ac": 6,
+  "source": "MM",
+  "str": 14,
+  "dex": 3,
+  "con": 20,
+  "int": 1,
+  "wis": 6,
+  "cha": 1
+}

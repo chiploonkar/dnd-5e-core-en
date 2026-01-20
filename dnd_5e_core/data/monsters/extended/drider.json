@@ -1,0 +1,22 @@
+{
+  "index": "drider",
+  "name": "Drider",
+  "size": "Large",
+  "type": "monstrosity",
+  "subtype": "None",
+  "alignment": "chaotic evil",
+  "cr": 6,
+  "xp": 2300,
+  "hp": {
+    "average": 123,
+    "dice": "13d10"
+  },
+  "ac": 19,
+  "source": "MM",
+  "str": 16,
+  "dex": 16,
+  "con": 18,
+  "int": 13,
+  "wis": 14,
+  "cha": 12
+}

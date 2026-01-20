@@ -1,0 +1,22 @@
+{
+  "index": "rhinoceros",
+  "name": "Rhinoceros",
+  "size": "Large",
+  "type": "beast",
+  "subtype": "None",
+  "alignment": "unaligned",
+  "cr": 2,
+  "xp": 450,
+  "hp": {
+    "average": 45,
+    "dice": "6d10"
+  },
+  "ac": 11,
+  "source": "MM",
+  "str": 21,
+  "dex": 8,
+  "con": 15,
+  "int": 2,
+  "wis": 12,
+  "cha": 6
+}

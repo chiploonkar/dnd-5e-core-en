@@ -1,0 +1,22 @@
+{
+  "index": "darkmantle",
+  "name": "Darkmantle",
+  "size": "Small",
+  "type": "monstrosity",
+  "subtype": "None",
+  "alignment": "unaligned",
+  "cr": 0.5,
+  "xp": 100,
+  "hp": {
+    "average": 22,
+    "dice": "5d6"
+  },
+  "ac": 11,
+  "source": "MM",
+  "str": 16,
+  "dex": 12,
+  "con": 13,
+  "int": 2,
+  "wis": 10,
+  "cha": 5
+}

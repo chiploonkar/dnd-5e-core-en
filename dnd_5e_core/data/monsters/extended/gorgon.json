@@ -1,0 +1,22 @@
+{
+  "index": "gorgon",
+  "name": "Gorgon",
+  "size": "Large",
+  "type": "monstrosity",
+  "subtype": "None",
+  "alignment": "unaligned",
+  "cr": 5,
+  "xp": 1800,
+  "hp": {
+    "average": 114,
+    "dice": "12d10"
+  },
+  "ac": 19,
+  "source": "MM",
+  "str": 20,
+  "dex": 11,
+  "con": 18,
+  "int": 2,
+  "wis": 12,
+  "cha": 7
+}

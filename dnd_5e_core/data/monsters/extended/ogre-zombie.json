@@ -1,0 +1,22 @@
+{
+  "index": "ogre-zombie",
+  "name": "Ogre Zombie",
+  "size": "Large",
+  "type": "undead",
+  "subtype": "None",
+  "alignment": "neutral evil",
+  "cr": 2,
+  "xp": 450,
+  "hp": {
+    "average": 85,
+    "dice": "9d10"
+  },
+  "ac": 8,
+  "source": "MM",
+  "str": 19,
+  "dex": 6,
+  "con": 18,
+  "int": 3,
+  "wis": 6,
+  "cha": 5
+}

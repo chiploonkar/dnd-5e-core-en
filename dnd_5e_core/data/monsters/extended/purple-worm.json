@@ -1,0 +1,22 @@
+{
+  "index": "purple-worm",
+  "name": "Purple Worm",
+  "size": "Gargantuan",
+  "type": "monstrosity",
+  "subtype": "None",
+  "alignment": "unaligned",
+  "cr": 15,
+  "xp": 13000,
+  "hp": {
+    "average": 247,
+    "dice": "15d20"
+  },
+  "ac": 18,
+  "source": "MM",
+  "str": 28,
+  "dex": 7,
+  "con": 22,
+  "int": 1,
+  "wis": 8,
+  "cha": 4
+}

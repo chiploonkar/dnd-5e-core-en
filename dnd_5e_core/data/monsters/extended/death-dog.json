@@ -1,0 +1,22 @@
+{
+  "index": "death-dog",
+  "name": "Death Dog",
+  "size": "Medium",
+  "type": "monstrosity",
+  "subtype": "None",
+  "alignment": "neutral evil",
+  "cr": 1,
+  "xp": 200,
+  "hp": {
+    "average": 39,
+    "dice": "6d8"
+  },
+  "ac": 12,
+  "source": "MM",
+  "str": 15,
+  "dex": 14,
+  "con": 14,
+  "int": 3,
+  "wis": 13,
+  "cha": 6
+}

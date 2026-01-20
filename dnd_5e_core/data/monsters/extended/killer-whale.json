@@ -1,0 +1,22 @@
+{
+  "index": "killer-whale",
+  "name": "Killer Whale",
+  "size": "Huge",
+  "type": "beast",
+  "subtype": "None",
+  "alignment": "unaligned",
+  "cr": 3,
+  "xp": 700,
+  "hp": {
+    "average": 90,
+    "dice": "12d12"
+  },
+  "ac": 12,
+  "source": "MM",
+  "str": 19,
+  "dex": 10,
+  "con": 13,
+  "int": 3,
+  "wis": 12,
+  "cha": 7
+}

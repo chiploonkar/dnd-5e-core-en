@@ -1,0 +1,22 @@
+{
+  "index": "gladiator",
+  "name": "Gladiator",
+  "size": "Medium",
+  "type": "humanoid",
+  "subtype": "any race",
+  "alignment": "any alignment",
+  "cr": 5,
+  "xp": 1800,
+  "hp": {
+    "average": 112,
+    "dice": "15d8"
+  },
+  "ac": 16,
+  "source": "MM",
+  "str": 18,
+  "dex": 15,
+  "con": 16,
+  "int": 10,
+  "wis": 12,
+  "cha": 15
+}

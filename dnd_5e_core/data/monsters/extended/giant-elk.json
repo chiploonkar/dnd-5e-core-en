@@ -1,0 +1,22 @@
+{
+  "index": "giant-elk",
+  "name": "Giant Elk",
+  "size": "Huge",
+  "type": "beast",
+  "subtype": "None",
+  "alignment": "unaligned",
+  "cr": 2,
+  "xp": 450,
+  "hp": {
+    "average": 42,
+    "dice": "5d12"
+  },
+  "ac": 15,
+  "source": "MM",
+  "str": 19,
+  "dex": 16,
+  "con": 14,
+  "int": 7,
+  "wis": 14,
+  "cha": 10
+}

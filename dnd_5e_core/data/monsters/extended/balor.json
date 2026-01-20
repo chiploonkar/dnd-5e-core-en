@@ -1,0 +1,22 @@
+{
+  "index": "balor",
+  "name": "Balor",
+  "size": "Huge",
+  "type": "fiend",
+  "subtype": "demon",
+  "alignment": "chaotic evil",
+  "cr": 19,
+  "xp": 22000,
+  "hp": {
+    "average": 262,
+    "dice": "21d12"
+  },
+  "ac": 19,
+  "source": "MM",
+  "str": 26,
+  "dex": 15,
+  "con": 22,
+  "int": 20,
+  "wis": 16,
+  "cha": 22
+}

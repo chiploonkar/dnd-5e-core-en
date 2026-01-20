@@ -1,0 +1,22 @@
+{
+  "index": "draft-horse",
+  "name": "Draft Horse",
+  "size": "Large",
+  "type": "beast",
+  "subtype": "None",
+  "alignment": "unaligned",
+  "cr": 0.25,
+  "xp": 50,
+  "hp": {
+    "average": 19,
+    "dice": "3d10"
+  },
+  "ac": 10,
+  "source": "MM",
+  "str": 18,
+  "dex": 10,
+  "con": 12,
+  "int": 2,
+  "wis": 11,
+  "cha": 7
+}

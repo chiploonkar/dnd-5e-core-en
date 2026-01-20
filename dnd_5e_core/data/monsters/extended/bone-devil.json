@@ -1,0 +1,22 @@
+{
+  "index": "bone-devil",
+  "name": "Bone Devil",
+  "size": "Large",
+  "type": "fiend",
+  "subtype": "devil",
+  "alignment": "lawful evil",
+  "cr": 12,
+  "xp": 8400,
+  "hp": {
+    "average": 142,
+    "dice": "15d10"
+  },
+  "ac": 19,
+  "source": "MM",
+  "str": 18,
+  "dex": 16,
+  "con": 18,
+  "int": 13,
+  "wis": 14,
+  "cha": 16
+}

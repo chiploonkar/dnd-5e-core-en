@@ -1,0 +1,22 @@
+{
+  "index": "merrow",
+  "name": "Merrow",
+  "size": "Large",
+  "type": "monstrosity",
+  "subtype": "None",
+  "alignment": "chaotic evil",
+  "cr": 2,
+  "xp": 450,
+  "hp": {
+    "average": 45,
+    "dice": "6d10"
+  },
+  "ac": 13,
+  "source": "MM",
+  "str": 18,
+  "dex": 10,
+  "con": 15,
+  "int": 8,
+  "wis": 10,
+  "cha": 9
+}

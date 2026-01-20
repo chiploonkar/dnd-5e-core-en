@@ -1,0 +1,22 @@
+{
+  "index": "awakened-tree",
+  "name": "Awakened Tree",
+  "size": "Huge",
+  "type": "plant",
+  "subtype": "None",
+  "alignment": "unaligned",
+  "cr": 2,
+  "xp": 450,
+  "hp": {
+    "average": 59,
+    "dice": "7d12"
+  },
+  "ac": 13,
+  "source": "MM",
+  "str": 19,
+  "dex": 6,
+  "con": 15,
+  "int": 10,
+  "wis": 10,
+  "cha": 7
+}

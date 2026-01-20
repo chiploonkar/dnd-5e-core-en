@@ -1,0 +1,22 @@
+{
+  "index": "gargoyle",
+  "name": "Gargoyle",
+  "size": "Medium",
+  "type": "elemental",
+  "subtype": "None",
+  "alignment": "chaotic evil",
+  "cr": 2,
+  "xp": 450,
+  "hp": {
+    "average": 52,
+    "dice": "7d8"
+  },
+  "ac": 15,
+  "source": "MM",
+  "str": 15,
+  "dex": 11,
+  "con": 16,
+  "int": 6,
+  "wis": 11,
+  "cha": 7
+}

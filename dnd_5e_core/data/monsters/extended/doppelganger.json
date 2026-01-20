@@ -1,0 +1,22 @@
+{
+  "index": "doppelganger",
+  "name": "Doppelganger",
+  "size": "Medium",
+  "type": "monstrosity",
+  "subtype": "shapechanger",
+  "alignment": "unaligned",
+  "cr": 3,
+  "xp": 700,
+  "hp": {
+    "average": 52,
+    "dice": "8d8"
+  },
+  "ac": 14,
+  "source": "MM",
+  "str": 11,
+  "dex": 18,
+  "con": 14,
+  "int": 11,
+  "wis": 12,
+  "cha": 14
+}

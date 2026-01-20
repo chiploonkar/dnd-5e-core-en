@@ -1,0 +1,22 @@
+{
+  "index": "ochre-jelly",
+  "name": "Ochre Jelly",
+  "size": "Large",
+  "type": "ooze",
+  "subtype": "None",
+  "alignment": "unaligned",
+  "cr": 2,
+  "xp": 450,
+  "hp": {
+    "average": 45,
+    "dice": "6d10"
+  },
+  "ac": 8,
+  "source": "MM",
+  "str": 15,
+  "dex": 6,
+  "con": 14,
+  "int": 2,
+  "wis": 6,
+  "cha": 1
+}

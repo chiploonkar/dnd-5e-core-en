@@ -1,0 +1,22 @@
+{
+  "index": "ankheg",
+  "name": "Ankheg",
+  "size": "Large",
+  "type": "monstrosity",
+  "subtype": "None",
+  "alignment": "unaligned",
+  "cr": 2,
+  "xp": 250,
+  "hp": {
+    "average": 39,
+    "dice": "6d10"
+  },
+  "ac": 14,
+  "source": "MM",
+  "str": 17,
+  "dex": 11,
+  "con": 13,
+  "int": 1,
+  "wis": 13,
+  "cha": 6
+}

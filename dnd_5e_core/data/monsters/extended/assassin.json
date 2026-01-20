@@ -1,0 +1,22 @@
+{
+  "index": "assassin",
+  "name": "Assassin",
+  "size": "Medium",
+  "type": "humanoid",
+  "subtype": "any race",
+  "alignment": "any non-good alignment",
+  "cr": 8,
+  "xp": 3900,
+  "hp": {
+    "average": 78,
+    "dice": "12d8"
+  },
+  "ac": 15,
+  "source": "MM",
+  "str": 11,
+  "dex": 16,
+  "con": 14,
+  "int": 13,
+  "wis": 11,
+  "cha": 10
+}

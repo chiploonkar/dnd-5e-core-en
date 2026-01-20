@@ -1,0 +1,22 @@
+{
+  "index": "lion",
+  "name": "Lion",
+  "size": "Large",
+  "type": "beast",
+  "subtype": "None",
+  "alignment": "unaligned",
+  "cr": 1,
+  "xp": 200,
+  "hp": {
+    "average": 26,
+    "dice": "4d10"
+  },
+  "ac": 12,
+  "source": "MM",
+  "str": 17,
+  "dex": 15,
+  "con": 13,
+  "int": 3,
+  "wis": 12,
+  "cha": 8
+}

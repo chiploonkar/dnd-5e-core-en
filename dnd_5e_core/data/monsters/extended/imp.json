@@ -1,0 +1,22 @@
+{
+  "index": "imp",
+  "name": "Imp",
+  "size": "Tiny",
+  "type": "fiend",
+  "subtype": "devil",
+  "alignment": "lawful evil",
+  "cr": 1,
+  "xp": 200,
+  "hp": {
+    "average": 10,
+    "dice": "3d4"
+  },
+  "ac": 13,
+  "source": "MM",
+  "str": 6,
+  "dex": 17,
+  "con": 13,
+  "int": 11,
+  "wis": 12,
+  "cha": 14
+}

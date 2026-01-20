@@ -1,0 +1,22 @@
+{
+  "index": "shadow",
+  "name": "Shadow",
+  "size": "Medium",
+  "type": "undead",
+  "subtype": "None",
+  "alignment": "chaotic evil",
+  "cr": 0.5,
+  "xp": 100,
+  "hp": {
+    "average": 16,
+    "dice": "3d8"
+  },
+  "ac": 12,
+  "source": "MM",
+  "str": 6,
+  "dex": 14,
+  "con": 13,
+  "int": 6,
+  "wis": 10,
+  "cha": 8
+}

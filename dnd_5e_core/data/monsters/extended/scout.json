@@ -1,0 +1,22 @@
+{
+  "index": "scout",
+  "name": "Scout",
+  "size": "Medium",
+  "type": "humanoid",
+  "subtype": "any race",
+  "alignment": "any alignment",
+  "cr": 0.5,
+  "xp": 100,
+  "hp": {
+    "average": 16,
+    "dice": "3d8"
+  },
+  "ac": 13,
+  "source": "MM",
+  "str": 11,
+  "dex": 14,
+  "con": 12,
+  "int": 11,
+  "wis": 13,
+  "cha": 11
+}

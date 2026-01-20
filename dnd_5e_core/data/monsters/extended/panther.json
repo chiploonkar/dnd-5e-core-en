@@ -1,0 +1,22 @@
+{
+  "index": "panther",
+  "name": "Panther",
+  "size": "Medium",
+  "type": "beast",
+  "subtype": "None",
+  "alignment": "unaligned",
+  "cr": 0.25,
+  "xp": 50,
+  "hp": {
+    "average": 13,
+    "dice": "3d8"
+  },
+  "ac": 12,
+  "source": "MM",
+  "str": 14,
+  "dex": 15,
+  "con": 10,
+  "int": 3,
+  "wis": 14,
+  "cha": 7
+}

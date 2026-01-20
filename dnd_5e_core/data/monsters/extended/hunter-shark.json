@@ -1,0 +1,22 @@
+{
+  "index": "hunter-shark",
+  "name": "Hunter Shark",
+  "size": "Large",
+  "type": "beast",
+  "subtype": "None",
+  "alignment": "unaligned",
+  "cr": 2,
+  "xp": 450,
+  "hp": {
+    "average": 45,
+    "dice": "6d10"
+  },
+  "ac": 12,
+  "source": "MM",
+  "str": 18,
+  "dex": 13,
+  "con": 15,
+  "int": 1,
+  "wis": 10,
+  "cha": 4
+}

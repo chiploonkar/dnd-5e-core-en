@@ -1,0 +1,22 @@
+{
+  "index": "skeleton",
+  "name": "Skeleton",
+  "size": "Medium",
+  "type": "undead",
+  "subtype": "None",
+  "alignment": "lawful evil",
+  "cr": 0.25,
+  "xp": 50,
+  "hp": {
+    "average": 13,
+    "dice": "2d8"
+  },
+  "ac": 13,
+  "source": "MM",
+  "str": 10,
+  "dex": 14,
+  "con": 15,
+  "int": 6,
+  "wis": 8,
+  "cha": 5
+}

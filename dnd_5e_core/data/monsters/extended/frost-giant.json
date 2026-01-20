@@ -1,0 +1,22 @@
+{
+  "index": "frost-giant",
+  "name": "Frost Giant",
+  "size": "Huge",
+  "type": "giant",
+  "subtype": "None",
+  "alignment": "neutral evil",
+  "cr": 8,
+  "xp": 3900,
+  "hp": {
+    "average": 138,
+    "dice": "12d12"
+  },
+  "ac": 15,
+  "source": "MM",
+  "str": 23,
+  "dex": 9,
+  "con": 21,
+  "int": 9,
+  "wis": 10,
+  "cha": 12
+}

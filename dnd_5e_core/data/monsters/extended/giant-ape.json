@@ -1,0 +1,22 @@
+{
+  "index": "giant-ape",
+  "name": "Giant Ape",
+  "size": "Huge",
+  "type": "beast",
+  "subtype": "None",
+  "alignment": "unaligned",
+  "cr": 7,
+  "xp": 2900,
+  "hp": {
+    "average": 157,
+    "dice": "15d12"
+  },
+  "ac": 12,
+  "source": "MM",
+  "str": 23,
+  "dex": 14,
+  "con": 18,
+  "int": 7,
+  "wis": 12,
+  "cha": 7
+}

@@ -1,0 +1,22 @@
+{
+  "index": "giant-lizard",
+  "name": "Giant Lizard",
+  "size": "Large",
+  "type": "beast",
+  "subtype": "None",
+  "alignment": "unaligned",
+  "cr": 0.25,
+  "xp": 50,
+  "hp": {
+    "average": 19,
+    "dice": "3d10"
+  },
+  "ac": 12,
+  "source": "MM",
+  "str": 15,
+  "dex": 12,
+  "con": 13,
+  "int": 2,
+  "wis": 10,
+  "cha": 5
+}

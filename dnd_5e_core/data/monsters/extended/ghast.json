@@ -1,0 +1,22 @@
+{
+  "index": "ghast",
+  "name": "Ghast",
+  "size": "Medium",
+  "type": "undead",
+  "subtype": "None",
+  "alignment": "chaotic evil",
+  "cr": 2,
+  "xp": 450,
+  "hp": {
+    "average": 36,
+    "dice": "8d8"
+  },
+  "ac": 13,
+  "source": "MM",
+  "str": 16,
+  "dex": 17,
+  "con": 10,
+  "int": 11,
+  "wis": 10,
+  "cha": 8
+}

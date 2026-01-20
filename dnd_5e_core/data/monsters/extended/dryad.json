@@ -1,0 +1,22 @@
+{
+  "index": "dryad",
+  "name": "Dryad",
+  "size": "Medium",
+  "type": "fey",
+  "subtype": "None",
+  "alignment": "neutral",
+  "cr": 1,
+  "xp": 200,
+  "hp": {
+    "average": 22,
+    "dice": "5d8"
+  },
+  "ac": 11,
+  "source": "MM",
+  "str": 10,
+  "dex": 12,
+  "con": 11,
+  "int": 14,
+  "wis": 15,
+  "cha": 18
+}

@@ -1,0 +1,22 @@
+{
+  "index": "hill-giant",
+  "name": "Hill Giant",
+  "size": "Huge",
+  "type": "giant",
+  "subtype": "None",
+  "alignment": "chaotic evil",
+  "cr": 5,
+  "xp": 1800,
+  "hp": {
+    "average": 105,
+    "dice": "10d12"
+  },
+  "ac": 13,
+  "source": "MM",
+  "str": 21,
+  "dex": 8,
+  "con": 19,
+  "int": 5,
+  "wis": 9,
+  "cha": 6
+}

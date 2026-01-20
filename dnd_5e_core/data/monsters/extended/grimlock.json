@@ -1,0 +1,22 @@
+{
+  "index": "grimlock",
+  "name": "Grimlock",
+  "size": "Medium",
+  "type": "humanoid",
+  "subtype": "grimlock",
+  "alignment": "neutral evil",
+  "cr": 0.25,
+  "xp": 50,
+  "hp": {
+    "average": 11,
+    "dice": "2d8"
+  },
+  "ac": 11,
+  "source": "MM",
+  "str": 16,
+  "dex": 12,
+  "con": 12,
+  "int": 9,
+  "wis": 8,
+  "cha": 6
+}

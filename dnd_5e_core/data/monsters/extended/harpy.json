@@ -1,0 +1,22 @@
+{
+  "index": "harpy",
+  "name": "Harpy",
+  "size": "Medium",
+  "type": "monstrosity",
+  "subtype": "None",
+  "alignment": "chaotic evil",
+  "cr": 1,
+  "xp": 200,
+  "hp": {
+    "average": 38,
+    "dice": "7d8"
+  },
+  "ac": 11,
+  "source": "MM",
+  "str": 12,
+  "dex": 13,
+  "con": 12,
+  "int": 7,
+  "wis": 10,
+  "cha": 13
+}

@@ -1,0 +1,22 @@
+{
+  "index": "cloud-giant",
+  "name": "Cloud Giant",
+  "size": "Huge",
+  "type": "giant",
+  "subtype": "None",
+  "alignment": "neutral good (50%) or neutral evil (50%)",
+  "cr": 9,
+  "xp": 5000,
+  "hp": {
+    "average": 200,
+    "dice": "16d12"
+  },
+  "ac": 14,
+  "source": "MM",
+  "str": 27,
+  "dex": 10,
+  "con": 22,
+  "int": 12,
+  "wis": 16,
+  "cha": 16
+}

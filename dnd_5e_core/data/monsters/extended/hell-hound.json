@@ -1,0 +1,22 @@
+{
+  "index": "hell-hound",
+  "name": "Hell Hound",
+  "size": "Medium",
+  "type": "fiend",
+  "subtype": "None",
+  "alignment": "lawful evil",
+  "cr": 3,
+  "xp": 700,
+  "hp": {
+    "average": 45,
+    "dice": "7d8"
+  },
+  "ac": 15,
+  "source": "MM",
+  "str": 17,
+  "dex": 12,
+  "con": 14,
+  "int": 6,
+  "wis": 13,
+  "cha": 6
+}

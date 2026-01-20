@@ -1,0 +1,22 @@
+{
+  "index": "rust-monster",
+  "name": "Rust Monster",
+  "size": "Medium",
+  "type": "monstrosity",
+  "subtype": "None",
+  "alignment": "unaligned",
+  "cr": 0.5,
+  "xp": 100,
+  "hp": {
+    "average": 27,
+    "dice": "5d8"
+  },
+  "ac": 14,
+  "source": "MM",
+  "str": 13,
+  "dex": 12,
+  "con": 13,
+  "int": 2,
+  "wis": 13,
+  "cha": 6
+}

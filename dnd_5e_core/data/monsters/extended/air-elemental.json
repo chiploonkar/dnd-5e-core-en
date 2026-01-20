@@ -1,0 +1,22 @@
+{
+  "index": "air-elemental",
+  "name": "Air Elemental",
+  "size": "Large",
+  "type": "elemental",
+  "subtype": "None",
+  "alignment": "neutral",
+  "cr": 5,
+  "xp": 1800,
+  "hp": {
+    "average": 90,
+    "dice": "12d10"
+  },
+  "ac": 15,
+  "source": "MM",
+  "str": 14,
+  "dex": 20,
+  "con": 14,
+  "int": 6,
+  "wis": 10,
+  "cha": 6
+}

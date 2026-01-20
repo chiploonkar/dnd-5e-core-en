@@ -1,0 +1,22 @@
+{
+  "index": "rakshasa",
+  "name": "Rakshasa",
+  "size": "Medium",
+  "type": "fiend",
+  "subtype": "None",
+  "alignment": "lawful evil",
+  "cr": 13,
+  "xp": 10000,
+  "hp": {
+    "average": 110,
+    "dice": "13d8"
+  },
+  "ac": 16,
+  "source": "MM",
+  "str": 14,
+  "dex": 17,
+  "con": 18,
+  "int": 13,
+  "wis": 16,
+  "cha": 20
+}

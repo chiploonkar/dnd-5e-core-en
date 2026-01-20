@@ -1,0 +1,22 @@
+{
+  "index": "axe-beak",
+  "name": "Axe Beak",
+  "size": "Large",
+  "type": "beast",
+  "subtype": "None",
+  "alignment": "unaligned",
+  "cr": 0.25,
+  "xp": 50,
+  "hp": {
+    "average": 19,
+    "dice": "3d10"
+  },
+  "ac": 11,
+  "source": "MM",
+  "str": 14,
+  "dex": 12,
+  "con": 12,
+  "int": 2,
+  "wis": 10,
+  "cha": 5
+}

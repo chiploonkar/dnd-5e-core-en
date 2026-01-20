@@ -1,0 +1,22 @@
+{
+  "index": "green-dragon-wyrmling",
+  "name": "Green Dragon Wyrmling",
+  "size": "Medium",
+  "type": "dragon",
+  "subtype": "None",
+  "alignment": "lawful evil",
+  "cr": 2,
+  "xp": 450,
+  "hp": {
+    "average": 38,
+    "dice": "7d8"
+  },
+  "ac": 17,
+  "source": "MM",
+  "str": 15,
+  "dex": 12,
+  "con": 13,
+  "int": 14,
+  "wis": 11,
+  "cha": 13
+}

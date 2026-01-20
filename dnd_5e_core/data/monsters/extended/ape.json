@@ -1,0 +1,22 @@
+{
+  "index": "ape",
+  "name": "Ape",
+  "size": "Medium",
+  "type": "beast",
+  "subtype": "None",
+  "alignment": "unaligned",
+  "cr": 0.5,
+  "xp": 100,
+  "hp": {
+    "average": 19,
+    "dice": "3d8"
+  },
+  "ac": 12,
+  "source": "MM",
+  "str": 16,
+  "dex": 14,
+  "con": 14,
+  "int": 6,
+  "wis": 12,
+  "cha": 7
+}

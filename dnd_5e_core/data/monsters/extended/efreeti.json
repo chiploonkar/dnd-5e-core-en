@@ -1,0 +1,22 @@
+{
+  "index": "efreeti",
+  "name": "Efreeti",
+  "size": "Large",
+  "type": "elemental",
+  "subtype": "None",
+  "alignment": "lawful evil",
+  "cr": 11,
+  "xp": 7200,
+  "hp": {
+    "average": 200,
+    "dice": "16d10"
+  },
+  "ac": 17,
+  "source": "MM",
+  "str": 22,
+  "dex": 12,
+  "con": 24,
+  "int": 16,
+  "wis": 15,
+  "cha": 16
+}

@@ -1,0 +1,22 @@
+{
+  "index": "mummy-lord",
+  "name": "Mummy Lord",
+  "size": "Medium",
+  "type": "undead",
+  "subtype": "None",
+  "alignment": "lawful evil",
+  "cr": 15,
+  "xp": 13000,
+  "hp": {
+    "average": 97,
+    "dice": "13d8"
+  },
+  "ac": 17,
+  "source": "MM",
+  "str": 18,
+  "dex": 10,
+  "con": 17,
+  "int": 11,
+  "wis": 18,
+  "cha": 16
+}

@@ -1,0 +1,22 @@
+{
+  "index": "giant-owl",
+  "name": "Giant Owl",
+  "size": "Large",
+  "type": "beast",
+  "subtype": "None",
+  "alignment": "neutral",
+  "cr": 0.25,
+  "xp": 50,
+  "hp": {
+    "average": 19,
+    "dice": "3d10"
+  },
+  "ac": 12,
+  "source": "MM",
+  "str": 13,
+  "dex": 15,
+  "con": 12,
+  "int": 8,
+  "wis": 13,
+  "cha": 10
+}

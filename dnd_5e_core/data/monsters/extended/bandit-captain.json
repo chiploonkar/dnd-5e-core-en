@@ -1,0 +1,22 @@
+{
+  "index": "bandit-captain",
+  "name": "Bandit Captain",
+  "size": "Medium",
+  "type": "humanoid",
+  "subtype": "any race",
+  "alignment": "any non-lawful alignment",
+  "cr": 2,
+  "xp": 450,
+  "hp": {
+    "average": 65,
+    "dice": "10d8"
+  },
+  "ac": 15,
+  "source": "MM",
+  "str": 15,
+  "dex": 16,
+  "con": 14,
+  "int": 14,
+  "wis": 11,
+  "cha": 14
+}

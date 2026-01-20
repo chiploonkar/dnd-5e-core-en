@@ -1,0 +1,22 @@
+{
+  "index": "bearded-devil",
+  "name": "Bearded Devil",
+  "size": "Medium",
+  "type": "fiend",
+  "subtype": "devil",
+  "alignment": "lawful evil",
+  "cr": 3,
+  "xp": 700,
+  "hp": {
+    "average": 52,
+    "dice": "8d8"
+  },
+  "ac": 13,
+  "source": "MM",
+  "str": 16,
+  "dex": 15,
+  "con": 15,
+  "int": 9,
+  "wis": 11,
+  "cha": 11
+}

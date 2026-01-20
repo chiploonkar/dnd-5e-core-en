@@ -1,0 +1,22 @@
+{
+  "index": "fire-elemental",
+  "name": "Fire Elemental",
+  "size": "Large",
+  "type": "elemental",
+  "subtype": "None",
+  "alignment": "neutral",
+  "cr": 5,
+  "xp": 1800,
+  "hp": {
+    "average": 102,
+    "dice": "12d10"
+  },
+  "ac": 13,
+  "source": "MM",
+  "str": 10,
+  "dex": 17,
+  "con": 16,
+  "int": 6,
+  "wis": 10,
+  "cha": 7
+}

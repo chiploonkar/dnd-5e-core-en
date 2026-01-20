@@ -1,0 +1,22 @@
+{
+  "index": "mage",
+  "name": "Mage",
+  "size": "Medium",
+  "type": "humanoid",
+  "subtype": "any race",
+  "alignment": "any alignment",
+  "cr": 6,
+  "xp": 2300,
+  "hp": {
+    "average": 40,
+    "dice": "9d8"
+  },
+  "ac": 12,
+  "source": "MM",
+  "str": 9,
+  "dex": 14,
+  "con": 11,
+  "int": 17,
+  "wis": 12,
+  "cha": 11
+}

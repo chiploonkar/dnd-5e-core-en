@@ -1,0 +1,22 @@
+{
+  "index": "djinni",
+  "name": "Djinni",
+  "size": "Large",
+  "type": "elemental",
+  "subtype": "None",
+  "alignment": "chaotic good",
+  "cr": 11,
+  "xp": 7200,
+  "hp": {
+    "average": 161,
+    "dice": "14d10"
+  },
+  "ac": 17,
+  "source": "MM",
+  "str": 21,
+  "dex": 15,
+  "con": 22,
+  "int": 15,
+  "wis": 16,
+  "cha": 20
+}

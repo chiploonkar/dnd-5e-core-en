@@ -1,0 +1,22 @@
+{
+  "index": "saber-toothed-tiger",
+  "name": "Saber-Toothed Tiger",
+  "size": "Large",
+  "type": "beast",
+  "subtype": "None",
+  "alignment": "unaligned",
+  "cr": 2,
+  "xp": 450,
+  "hp": {
+    "average": 52,
+    "dice": "7d10"
+  },
+  "ac": 12,
+  "source": "MM",
+  "str": 18,
+  "dex": 14,
+  "con": 15,
+  "int": 3,
+  "wis": 12,
+  "cha": 8
+}

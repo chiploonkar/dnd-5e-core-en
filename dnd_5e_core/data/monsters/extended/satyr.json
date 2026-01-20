@@ -1,0 +1,22 @@
+{
+  "index": "satyr",
+  "name": "Satyr",
+  "size": "Medium",
+  "type": "fey",
+  "subtype": "None",
+  "alignment": "chaotic neutral",
+  "cr": 0.5,
+  "xp": 100,
+  "hp": {
+    "average": 31,
+    "dice": "7d8"
+  },
+  "ac": 14,
+  "source": "MM",
+  "str": 12,
+  "dex": 16,
+  "con": 11,
+  "int": 12,
+  "wis": 10,
+  "cha": 14
+}

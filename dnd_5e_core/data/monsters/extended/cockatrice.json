@@ -1,0 +1,22 @@
+{
+  "index": "cockatrice",
+  "name": "Cockatrice",
+  "size": "Small",
+  "type": "monstrosity",
+  "subtype": "None",
+  "alignment": "unaligned",
+  "cr": 0.5,
+  "xp": 100,
+  "hp": {
+    "average": 27,
+    "dice": "6d6"
+  },
+  "ac": 11,
+  "source": "MM",
+  "str": 6,
+  "dex": 12,
+  "con": 12,
+  "int": 2,
+  "wis": 13,
+  "cha": 5
+}

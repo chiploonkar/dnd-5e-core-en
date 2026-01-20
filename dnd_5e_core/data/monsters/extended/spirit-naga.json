@@ -1,0 +1,22 @@
+{
+  "index": "spirit-naga",
+  "name": "Spirit Naga",
+  "size": "Large",
+  "type": "monstrosity",
+  "subtype": "None",
+  "alignment": "chaotic evil",
+  "cr": 8,
+  "xp": 3900,
+  "hp": {
+    "average": 75,
+    "dice": "10d10"
+  },
+  "ac": 15,
+  "source": "MM",
+  "str": 18,
+  "dex": 17,
+  "con": 14,
+  "int": 16,
+  "wis": 15,
+  "cha": 16
+}

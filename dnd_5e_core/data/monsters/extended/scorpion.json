@@ -1,0 +1,22 @@
+{
+  "index": "scorpion",
+  "name": "Scorpion",
+  "size": "Tiny",
+  "type": "beast",
+  "subtype": "None",
+  "alignment": "unaligned",
+  "cr": 0,
+  "xp": 10,
+  "hp": {
+    "average": 1,
+    "dice": "1d4"
+  },
+  "ac": 11,
+  "source": "MM",
+  "str": 2,
+  "dex": 11,
+  "con": 8,
+  "int": 1,
+  "wis": 8,
+  "cha": 2
+}

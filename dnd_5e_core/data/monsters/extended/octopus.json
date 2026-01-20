@@ -1,0 +1,22 @@
+{
+  "index": "octopus",
+  "name": "Octopus",
+  "size": "Small",
+  "type": "beast",
+  "subtype": "None",
+  "alignment": "unaligned",
+  "cr": 0,
+  "xp": 10,
+  "hp": {
+    "average": 3,
+    "dice": "1d6"
+  },
+  "ac": 12,
+  "source": "MM",
+  "str": 4,
+  "dex": 15,
+  "con": 11,
+  "int": 3,
+  "wis": 10,
+  "cha": 4
+}

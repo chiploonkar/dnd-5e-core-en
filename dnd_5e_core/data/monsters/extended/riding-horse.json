@@ -1,0 +1,22 @@
+{
+  "index": "riding-horse",
+  "name": "Riding Horse",
+  "size": "Large",
+  "type": "beast",
+  "subtype": "None",
+  "alignment": "unaligned",
+  "cr": 0.25,
+  "xp": 25,
+  "hp": {
+    "average": 13,
+    "dice": "2d10"
+  },
+  "ac": 10,
+  "source": "MM",
+  "str": 16,
+  "dex": 10,
+  "con": 12,
+  "int": 2,
+  "wis": 11,
+  "cha": 7
+}

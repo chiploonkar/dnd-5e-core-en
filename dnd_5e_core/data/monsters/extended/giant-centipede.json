@@ -1,0 +1,22 @@
+{
+  "index": "giant-centipede",
+  "name": "Giant Centipede",
+  "size": "Small",
+  "type": "beast",
+  "subtype": "None",
+  "alignment": "unaligned",
+  "cr": 0.25,
+  "xp": 450,
+  "hp": {
+    "average": 4,
+    "dice": "1d6"
+  },
+  "ac": 13,
+  "source": "MM",
+  "str": 5,
+  "dex": 14,
+  "con": 12,
+  "int": 1,
+  "wis": 7,
+  "cha": 3
+}

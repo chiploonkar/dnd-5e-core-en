@@ -1,0 +1,22 @@
+{
+  "index": "mummy",
+  "name": "Mummy",
+  "size": "Medium",
+  "type": "undead",
+  "subtype": "None",
+  "alignment": "lawful evil",
+  "cr": 3,
+  "xp": 700,
+  "hp": {
+    "average": 58,
+    "dice": "9d8"
+  },
+  "ac": 11,
+  "source": "MM",
+  "str": 16,
+  "dex": 8,
+  "con": 15,
+  "int": 6,
+  "wis": 10,
+  "cha": 12
+}

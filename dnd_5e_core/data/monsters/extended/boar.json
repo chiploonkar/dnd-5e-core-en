@@ -1,0 +1,22 @@
+{
+  "index": "boar",
+  "name": "Boar",
+  "size": "Medium",
+  "type": "beast",
+  "subtype": "None",
+  "alignment": "unaligned",
+  "cr": 0.25,
+  "xp": 50,
+  "hp": {
+    "average": 11,
+    "dice": "2d8"
+  },
+  "ac": 11,
+  "source": "MM",
+  "str": 13,
+  "dex": 11,
+  "con": 12,
+  "int": 2,
+  "wis": 9,
+  "cha": 5
+}

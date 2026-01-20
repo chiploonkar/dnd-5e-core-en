@@ -1,0 +1,22 @@
+{
+  "index": "knight",
+  "name": "Knight",
+  "size": "Medium",
+  "type": "humanoid",
+  "subtype": "any race",
+  "alignment": "any alignment",
+  "cr": 3,
+  "xp": 700,
+  "hp": {
+    "average": 52,
+    "dice": "8d8"
+  },
+  "ac": 18,
+  "source": "MM",
+  "str": 16,
+  "dex": 11,
+  "con": 14,
+  "int": 11,
+  "wis": 11,
+  "cha": 15
+}

@@ -1,0 +1,22 @@
+{
+  "index": "frog",
+  "name": "Frog",
+  "size": "Tiny",
+  "type": "beast",
+  "subtype": "None",
+  "alignment": "unaligned",
+  "cr": 0,
+  "xp": 0,
+  "hp": {
+    "average": 1,
+    "dice": "1d4"
+  },
+  "ac": 11,
+  "source": "MM",
+  "str": 1,
+  "dex": 13,
+  "con": 8,
+  "int": 1,
+  "wis": 8,
+  "cha": 3
+}

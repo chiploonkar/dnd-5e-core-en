@@ -1,0 +1,22 @@
+{
+  "index": "owlbear",
+  "name": "Owlbear",
+  "size": "Large",
+  "type": "monstrosity",
+  "subtype": "None",
+  "alignment": "unaligned",
+  "cr": 3,
+  "xp": 700,
+  "hp": {
+    "average": 59,
+    "dice": "7d10"
+  },
+  "ac": 13,
+  "source": "MM",
+  "str": 20,
+  "dex": 12,
+  "con": 17,
+  "int": 3,
+  "wis": 12,
+  "cha": 7
+}

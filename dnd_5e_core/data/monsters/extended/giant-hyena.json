@@ -1,0 +1,22 @@
+{
+  "index": "giant-hyena",
+  "name": "Giant Hyena",
+  "size": "Large",
+  "type": "beast",
+  "subtype": "None",
+  "alignment": "unaligned",
+  "cr": 1,
+  "xp": 200,
+  "hp": {
+    "average": 45,
+    "dice": "6d10"
+  },
+  "ac": 12,
+  "source": "MM",
+  "str": 16,
+  "dex": 14,
+  "con": 14,
+  "int": 2,
+  "wis": 12,
+  "cha": 7
+}

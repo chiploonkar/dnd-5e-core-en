@@ -1,0 +1,22 @@
+{
+  "index": "bulette",
+  "name": "Bulette",
+  "size": "Large",
+  "type": "monstrosity",
+  "subtype": "None",
+  "alignment": "unaligned",
+  "cr": 5,
+  "xp": 1800,
+  "hp": {
+    "average": 94,
+    "dice": "9d10"
+  },
+  "ac": 17,
+  "source": "MM",
+  "str": 19,
+  "dex": 11,
+  "con": 21,
+  "int": 2,
+  "wis": 10,
+  "cha": 5
+}

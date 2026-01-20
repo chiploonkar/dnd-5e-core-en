@@ -1,0 +1,22 @@
+{
+  "index": "gray-ooze",
+  "name": "Gray Ooze",
+  "size": "Medium",
+  "type": "ooze",
+  "subtype": "None",
+  "alignment": "unaligned",
+  "cr": 0.5,
+  "xp": 100,
+  "hp": {
+    "average": 22,
+    "dice": "3d8"
+  },
+  "ac": 8,
+  "source": "MM",
+  "str": 12,
+  "dex": 6,
+  "con": 16,
+  "int": 1,
+  "wis": 6,
+  "cha": 2
+}

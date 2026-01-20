@@ -1,0 +1,22 @@
+{
+  "index": "erinyes",
+  "name": "Erinyes",
+  "size": "Medium",
+  "type": "fiend",
+  "subtype": "devil",
+  "alignment": "lawful evil",
+  "cr": 12,
+  "xp": 8400,
+  "hp": {
+    "average": 153,
+    "dice": "18d8"
+  },
+  "ac": 18,
+  "source": "MM",
+  "str": 18,
+  "dex": 16,
+  "con": 18,
+  "int": 14,
+  "wis": 14,
+  "cha": 18
+}

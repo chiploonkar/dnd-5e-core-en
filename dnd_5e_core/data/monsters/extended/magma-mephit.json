@@ -1,0 +1,22 @@
+{
+  "index": "magma-mephit",
+  "name": "Magma Mephit",
+  "size": "Small",
+  "type": "elemental",
+  "subtype": "None",
+  "alignment": "neutral evil",
+  "cr": 0.5,
+  "xp": 100,
+  "hp": {
+    "average": 22,
+    "dice": "5d6"
+  },
+  "ac": 11,
+  "source": "MM",
+  "str": 8,
+  "dex": 12,
+  "con": 12,
+  "int": 7,
+  "wis": 10,
+  "cha": 10
+}

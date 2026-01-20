@@ -1,0 +1,22 @@
+{
+  "index": "brass-dragon-wyrmling",
+  "name": "Brass Dragon Wyrmling",
+  "size": "Medium",
+  "type": "dragon",
+  "subtype": "None",
+  "alignment": "chaotic good",
+  "cr": 1,
+  "xp": 100,
+  "hp": {
+    "average": 16,
+    "dice": "3d8"
+  },
+  "ac": 16,
+  "source": "MM",
+  "str": 15,
+  "dex": 10,
+  "con": 13,
+  "int": 10,
+  "wis": 11,
+  "cha": 13
+}

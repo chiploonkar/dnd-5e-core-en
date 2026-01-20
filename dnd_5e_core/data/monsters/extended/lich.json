@@ -1,0 +1,22 @@
+{
+  "index": "lich",
+  "name": "Lich",
+  "size": "Medium",
+  "type": "undead",
+  "subtype": "None",
+  "alignment": "any evil alignment",
+  "cr": 21,
+  "xp": 33000,
+  "hp": {
+    "average": 135,
+    "dice": "18d8"
+  },
+  "ac": 17,
+  "source": "MM",
+  "str": 11,
+  "dex": 16,
+  "con": 16,
+  "int": 20,
+  "wis": 14,
+  "cha": 16
+}

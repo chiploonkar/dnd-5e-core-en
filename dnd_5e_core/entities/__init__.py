@@ -7,7 +7,11 @@ from .sprite import Sprite
 from .monster import Monster
 from .character import Character
 from .extended_monsters import FiveEToolsMonsterLoader, get_loader as get_extended_monster_loader
-from .special_monster_actions import SpecialMonsterActionsBuilder, get_builder as get_special_actions_builder
+from .special_monster_actions import (
+    SpecialMonsterActionsBuilder,
+    get_builder as get_special_actions_builder,
+    get_special_monster_actions
+)
 
 __all__ = [
     'Sprite',
@@ -17,5 +21,6 @@ __all__ = [
     'get_extended_monster_loader',
     'SpecialMonsterActionsBuilder',
     'get_special_actions_builder',
+    'get_special_monster_actions',
 ]
 

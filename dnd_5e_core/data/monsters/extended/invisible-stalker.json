@@ -1,0 +1,22 @@
+{
+  "index": "invisible-stalker",
+  "name": "Invisible Stalker",
+  "size": "Medium",
+  "type": "elemental",
+  "subtype": "None",
+  "alignment": "neutral",
+  "cr": 6,
+  "xp": 2300,
+  "hp": {
+    "average": 104,
+    "dice": "16d8"
+  },
+  "ac": 14,
+  "source": "MM",
+  "str": 16,
+  "dex": 19,
+  "con": 14,
+  "int": 10,
+  "wis": 15,
+  "cha": 11
+}

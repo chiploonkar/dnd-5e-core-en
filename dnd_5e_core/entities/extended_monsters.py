@@ -25,9 +25,9 @@ class FiveEToolsMonsterLoader:
         :param data_folder: Chemin vers le dossier contenant les fichiers JSON
         """
         if data_folder is None:
-            # Par défaut, utiliser le dossier data/monsters du package
+            # Par défaut, utiliser le dossier data/monsters/extended du package
             module_path = Path(__file__).parent.parent
-            data_folder = module_path / "data" / "monsters"
+            data_folder = module_path / "data" / "monsters" / "extended"
 
         self.data_folder = Path(data_folder)
         self._monsters_cache: Optional[List[Dict[str, Any]]] = None
@@ -75,10 +75,29 @@ class FiveEToolsMonsterLoader:
         """
         Récupère un monstre par son nom
 
+        Cherche d'abord dans les fichiers individuels, puis dans les archives.
+
         :param name: Nom du monstre
         :param use_all: Si True, cherche dans tous les monstres, sinon seulement les implémentés
         :return: Données du monstre ou None si non trouvé
         """
+        # D'abord, essayer de charger depuis un fichier individuel
+        filename = name.lower()
+        filename = filename.replace(' ', '-')
+        filename = filename.replace("'", '')
+        filename = filename.replace(',', '')
+        filename = filename.replace('(', '')
+        filename = filename.replace(')', '')
+        individual_file = self.data_folder / f"{filename}.json"
+
+        if individual_file.exists():
+            try:
+                with open(individual_file, 'r', encoding='utf-8') as f:
+                    return json.load(f)
+            except Exception as e:
+                print(f"⚠️ Erreur lecture fichier {individual_file}: {e}")
+
+        # Fallback: charger depuis les archives
         monsters = self.load_all_monsters() if use_all else self.load_implemented_monsters()
 
         for monster in monsters:

@@ -1,0 +1,22 @@
+{
+  "index": "giant-vulture",
+  "name": "Giant Vulture",
+  "size": "Large",
+  "type": "beast",
+  "subtype": "None",
+  "alignment": "neutral evil",
+  "cr": 1,
+  "xp": 200,
+  "hp": {
+    "average": 22,
+    "dice": "3d10"
+  },
+  "ac": 10,
+  "source": "MM",
+  "str": 15,
+  "dex": 10,
+  "con": 15,
+  "int": 6,
+  "wis": 12,
+  "cha": 7
+}

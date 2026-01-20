@@ -1,0 +1,22 @@
+{
+  "index": "oni",
+  "name": "Oni",
+  "size": "Large",
+  "type": "giant",
+  "subtype": "None",
+  "alignment": "lawful evil",
+  "cr": 7,
+  "xp": 2900,
+  "hp": {
+    "average": 110,
+    "dice": "13d10"
+  },
+  "ac": 16,
+  "source": "MM",
+  "str": 19,
+  "dex": 11,
+  "con": 16,
+  "int": 14,
+  "wis": 12,
+  "cha": 15
+}

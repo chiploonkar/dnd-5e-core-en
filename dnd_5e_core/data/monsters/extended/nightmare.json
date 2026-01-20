@@ -1,0 +1,22 @@
+{
+  "index": "nightmare",
+  "name": "Nightmare",
+  "size": "Large",
+  "type": "fiend",
+  "subtype": "None",
+  "alignment": "neutral evil",
+  "cr": 3,
+  "xp": 700,
+  "hp": {
+    "average": 68,
+    "dice": "8d10"
+  },
+  "ac": 13,
+  "source": "MM",
+  "str": 18,
+  "dex": 15,
+  "con": 16,
+  "int": 10,
+  "wis": 13,
+  "cha": 15
+}

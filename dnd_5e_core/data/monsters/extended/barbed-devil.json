@@ -1,0 +1,22 @@
+{
+  "index": "barbed-devil",
+  "name": "Barbed Devil",
+  "size": "Medium",
+  "type": "fiend",
+  "subtype": "devil",
+  "alignment": "lawful evil",
+  "cr": 5,
+  "xp": 1800,
+  "hp": {
+    "average": 110,
+    "dice": "13d8"
+  },
+  "ac": 15,
+  "source": "MM",
+  "str": 16,
+  "dex": 17,
+  "con": 18,
+  "int": 12,
+  "wis": 14,
+  "cha": 14
+}

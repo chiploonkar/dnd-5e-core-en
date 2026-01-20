@@ -1,0 +1,22 @@
+{
+  "index": "brown-bear",
+  "name": "Brown Bear",
+  "size": "Large",
+  "type": "beast",
+  "subtype": "None",
+  "alignment": "unaligned",
+  "cr": 1,
+  "xp": 200,
+  "hp": {
+    "average": 34,
+    "dice": "4d10"
+  },
+  "ac": 11,
+  "source": "MM",
+  "str": 19,
+  "dex": 10,
+  "con": 16,
+  "int": 2,
+  "wis": 13,
+  "cha": 7
+}

@@ -1,0 +1,22 @@
+{
+  "index": "guard",
+  "name": "Guard",
+  "size": "Medium",
+  "type": "humanoid",
+  "subtype": "any race",
+  "alignment": "any alignment",
+  "cr": 0.125,
+  "xp": 25,
+  "hp": {
+    "average": 11,
+    "dice": "2d8"
+  },
+  "ac": 16,
+  "source": "MM",
+  "str": 13,
+  "dex": 12,
+  "con": 12,
+  "int": 10,
+  "wis": 11,
+  "cha": 10
+}

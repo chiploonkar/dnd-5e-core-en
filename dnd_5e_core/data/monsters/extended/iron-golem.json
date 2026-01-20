@@ -1,0 +1,22 @@
+{
+  "index": "iron-golem",
+  "name": "Iron Golem",
+  "size": "Large",
+  "type": "construct",
+  "subtype": "None",
+  "alignment": "unaligned",
+  "cr": 16,
+  "xp": 15000,
+  "hp": {
+    "average": 210,
+    "dice": "20d10"
+  },
+  "ac": 20,
+  "source": "MM",
+  "str": 24,
+  "dex": 9,
+  "con": 20,
+  "int": 3,
+  "wis": 11,
+  "cha": 1
+}

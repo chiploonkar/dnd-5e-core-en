@@ -1,0 +1,22 @@
+{
+  "index": "magmin",
+  "name": "Magmin",
+  "size": "Small",
+  "type": "elemental",
+  "subtype": "None",
+  "alignment": "chaotic neutral",
+  "cr": 0.5,
+  "xp": 100,
+  "hp": {
+    "average": 9,
+    "dice": "2d6"
+  },
+  "ac": 14,
+  "source": "MM",
+  "str": 7,
+  "dex": 15,
+  "con": 12,
+  "int": 8,
+  "wis": 11,
+  "cha": 10
+}

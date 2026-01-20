@@ -1,0 +1,22 @@
+{
+  "index": "behir",
+  "name": "Behir",
+  "size": "Huge",
+  "type": "monstrosity",
+  "subtype": "None",
+  "alignment": "neutral evil",
+  "cr": 11,
+  "xp": 7200,
+  "hp": {
+    "average": 168,
+    "dice": "16d12"
+  },
+  "ac": 17,
+  "source": "MM",
+  "str": 23,
+  "dex": 16,
+  "con": 18,
+  "int": 7,
+  "wis": 14,
+  "cha": 12
+}

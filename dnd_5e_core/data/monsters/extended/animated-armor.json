@@ -1,0 +1,22 @@
+{
+  "index": "animated-armor",
+  "name": "Animated Armor",
+  "size": "Medium",
+  "type": "construct",
+  "subtype": "None",
+  "alignment": "unaligned",
+  "cr": 1,
+  "xp": 200,
+  "hp": {
+    "average": 33,
+    "dice": "6d8"
+  },
+  "ac": 18,
+  "source": "MM",
+  "str": 14,
+  "dex": 11,
+  "con": 13,
+  "int": 1,
+  "wis": 3,
+  "cha": 1
+}

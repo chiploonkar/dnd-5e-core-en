@@ -1,0 +1,22 @@
+{
+  "index": "black-pudding",
+  "name": "Black Pudding",
+  "size": "Large",
+  "type": "ooze",
+  "subtype": "None",
+  "alignment": "unaligned",
+  "cr": 4,
+  "xp": 1100,
+  "hp": {
+    "average": 85,
+    "dice": "10d10"
+  },
+  "ac": 7,
+  "source": "MM",
+  "str": 16,
+  "dex": 5,
+  "con": 16,
+  "int": 1,
+  "wis": 6,
+  "cha": 1
+}

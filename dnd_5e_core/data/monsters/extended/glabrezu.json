@@ -1,0 +1,22 @@
+{
+  "index": "glabrezu",
+  "name": "Glabrezu",
+  "size": "Large",
+  "type": "fiend",
+  "subtype": "demon",
+  "alignment": "chaotic evil",
+  "cr": 9,
+  "xp": 5000,
+  "hp": {
+    "average": 157,
+    "dice": "15d10"
+  },
+  "ac": 17,
+  "source": "MM",
+  "str": 20,
+  "dex": 15,
+  "con": 21,
+  "int": 19,
+  "wis": 17,
+  "cha": 16
+}

@@ -1,0 +1,22 @@
+{
+  "index": "pegasus",
+  "name": "Pegasus",
+  "size": "Large",
+  "type": "celestial",
+  "subtype": "None",
+  "alignment": "chaotic good",
+  "cr": 2,
+  "xp": 450,
+  "hp": {
+    "average": 59,
+    "dice": "7d10"
+  },
+  "ac": 12,
+  "source": "MM",
+  "str": 18,
+  "dex": 15,
+  "con": 16,
+  "int": 10,
+  "wis": 15,
+  "cha": 13
+}

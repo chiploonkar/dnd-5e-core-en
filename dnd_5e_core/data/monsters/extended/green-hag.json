@@ -1,0 +1,22 @@
+{
+  "index": "green-hag",
+  "name": "Green Hag",
+  "size": "Medium",
+  "type": "fey",
+  "subtype": "None",
+  "alignment": "neutral evil",
+  "cr": 3,
+  "xp": 700,
+  "hp": {
+    "average": 82,
+    "dice": "11d8"
+  },
+  "ac": 17,
+  "source": "MM",
+  "str": 18,
+  "dex": 12,
+  "con": 16,
+  "int": 13,
+  "wis": 14,
+  "cha": 14
+}

@@ -1,0 +1,22 @@
+{
+  "index": "ettin",
+  "name": "Ettin",
+  "size": "Large",
+  "type": "giant",
+  "subtype": "None",
+  "alignment": "chaotic evil",
+  "cr": 4,
+  "xp": 1100,
+  "hp": {
+    "average": 85,
+    "dice": "10d10"
+  },
+  "ac": 12,
+  "source": "MM",
+  "str": 21,
+  "dex": 8,
+  "con": 17,
+  "int": 6,
+  "wis": 10,
+  "cha": 8
+}

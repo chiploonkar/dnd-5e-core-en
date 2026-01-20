@@ -1,0 +1,22 @@
+{
+  "index": "hippogriff",
+  "name": "Hippogriff",
+  "size": "Large",
+  "type": "monstrosity",
+  "subtype": "None",
+  "alignment": "unaligned",
+  "cr": 1,
+  "xp": 200,
+  "hp": {
+    "average": 19,
+    "dice": "3d10"
+  },
+  "ac": 11,
+  "source": "MM",
+  "str": 17,
+  "dex": 13,
+  "con": 13,
+  "int": 2,
+  "wis": 12,
+  "cha": 8
+}

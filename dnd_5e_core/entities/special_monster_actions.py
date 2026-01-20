@@ -6,16 +6,219 @@ des monstres qui ne sont pas inclus dans l'API officielle D&D 5e.
 
 Note: Ce module est utilisé par extended_monsters.py pour construire les monstres
 avec leurs capacités complètes.
+
+Il prend en charge deux méthodes:
+1. Extraction automatique depuis les fichiers JSON (format 5e.tools)
+2. Définition manuelle pour les monstres nécessitant une logique personnalisée
 """
-from typing import List, Optional, Tuple, Callable, TYPE_CHECKING
-from random import randint
+from typing import List, Optional, Tuple, TYPE_CHECKING, Dict, Any
+import re
 
 # Éviter les imports circulaires avec TYPE_CHECKING
 if TYPE_CHECKING:
-    from ..combat import Action, ActionType, SpecialAbility, Damage, Condition, AreaOfEffect
+    from ..combat import Action, ActionType, SpecialAbility
     from ..spells import SpellCaster
-    from ..equipment import DamageType
-    from ..mechanics import DamageDice
+
+
+class JSONActionExtractor:
+    """
+    Extracteur d'actions depuis les fichiers JSON au format 5e.tools
+
+    Cette classe permet d'extraire automatiquement les actions, capacités spéciales
+    et sorts depuis les données JSON des monstres étendus.
+    """
+
+    def __init__(self):
+        """Initialise l'extracteur"""
+        pass
+
+    def extract_actions_from_json(self, monster_data: Dict[str, Any]) -> List['Action']:
+        """
+        Extrait les actions depuis les données JSON d'un monstre
+
+        :param monster_data: Données du monstre au format 5e.tools
+        :return: Liste d'actions
+        """
+        from ..combat import Action
+
+        actions = []
+
+        # Les actions sont dans la clé 'action' (peut être une liste)
+        if 'action' in monster_data and isinstance(monster_data['action'], list):
+            for action_data in monster_data['action']:
+                try:
+                    action = self._parse_action(action_data)
+                    if action:
+                        actions.append(action)
+                except Exception as e:
+                    print(f"⚠️ Erreur extraction action {action_data.get('name')}: {e}")
+
+        return actions
+
+    def extract_special_abilities_from_json(self, monster_data: Dict[str, Any]) -> List['SpecialAbility']:
+        """
+        Extrait les capacités spéciales depuis les données JSON d'un monstre
+
+        :param monster_data: Données du monstre au format 5e.tools
+        :return: Liste de capacités spéciales
+        """
+        from ..combat import SpecialAbility
+
+        abilities = []
+
+        # Les capacités spéciales sont dans 'trait'
+        if 'trait' in monster_data and isinstance(monster_data['trait'], list):
+            for trait_data in monster_data['trait']:
+                try:
+                    ability = self._parse_special_ability(trait_data)
+                    if ability:
+                        abilities.append(ability)
+                except Exception as e:
+                    print(f"⚠️ Erreur extraction trait {trait_data.get('name')}: {e}")
+
+        return abilities
+
+    def extract_spellcasting_from_json(self, monster_data: Dict[str, Any]) -> Optional['SpellCaster']:
+        """
+        Extrait le spellcasting depuis les données JSON d'un monstre
+
+        :param monster_data: Données du monstre au format 5e.tools
+        :return: SpellCaster ou None
+        """
+        # Chercher dans les traits pour le spellcasting
+        if 'trait' in monster_data and isinstance(monster_data['trait'], list):
+            for trait in monster_data['trait']:
+                if 'name' in trait and 'Spellcasting' in trait['name']:
+                    return self._parse_spellcasting(trait)
+
+        # Chercher dans les actions
+        if 'action' in monster_data and isinstance(monster_data['action'], list):
+            for action in monster_data['action']:
+                if 'name' in action and 'Spellcasting' in action['name']:
+                    return self._parse_spellcasting(action)
+
+        return None
+
+    def _parse_action(self, action_data: Dict[str, Any]) -> Optional['Action']:
+        """Parse une action depuis les données JSON"""
+        from ..combat import Action, ActionType
+
+        name = action_data.get('name', 'Unknown')
+
+        # Skip spellcasting (handled separately)
+        if 'Spellcasting' in name:
+            return None
+
+        # Déterminer le type d'action
+        action_type = self._determine_action_type(action_data)
+
+        # Extraire le bonus d'attaque
+        attack_bonus = self._extract_attack_bonus(action_data)
+
+        # Extraire les portées
+        normal_range, long_range = self._extract_ranges(action_data)
+
+        # Description
+        desc = self._extract_description(action_data)
+
+        # Pour l'instant, pas de parsing des dégâts (complexe)
+        # TODO: Implémenter extraction dégâts
+
+        return Action(
+            name=name,
+            desc=desc,
+            type=action_type,
+            attack_bonus=attack_bonus,
+            damages=[],  # Liste vide au lieu de None
+            normal_range=normal_range,
+            long_range=long_range,
+            dc_type=None,
+            dc_value=None,
+            dc_success=None
+        )
+
+    def _parse_special_ability(self, trait_data: Dict[str, Any]) -> Optional['SpecialAbility']:
+        """Parse une capacité spéciale depuis les données JSON"""
+        from ..combat import SpecialAbility
+
+        name = trait_data.get('name', 'Unknown')
+
+        # Skip spellcasting (handled separately)
+        if 'Spellcasting' in name:
+            return None
+
+        desc = self._extract_description(trait_data)
+
+        return SpecialAbility(
+            name=name,
+            desc=desc
+        )
+
+    def _parse_spellcasting(self, spell_data: Dict[str, Any]) -> Optional['SpellCaster']:
+        """Parse le spellcasting depuis les données JSON"""
+        # TODO: Implémenter le parsing du spellcasting (format 5e.tools complexe)
+        return None
+
+    def _determine_action_type(self, action_data: Dict[str, Any]) -> 'ActionType':
+        """Détermine le type d'action"""
+        from ..combat import ActionType
+
+        name = action_data.get('name', '').lower()
+        entries = action_data.get('entries', [])
+        entries_str = str(entries).lower()
+
+        if 'multiattack' in name:
+            return ActionType.MELEE  # Multiattack is usually melee
+
+        if 'melee' in entries_str and 'ranged' in entries_str:
+            return ActionType.MIXED
+
+        if 'ranged' in entries_str:
+            return ActionType.RANGED
+
+        return ActionType.MELEE
+
+    def _extract_attack_bonus(self, action_data: Dict[str, Any]) -> Optional[int]:
+        """Extrait le bonus d'attaque"""
+        entries = action_data.get('entries', [])
+        for entry in entries:
+            if isinstance(entry, str):
+                # Pattern: "+X to hit"
+                match = re.search(r'\+(\d+)\s+to\s+hit', entry, re.IGNORECASE)
+                if match:
+                    return int(match.group(1))
+        return None
+
+    def _extract_ranges(self, action_data: Dict[str, Any]) -> Tuple[Optional[int], Optional[int]]:
+        """Extrait les portées"""
+        entries = action_data.get('entries', [])
+        for entry in entries:
+            if isinstance(entry, str):
+                # Pattern: "range X/Y ft"
+                match = re.search(r'range\s+(\d+)/(\d+)\s*ft', entry, re.IGNORECASE)
+                if match:
+                    return int(match.group(1)), int(match.group(2))
+
+                # Pattern: "range X ft"
+                match = re.search(r'range\s+(\d+)\s*ft', entry, re.IGNORECASE)
+                if match:
+                    return int(match.group(1)), None
+
+        return None, None
+
+    def _extract_description(self, data: Dict[str, Any]) -> str:
+        """Extrait la description"""
+        entries = data.get('entries', [])
+
+        desc_parts = []
+        for entry in entries:
+            if isinstance(entry, str):
+                desc_parts.append(entry)
+            elif isinstance(entry, dict):
+                if 'text' in entry:
+                    desc_parts.append(entry['text'])
+
+        return ' '.join(desc_parts)
 
 
 class SpecialMonsterActionsBuilder:
@@ -29,7 +232,16 @@ class SpecialMonsterActionsBuilder:
     def __init__(self):
         """Initialise le builder"""
         self._action_builders = {}
+        self._json_extractor = JSONActionExtractor()
+        self._monster_loader = None  # Lazy loaded
         self._register_action_builders()
+
+    def _get_monster_loader(self):
+        """Lazy load du monster loader"""
+        if self._monster_loader is None:
+            from .extended_monsters import FiveEToolsMonsterLoader
+            self._monster_loader = FiveEToolsMonsterLoader()
+        return self._monster_loader
 
     def _register_action_builders(self):
         """Enregistre les fonctions de construction pour chaque monstre"""
@@ -85,20 +297,40 @@ class SpecialMonsterActionsBuilder:
             "Yuan-ti Pit Master": self._build_yuanti_pit_master,
         }
 
-    def get_monster_actions(self, name: str) -> Tuple[List['Action'], List['SpecialAbility'], Optional['SpellCaster']]:
+    def get_monster_actions(self, name: str, use_json_fallback: bool = True) -> Tuple[List['Action'], List['SpecialAbility'], Optional['SpellCaster']]:
         """
         Récupère les actions et capacités spéciales pour un monstre
 
+        Essaie d'abord la définition manuelle, puis l'extraction JSON si disponible.
+
         :param name: Nom du monstre
+        :param use_json_fallback: Si True, essaie l'extraction JSON si pas de définition manuelle
         :return: Tuple (actions, special_abilities, spell_caster)
         """
         builder_func = self._action_builders.get(name)
 
-        if builder_func is None:
-            # Monstre non implémenté, retourner des listes vides
-            return [], [], None
+        if builder_func is not None:
+            # Utiliser la définition manuelle
+            return builder_func()
 
-        return builder_func()
+        # Essayer l'extraction automatique depuis JSON
+        if use_json_fallback:
+            try:
+                loader = self._get_monster_loader()
+                monster_data = loader.get_monster_by_name(name, use_all=False)
+
+                if monster_data:
+                    actions = self._json_extractor.extract_actions_from_json(monster_data)
+                    abilities = self._json_extractor.extract_special_abilities_from_json(monster_data)
+                    spellcaster = self._json_extractor.extract_spellcasting_from_json(monster_data)
+
+                    if actions or abilities or spellcaster:
+                        return actions, abilities, spellcaster
+            except Exception as e:
+                print(f"⚠️ Erreur extraction JSON pour {name}: {e}")
+
+        # Monstre non implémenté et pas dans JSON
+        return [], [], None
 
     def is_implemented(self, name: str) -> bool:
         """
@@ -333,6 +565,26 @@ def get_builder() -> SpecialMonsterActionsBuilder:
     if _builder_instance is None:
         _builder_instance = SpecialMonsterActionsBuilder()
     return _builder_instance
+
+
+def get_special_monster_actions(monster_name: str, use_json_fallback: bool = True) -> Tuple[List['Action'], List['SpecialAbility'], Optional['SpellCaster']]:
+    """
+    Récupère les actions spéciales d'un monstre étendu
+
+    Cette fonction essaie d'abord d'utiliser les définitions manuelles,
+    puis extrait automatiquement depuis les fichiers JSON si disponible.
+
+    :param monster_name: Nom du monstre
+    :param use_json_fallback: Si True, essaie l'extraction JSON comme fallback
+    :return: (actions, special_abilities, spell_caster)
+
+    Exemple:
+        >>> actions, abilities, spellcaster = get_special_monster_actions("Goblin Boss")
+        >>> print(f"Actions: {len(actions)}")
+        Actions: 3
+    """
+    builder = get_builder()
+    return builder.get_monster_actions(monster_name, use_json_fallback=use_json_fallback)
 
 
 if __name__ == "__main__":

@@ -1,0 +1,22 @@
+{
+  "index": "phase-spider",
+  "name": "Phase Spider",
+  "size": "Large",
+  "type": "monstrosity",
+  "subtype": "None",
+  "alignment": "unaligned",
+  "cr": 3,
+  "xp": 700,
+  "hp": {
+    "average": 32,
+    "dice": "5d10"
+  },
+  "ac": 13,
+  "source": "MM",
+  "str": 15,
+  "dex": 15,
+  "con": 12,
+  "int": 6,
+  "wis": 10,
+  "cha": 6
+}

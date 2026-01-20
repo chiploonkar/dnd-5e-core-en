@@ -1,0 +1,22 @@
+{
+  "index": "giant-constrictor-snake",
+  "name": "Giant Constrictor Snake",
+  "size": "Huge",
+  "type": "beast",
+  "subtype": "None",
+  "alignment": "unaligned",
+  "cr": 2,
+  "xp": 450,
+  "hp": {
+    "average": 60,
+    "dice": "8d12"
+  },
+  "ac": 12,
+  "source": "MM",
+  "str": 19,
+  "dex": 14,
+  "con": 12,
+  "int": 1,
+  "wis": 10,
+  "cha": 3
+}

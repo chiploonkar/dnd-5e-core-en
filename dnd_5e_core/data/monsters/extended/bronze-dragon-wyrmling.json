@@ -1,0 +1,22 @@
+{
+  "index": "bronze-dragon-wyrmling",
+  "name": "Bronze Dragon Wyrmling",
+  "size": "Medium",
+  "type": "dragon",
+  "subtype": "None",
+  "alignment": "lawful good",
+  "cr": 2,
+  "xp": 450,
+  "hp": {
+    "average": 32,
+    "dice": "5d8"
+  },
+  "ac": 17,
+  "source": "MM",
+  "str": 17,
+  "dex": 10,
+  "con": 15,
+  "int": 12,
+  "wis": 11,
+  "cha": 15
+}

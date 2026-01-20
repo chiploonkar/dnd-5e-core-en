@@ -1,0 +1,22 @@
+{
+  "index": "kraken",
+  "name": "Kraken",
+  "size": "Gargantuan",
+  "type": "monstrosity",
+  "subtype": "titan",
+  "alignment": "chaotic evil",
+  "cr": 23,
+  "xp": 50000,
+  "hp": {
+    "average": 472,
+    "dice": "27d20"
+  },
+  "ac": 18,
+  "source": "MM",
+  "str": 30,
+  "dex": 11,
+  "con": 25,
+  "int": 22,
+  "wis": 18,
+  "cha": 20
+}

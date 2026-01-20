@@ -1,0 +1,22 @@
+{
+  "index": "blood-hawk",
+  "name": "Blood Hawk",
+  "size": "Small",
+  "type": "beast",
+  "subtype": "None",
+  "alignment": "unaligned",
+  "cr": 0.125,
+  "xp": 25,
+  "hp": {
+    "average": 7,
+    "dice": "2d6"
+  },
+  "ac": 12,
+  "source": "MM",
+  "str": 6,
+  "dex": 14,
+  "con": 10,
+  "int": 3,
+  "wis": 14,
+  "cha": 5
+}

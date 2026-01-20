@@ -1,0 +1,22 @@
+{
+  "index": "horned-devil",
+  "name": "Horned Devil",
+  "size": "Large",
+  "type": "fiend",
+  "subtype": "devil",
+  "alignment": "lawful evil",
+  "cr": 11,
+  "xp": 7200,
+  "hp": {
+    "average": 178,
+    "dice": "17d10"
+  },
+  "ac": 18,
+  "source": "MM",
+  "str": 22,
+  "dex": 17,
+  "con": 21,
+  "int": 12,
+  "wis": 16,
+  "cha": 17
+}

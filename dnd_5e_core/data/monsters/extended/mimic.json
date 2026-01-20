@@ -1,0 +1,22 @@
+{
+  "index": "mimic",
+  "name": "Mimic",
+  "size": "Medium",
+  "type": "monstrosity",
+  "subtype": "shapechanger",
+  "alignment": "neutral",
+  "cr": 2,
+  "xp": 450,
+  "hp": {
+    "average": 58,
+    "dice": "9d8"
+  },
+  "ac": 12,
+  "source": "MM",
+  "str": 17,
+  "dex": 12,
+  "con": 15,
+  "int": 5,
+  "wis": 13,
+  "cha": 8
+}

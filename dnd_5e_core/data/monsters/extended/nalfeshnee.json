@@ -1,0 +1,22 @@
+{
+  "index": "nalfeshnee",
+  "name": "Nalfeshnee",
+  "size": "Large",
+  "type": "fiend",
+  "subtype": "demon",
+  "alignment": "chaotic evil",
+  "cr": 13,
+  "xp": 10000,
+  "hp": {
+    "average": 184,
+    "dice": "16d10"
+  },
+  "ac": 18,
+  "source": "MM",
+  "str": 21,
+  "dex": 10,
+  "con": 22,
+  "int": 19,
+  "wis": 12,
+  "cha": 15
+}

@@ -1,0 +1,22 @@
+{
+  "index": "dire-wolf",
+  "name": "Dire Wolf",
+  "size": "Large",
+  "type": "beast",
+  "subtype": "None",
+  "alignment": "unaligned",
+  "cr": 1,
+  "xp": 200,
+  "hp": {
+    "average": 37,
+    "dice": "5d10"
+  },
+  "ac": 14,
+  "source": "MM",
+  "str": 17,
+  "dex": 15,
+  "con": 15,
+  "int": 3,
+  "wis": 12,
+  "cha": 7
+}

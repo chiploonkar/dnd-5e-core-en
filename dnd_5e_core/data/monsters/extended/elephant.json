@@ -1,0 +1,22 @@
+{
+  "index": "elephant",
+  "name": "Elephant",
+  "size": "Huge",
+  "type": "beast",
+  "subtype": "None",
+  "alignment": "unaligned",
+  "cr": 4,
+  "xp": 1100,
+  "hp": {
+    "average": 76,
+    "dice": "8d12"
+  },
+  "ac": 12,
+  "source": "MM",
+  "str": 22,
+  "dex": 9,
+  "con": 17,
+  "int": 3,
+  "wis": 11,
+  "cha": 6
+}

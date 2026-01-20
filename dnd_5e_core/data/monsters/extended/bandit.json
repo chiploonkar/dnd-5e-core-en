@@ -1,0 +1,22 @@
+{
+  "index": "bandit",
+  "name": "Bandit",
+  "size": "Medium",
+  "type": "humanoid",
+  "subtype": "any race",
+  "alignment": "any non-lawful alignment",
+  "cr": 0.125,
+  "xp": 25,
+  "hp": {
+    "average": 11,
+    "dice": "2d8"
+  },
+  "ac": 12,
+  "source": "MM",
+  "str": 11,
+  "dex": 12,
+  "con": 12,
+  "int": 10,
+  "wis": 10,
+  "cha": 10
+}

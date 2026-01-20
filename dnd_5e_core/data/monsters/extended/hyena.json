@@ -1,0 +1,22 @@
+{
+  "index": "hyena",
+  "name": "Hyena",
+  "size": "Medium",
+  "type": "beast",
+  "subtype": "None",
+  "alignment": "unaligned",
+  "cr": 0,
+  "xp": 10,
+  "hp": {
+    "average": 5,
+    "dice": "1d8"
+  },
+  "ac": 11,
+  "source": "MM",
+  "str": 11,
+  "dex": 13,
+  "con": 12,
+  "int": 2,
+  "wis": 12,
+  "cha": 5
+}

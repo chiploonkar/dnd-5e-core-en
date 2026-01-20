@@ -1,0 +1,22 @@
+{
+  "index": "giant-badger",
+  "name": "Giant Badger",
+  "size": "Medium",
+  "type": "beast",
+  "subtype": "None",
+  "alignment": "unaligned",
+  "cr": 0.25,
+  "xp": 50,
+  "hp": {
+    "average": 13,
+    "dice": "2d8"
+  },
+  "ac": 10,
+  "source": "MM",
+  "str": 13,
+  "dex": 10,
+  "con": 15,
+  "int": 2,
+  "wis": 12,
+  "cha": 5
+}

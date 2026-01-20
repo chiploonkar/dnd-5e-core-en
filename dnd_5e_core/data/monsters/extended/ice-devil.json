@@ -1,0 +1,22 @@
+{
+  "index": "ice-devil",
+  "name": "Ice Devil",
+  "size": "Large",
+  "type": "fiend",
+  "subtype": "devil",
+  "alignment": "lawful evil",
+  "cr": 14,
+  "xp": 11500,
+  "hp": {
+    "average": 180,
+    "dice": "19d10"
+  },
+  "ac": 18,
+  "source": "MM",
+  "str": 21,
+  "dex": 14,
+  "con": 18,
+  "int": 18,
+  "wis": 15,
+  "cha": 18
+}

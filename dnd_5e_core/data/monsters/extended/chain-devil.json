@@ -1,0 +1,22 @@
+{
+  "index": "chain-devil",
+  "name": "Chain Devil",
+  "size": "Medium",
+  "type": "fiend",
+  "subtype": "devil",
+  "alignment": "lawful evil",
+  "cr": 8,
+  "xp": 3900,
+  "hp": {
+    "average": 85,
+    "dice": "10d8"
+  },
+  "ac": 16,
+  "source": "MM",
+  "str": 18,
+  "dex": 15,
+  "con": 18,
+  "int": 11,
+  "wis": 12,
+  "cha": 14
+}

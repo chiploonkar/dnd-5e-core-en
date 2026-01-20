@@ -1,0 +1,22 @@
+{
+  "index": "dretch",
+  "name": "Dretch",
+  "size": "Small",
+  "type": "fiend",
+  "subtype": "demon",
+  "alignment": "chaotic evil",
+  "cr": 0.25,
+  "xp": 25,
+  "hp": {
+    "average": 18,
+    "dice": "4d6"
+  },
+  "ac": 11,
+  "source": "MM",
+  "str": 11,
+  "dex": 11,
+  "con": 12,
+  "int": 5,
+  "wis": 8,
+  "cha": 3
+}
