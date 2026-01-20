@@ -35,6 +35,7 @@ class Monster:
     - Special abilities
     - Spellcasting (optional)
     - Challenge rating
+    - Source (book/module where monster appears)
 
     Note: This is the game logic only. UI layer handles Sprite positioning.
     """
@@ -51,6 +52,7 @@ class Monster:
     actions: List['Action']
     sc: Optional['SpellCaster'] = None  # Spellcaster (if monster can cast spells)
     sa: Optional[List['SpecialAbility']] = None  # Special abilities
+    source: Optional[str] = None  # Source book (e.g., "MM", "MPMM", "SKT")
     attack_round: int = 0
     max_hit_points: int = field(init=False)
 

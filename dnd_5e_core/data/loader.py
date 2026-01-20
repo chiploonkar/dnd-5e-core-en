@@ -394,6 +394,9 @@ def _create_monster_from_data(index: str, data: Dict[str, Any]) -> Optional['Mon
     speed_str = speed_data.get('fly') or speed_data.get('walk') or '30 ft.'
     speed = int(speed_str.split()[0])
 
+    # Source (extended monsters have this field)
+    source = data.get('source', None)
+
     # Create Monster
     return Monster(
         index=index,
@@ -408,7 +411,8 @@ def _create_monster_from_data(index: str, data: Dict[str, Any]) -> Optional['Mon
         challenge_rating=parse_challenge_rating(data.get('challenge_rating', 0)),
         actions=actions,
         sc=spell_caster,
-        sa=special_abilities if special_abilities else None
+        sa=special_abilities if special_abilities else None,
+        source=source
     )
 
 
@@ -774,8 +778,14 @@ def load_monster(index: str) -> Optional['Monster']:
     Returns:
         Monster object or None
     """
-    # Try loading from individual file first
-    data = load_json_file("monsters", index)
+    # Try loading from official monsters first
+    data = load_json_file("monsters/official", index)
+    is_extended = False
+
+    # Try loading from extended monsters
+    if data is None:
+        data = load_json_file("monsters/extended", index)
+        is_extended = True if data else False
 
     # If not found, try loading from bestiary-sublist-data.json
     if data is None:
@@ -796,8 +806,17 @@ def load_monster(index: str) -> Optional['Monster']:
             if os.getenv('DEBUG'):
                 print(f"Error loading monster from bestiary: {e}")
 
+    # Finally, try old-style loading from monsters/ directly
+    if data is None:
+        data = load_json_file("monsters", index)
+
     if data is None:
         return None
+
+    # Normalize extended monster format if needed
+    if is_extended or (data.get('source') and 'abilities' in data and isinstance(data['abilities'], dict)):
+        from .extended_monster_parser import normalize_extended_monster_data
+        data = normalize_extended_monster_data(data)
 
     return _create_monster_from_data(index, data)
 
