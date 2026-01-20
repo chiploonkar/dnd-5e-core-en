@@ -46,7 +46,7 @@ Modules
 - data: API loaders and serialization
 """
 
-__version__ = '0.2.9'
+__version__ = '0.3.0'
 __author__ = 'D&D Development Team'
 
 # Import key classes for convenience

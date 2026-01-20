@@ -7,6 +7,34 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-01-20
+
+### Added
+- **Phase 2: Automatic Condition Detection & Application** 🎯
+  - ConditionParser automatically detects conditions from monster action descriptions
+  - Supports detection of: poisoned, restrained, paralyzed, stunned, frightened, grappled, blinded, charmed, prone, incapacitated
+  - DC and ability type automatically extracted from descriptions (e.g., "DC 12 Constitution saving throw")
+  - Conditions automatically applied during combat when monsters attack
+  - Saving throw system for escaping conditions
+  - `extract_conditions_from_action()` integrated into monster loading
+  
+### Changed
+- **Monster Loading** - Enhanced to automatically parse and add condition effects
+  - All monster actions are now parsed for conditions during load
+  - Conditions stored in action.effects list
+  - Ready for automatic application in combat
+
+### Tests
+- **test_phase2_parser.py** - 6 comprehensive tests (100% passing ✅)
+  - Tests condition detection for all major condition types
+  - Tests DC and ability parsing
+  - Tests condition application to characters
+  - Tests saving throw mechanics
+
+### Documentation
+- Phase 2 validates that condition system is fully functional
+- ConditionParser proven to work with real D&D 5e action descriptions
+
 ## [0.2.9] - 2026-01-20
 
 ### Added
