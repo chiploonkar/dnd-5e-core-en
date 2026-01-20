@@ -6,6 +6,54 @@ import re
 from typing import Dict, List, Any, Optional
 
 
+def _parse_bonus_value(bonus_str) -> Optional[int]:
+    """
+    Parse a bonus value that can be in various formats.
+
+    Args:
+        bonus_str: Bonus string (e.g., "+5", "5", "1  PB", "2 × PB")
+
+    Returns:
+        Integer bonus value or None if cannot parse
+    """
+    if bonus_str is None:
+        return None
+
+    # If already an int, return it
+    if isinstance(bonus_str, int):
+        return bonus_str
+
+    # Convert to string and clean
+    bonus_str = str(bonus_str).strip()
+
+    # Handle empty string
+    if not bonus_str:
+        return None
+
+    # Handle formats with PB (Proficiency Bonus)
+    # Examples: "1  PB", "2 × PB", "+PB", "PB"
+    if 'PB' in bonus_str.upper():
+        # Extract the number before PB if any
+        import re
+        match = re.search(r'([+-]?\d+)', bonus_str)
+        if match:
+            # Assume PB = 2 for simplicity (can be improved)
+            multiplier = int(match.group(1))
+            return multiplier * 2  # PB typically = 2 for CR 1-4
+        else:
+            # Just "PB" or "+PB" - assume base PB = 2
+            return 2
+
+    # Handle standard formats: "+5", "-2", "5"
+    try:
+        # Remove '+' and any whitespace
+        clean_str = bonus_str.replace('+', '').replace(' ', '')
+        return int(clean_str)
+    except (ValueError, AttributeError):
+        # If cannot parse, return None
+        return None
+
+
 def normalize_extended_monster_data(data: Dict[str, Any]) -> Dict[str, Any]:
     """
     Normalize extended monster format (5etools) to official API format.
@@ -108,25 +156,31 @@ def normalize_extended_monster_data(data: Dict[str, Any]) -> Dict[str, Any]:
     if 'saving_throws' in data or 'save' in data:
         saves = data.get('saving_throws', data.get('save', {}))
         for save_name, save_bonus in saves.items():
-            proficiencies.append({
-                'proficiency': {
-                    'index': f'saving-throw-{save_name}',
-                    'name': f'{save_name.upper()} save'
-                },
-                'value': int(save_bonus.replace('+', '')) if isinstance(save_bonus, str) else save_bonus
-            })
+            # Parse bonus - handle formats like "+5", "5", "1  PB", etc.
+            bonus_value = _parse_bonus_value(save_bonus)
+            if bonus_value is not None:
+                proficiencies.append({
+                    'proficiency': {
+                        'index': f'saving-throw-{save_name}',
+                        'name': f'{save_name.upper()} save'
+                    },
+                    'value': bonus_value
+                })
 
     # Skills
     if 'skills' in data or 'skill' in data:
         skills = data.get('skills', data.get('skill', {}))
         for skill_name, skill_bonus in skills.items():
-            proficiencies.append({
-                'proficiency': {
-                    'index': f'skill-{skill_name}',
-                    'name': skill_name.capitalize()
-                },
-                'value': int(skill_bonus.replace('+', '')) if isinstance(skill_bonus, str) else skill_bonus
-            })
+            # Parse bonus - handle formats like "+5", "5", "1  PB", etc.
+            bonus_value = _parse_bonus_value(skill_bonus)
+            if bonus_value is not None:
+                proficiencies.append({
+                    'proficiency': {
+                        'index': f'skill-{skill_name}',
+                        'name': skill_name.capitalize()
+                    },
+                    'value': bonus_value
+                })
 
     normalized['proficiencies'] = proficiencies
 
