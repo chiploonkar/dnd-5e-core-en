@@ -22,8 +22,29 @@ class FiveEToolsToMonsterConverter:
         self.errors = []
         self.warnings = []
 
-    def normalize_filename(self, name: str) -> str:
-        """Créer un nom de fichier normalisé"""
+    def normalize_filename(self, monster_data: Dict[str, Any]) -> str:
+        """
+        Extraire le nom de fichier depuis soundClip['path']
+
+        Exemple: bestiary/balhannoth.mp3 → balhannoth.json
+
+        Si soundClip n'existe pas, utilise le nom normalisé du monstre
+        """
+        # D'abord essayer soundClip['path']
+        sound_clip = monster_data.get('soundClip')
+        if sound_clip and isinstance(sound_clip, dict):
+            path = sound_clip.get('path')
+            if path and isinstance(path, str):
+                # Extraire le nom du fichier sans extension
+                # Exemple: "bestiary/balhannoth.mp3" → "balhannoth"
+                filename = path.split('/')[-1]  # Prendre après le dernier /
+                filename = filename.rsplit('.', 1)[0]  # Supprimer l'extension
+                # S'assurer qu'il est en minuscules
+                filename = filename.lower()
+                return f"{filename}.json"
+
+        # Fallback: normaliser depuis le nom
+        name = monster_data.get('name', 'unknown')
         filename = name.lower()
         filename = filename.replace(' ', '-')
         filename = filename.replace("'", '')
@@ -265,8 +286,8 @@ class FiveEToolsToMonsterConverter:
                 skipped += 1
                 continue
 
-            # Créer nom de fichier
-            filename = self.normalize_filename(name)
+            # Créer nom de fichier depuis soundClip['path'] ou nom normalisé
+            filename = self.normalize_filename(monster_data)
             filepath = output_dir / filename
 
             # Écrire le fichier

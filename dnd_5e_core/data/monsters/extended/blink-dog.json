@@ -1,22 +1,74 @@
 {
-  "index": "blink-dog",
   "name": "Blink Dog",
-  "size": "Medium",
+  "size": "M",
   "type": "fey",
-  "subtype": "None",
-  "alignment": "lawful good",
-  "cr": 0.25,
-  "xp": 50,
-  "hp": {
+  "alignment": "L",
+  "armor_class": 13,
+  "hit_points": {
     "average": 22,
-    "dice": "4d8"
+    "formula": "4d8 + 4"
   },
-  "ac": 13,
-  "source": "MM",
-  "str": 12,
-  "dex": 17,
-  "con": 12,
-  "int": 10,
-  "wis": 13,
-  "cha": 11
+  "speed": {
+    "walk": 40
+  },
+  "abilities": {
+    "str": 12,
+    "dex": 17,
+    "con": 12,
+    "int": 10,
+    "wis": 13,
+    "cha": 11
+  },
+  "challenge_rating": 0.25,
+  "source": "XMM",
+  "saving_throws": {},
+  "skills": {
+    "perception": "+5",
+    "stealth": "+5"
+  },
+  "damage_vulnerabilities": [],
+  "damage_resistances": [],
+  "damage_immunities": [],
+  "condition_immunities": [],
+  "senses": [
+    "Darkvision 60 ft."
+  ],
+  "languages": [
+    "understands Elvish and Sylvan but can't speak them"
+  ],
+  "trait": [],
+  "action": [
+    {
+      "name": "Bite",
+      "entries": [
+        "{@atkr m} {@hit 5}, reach 5 ft. {@h}5 ({@damage 1d4 + 3}) Piercing damage."
+      ]
+    }
+  ],
+  "reaction": [],
+  "legendary": [],
+  "spellcasting": [],
+  "_5etools": {
+    "page": 46,
+    "otherSources": [
+      {
+        "source": "UtHftLH"
+      },
+      {
+        "source": "FRHoF"
+      },
+      {
+        "source": "FRAiF"
+      }
+    ],
+    "environment": [
+      "forest",
+      "planar, feywild"
+    ],
+    "soundClip": {
+      "type": "internal",
+      "path": "bestiary/blink-dog.mp3"
+    },
+    "isNpc": false
+  }
 }
