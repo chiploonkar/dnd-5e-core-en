@@ -48,20 +48,43 @@ def download_image(url: str, save_folder: str, monster_name: str, filename: Opti
     return response.status_code
 
 
-def download_monster_token(monster_name: str, source: str = "MM", save_folder: str = "tokens") -> int:
+def download_monster_token(monster_name: str, source: str = "MM", save_folder: str = "tokens",
+                          monster_index: Optional[str] = None) -> int:
     """
     Télécharge le token d'un monstre depuis 5e.tools
 
-    :param monster_name: Nom du monstre
-    :param source: Source du monstre (MM par défaut)
+    :param monster_name: Nom du monstre (avec espaces et majuscules)
+    :param source: Source du monstre (MM, MPMM, SKT, etc.)
     :param save_folder: Dossier de destination
+    :param monster_index: Index du monstre (format kebab-case, optionnel)
     :return: Code de statut HTTP
     """
     # Construire l'URL pour le token du monstre
+    # 5e.tools utilise le nom avec espaces et majuscules dans l'URL
     image_url = f"https://5e.tools/img/bestiary/tokens/{source}/{quote(monster_name, safe='')}.webp"
-    filename = f"{monster_name.replace('/', '_')}.webp"
+
+    # Le nom de fichier local utilise l'index si fourni, sinon le nom
+    if monster_index:
+        filename = f"{monster_index}.webp"
+    else:
+        filename = f"{monster_name.replace('/', '_').replace(' ', '-').lower()}.webp"
 
     return download_image(image_url, save_folder, monster_name, filename)
+
+
+def download_monster_token_auto(monster, save_folder: str = "tokens") -> int:
+    """
+    Télécharge automatiquement le token d'un monstre en utilisant ses attributs.
+
+    :param monster: Objet Monster avec attributes name, source, index
+    :param save_folder: Dossier de destination
+    :return: Code de statut HTTP
+    """
+    source = getattr(monster, 'source', 'MM') or 'MM'
+    name = getattr(monster, 'name', 'Unknown')
+    index = getattr(monster, 'index', None)
+
+    return download_monster_token(name, source, save_folder, index)
 
 
 def download_tokens_batch(monster_list: List[tuple[str, str]], save_folder: str = "tokens") -> dict:

@@ -981,20 +981,105 @@ def load_armor(index: str) -> Optional['Armor']:
 
 def load_magic_item(index: str) -> Optional['MagicItem']:
     """
-    Load magic item data from local JSON file and return a MagicItem object.
+    Load magic item data from local JSON file or API.
 
     Args:
-        index: Magic item index (e.g., "ring-of-protection", "potion-of-healing")
+        index: Magic item index (e.g., "bag-of-holding", "flame-tongue")
 
     Returns:
         MagicItem object or None
     """
+    # Try loading from local file first
     data = load_json_file("magic-items", index)
+
+    # If not found locally, try API
+    if data is None:
+        try:
+            import requests
+            response = requests.get(f"https://www.dnd5eapi.co/api/magic-items/{index}")
+            if response.status_code == 200:
+                data = response.json()
+        except Exception as e:
+            if os.getenv('DEBUG'):
+                print(f"Error loading magic item from API: {e}")
+            return None
+
     if data is None:
         return None
 
-    from ..equipment.magic_item import create_magic_item_from_data
-    return create_magic_item_from_data(data)
+    # Create MagicItem
+    from ..equipment.magic_item import MagicItem, MagicItemRarity, MagicItemType
+    from ..equipment.equipment import Cost, EquipmentCategory
+
+    # Parse rarity
+    rarity = MagicItemRarity.COMMON
+    if 'rarity' in data:
+        rarity_str = data['rarity'].get('name', 'common').lower()
+        try:
+            rarity = MagicItemRarity(rarity_str)
+        except ValueError:
+            rarity = MagicItemRarity.COMMON
+
+    # Parse type
+    item_type = MagicItemType.WONDROUS
+    category_idx = data.get('equipment_category', {}).get('index', 'wondrous-items')
+    if 'weapon' in category_idx:
+        item_type = MagicItemType.WEAPON
+    elif 'armor' in category_idx:
+        item_type = MagicItemType.ARMOR
+    elif 'potion' in category_idx:
+        item_type = MagicItemType.POTION
+    elif 'ring' in category_idx:
+        item_type = MagicItemType.RING
+    elif 'wand' in category_idx:
+        item_type = MagicItemType.WAND
+    elif 'staff' in category_idx or 'rod' in category_idx:
+        item_type = MagicItemType.STAFF
+
+    # Create basic magic item
+    return MagicItem(
+        index=index,
+        name=data['name'],
+        cost=Cost(quantity=0, unit='gp'),  # Magic items don't have standard costs
+        weight=data.get('weight', 0),
+        desc=data.get('desc', []),
+        category=EquipmentCategory(
+            index=category_idx,
+            name=data.get('equipment_category', {}).get('name', 'Magic Items'),
+            url=data.get('equipment_category', {}).get('url', '/api/equipment-categories/magic-items')
+        ),
+        equipped=False,
+        rarity=rarity,
+        requires_attunement=data.get('requires_attunement', False),
+        item_type=item_type,
+        effects=[],  # TODO: Parse effects from description
+        actions=[]   # TODO: Parse actions from description
+    )
+
+
+def list_magic_items() -> List[str]:
+    """
+    Get list of all available magic items.
+
+    Returns:
+        List of magic item indices
+    """
+    # Try local first
+    local_items = list_json_files("magic-items")
+    if local_items:
+        return local_items
+
+    # Otherwise get from API
+    try:
+        import requests
+        response = requests.get("https://www.dnd5eapi.co/api/magic-items")
+        if response.status_code == 200:
+            data = response.json()
+            return [item['index'] for item in data.get('results', [])]
+    except Exception:
+        pass
+
+    return []
 
 
 def load_race(index: str) -> Optional['Race']:
@@ -1226,4 +1311,3 @@ if __name__ == "__main__":
     if fireball_data:
         print(f"\nLoaded spell: {fireball_data.name}")
         print(f"Level: {fireball_data.level}")
-
