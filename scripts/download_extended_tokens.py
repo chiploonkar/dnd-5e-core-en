@@ -58,7 +58,12 @@ def download_all_extended_tokens(save_folder: str = None):
 
     for i, monster_index in enumerate(extended_monsters, 1):
         # Charger le monstre pour obtenir son nom et sa source
-        monster = load_monster(monster_index)
+        try:
+            monster = load_monster(monster_index)
+        except Exception as e:
+            print(f"[{i}/{len(extended_monsters)}] ⚠️  Erreur chargement: {monster_index} - {str(e)[:50]}")
+            results['skipped'] += 1
+            continue
 
         if not monster:
             print(f"[{i}/{len(extended_monsters)}] ⚠️  Impossible de charger: {monster_index}")
@@ -75,7 +80,13 @@ def download_all_extended_tokens(save_folder: str = None):
             continue
 
         # Télécharger le token
-        status = download_monster_token_auto(monster, save_folder)
+        try:
+            status = download_monster_token_auto(monster, save_folder)
+        except Exception as e:
+            print(f"[{i}/{len(extended_monsters)}] ❌ Erreur téléchargement: {monster.name} - {str(e)[:50]}")
+            results['failed'] += 1
+            failed_monsters.append((monster.name, monster.source or 'Unknown', monster_index))
+            continue
 
         if status == 200:
             results['success'] += 1
@@ -83,7 +94,7 @@ def download_all_extended_tokens(save_folder: str = None):
                 print(f"[{i}/{len(extended_monsters)}] ✅ {monster.name} [{monster.source}]")
         else:
             results['failed'] += 1
-            failed_monsters.append((monster.name, monster.source, monster_index))
+            failed_monsters.append((monster.name, monster.source or 'Unknown', monster_index))
             if i % 10 == 0:
                 print(f"[{i}/{len(extended_monsters)}] ❌ {monster.name} [{monster.source}] (HTTP {status})")
 
