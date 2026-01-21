@@ -54,6 +54,13 @@ clean_build() {
 build_package() {
     echo -e "${YELLOW}🔨 Construction du package...${NC}"
 
+    # Vérifier le changelog avant tout
+    if [ -f "scripts/check_changelog.py" ]; then
+        python3 scripts/check_changelog.py
+    else
+        echo -e "${YELLOW}⚠️  scripts/check_changelog.py introuvable, passez la vérification du changelog manuellement${NC}"
+    fi
+
     # Vérifier que setup.py existe
     if [ ! -f "setup.py" ]; then
         echo -e "${RED}❌ Erreur: setup.py introuvable${NC}"

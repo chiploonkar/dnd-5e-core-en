@@ -5,6 +5,33 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.4.2] - 2026-01-22
+
+### Added
+- `scripts/check_changelog.py` : utilitaire pour vérifier que `CHANGELOG.md` contient
+  une entrée correspondant à la version définie dans `pyproject.toml`. Le script est
+  utilisé pour bloquer les builds/publications si l'entrée manque.
+- `.github/workflows/check-changelog.yml` : workflow GitHub Actions minimal pour
+  valider automatiquement la présence de l'entrée de changelog sur les PRs et les pushes
+  vers `main`.
+- `.pre-commit-config.yaml` : hook local `check-changelog` qui exécute
+  `python3 scripts/check_changelog.py` au moment du commit.
+
+### Changed
+- `build_package.sh` et `publish_final.sh` : ajout d'un contrôle qui exécute
+  `scripts/check_changelog.py` avant la construction/publication pour empêcher les
+  publications sans entrée de changelog.
+- `requirements-dev.txt` : ajout de `pre-commit` aux dépendances de développement.
+- `CONTRIBUTING.md` : ajout d'une section "CHANGELOG & Release checklist" décrivant
+  la règle de mise à jour du changelog, les étapes locales à suivre et l'exemple de
+  format d'entrée.
+
+### Notes
+- Le CI bloquera désormais les merges vers `main` si la section de changelog
+  correspondante est absente. En cas d'exceptions (ex : documentation mineure),
+  ajoutez une courte note "No notable changes" sous la nouvelle en-tête de version.
+
+
 ## [0.4.1] - 2026-01-21
 
 ### Fixed - Magic Items Loader

@@ -167,6 +167,14 @@ main() {
     check_versions
     echo ""
 
+    # Étape 2.5: Vérifier que le changelog contient la version
+    if [ -f "scripts/check_changelog.py" ]; then
+        python3 scripts/check_changelog.py
+    else
+        print_warning "scripts/check_changelog.py introuvable, veuillez vérifier manuellement que CHANGELOG.md est à jour"
+    fi
+    echo ""
+
     # Étape 3: Build
     build_package
     echo ""

@@ -93,6 +93,46 @@ dnd_5e_core/
 5. Update CHANGELOG.md
 6. Submit pull request with clear description
 
+
+## CHANGELOG & Release checklist
+
+Please update `CHANGELOG.md` for every release. This repository follows the "Keep a Changelog" format. The CI will enforce that the changelog contains an entry for the version declared in `pyproject.toml` before merging/publishing.
+
+What to do before publishing:
+
+- Bump the version in `pyproject.toml`, `setup.py` (if used), and `dnd_5e_core/__init__.py` to the same value.
+- Add a section in `CHANGELOG.md` for the new version using the format below.
+- Commit the changes and open a PR. The GitHub Actions workflow `.github/workflows/check-changelog.yml` will verify the changelog entry automatically.
+
+Example changelog entry (copy/paste):
+
+```
+## [0.4.2] - 2026-01-22
+
+### Added
+- Short description of the change.
+
+### Fixed
+- Short description of the fix.
+```
+
+If the release contains no notable changes, add a short note under the version header (e.g. "No notable changes").
+
+Local checks you can run:
+
+```bash
+# Verify the changelog contains an entry for the current version
+python3 scripts/check_changelog.py
+
+# Build and test locally before publishing
+./build_package.sh --clean --build
+```
+
+Notes:
+
+- The scripts `build_package.sh` and `publish_final.sh` also run the changelog check and will fail if the changelog does not contain the expected version header.
+- The CI workflow will block merges to `main` if the changelog check fails; please ensure your PR updates the changelog accordingly.
+
 ## Code of Conduct
 
 Be respectful and inclusive. We welcome contributions from everyone.

@@ -1,0 +1,32 @@
+name: "Vérifier CHANGELOG avant publication"
+
+# Workflow minimal : vérifie que CHANGELOG.md contient une entrée pour la version
+# courante (lue dans pyproject.toml). Échoue la PR/push si l'entrée est manquante.
+
+on:
+  pull_request:
+    branches: [ main ]
+  push:
+    branches: [ main ]
+
+jobs:
+  changelog-check:
+    name: Vérifier le CHANGELOG
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Installer pip (rapide)
+        run: python -m pip install --upgrade pip
+
+      - name: Vérifier le CHANGELOG
+        run: |
+          echo "Vérification du CHANGELOG par rapport à la version de pyproject.toml"
+          python3 scripts/check_changelog.py
