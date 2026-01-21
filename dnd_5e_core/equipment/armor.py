@@ -16,6 +16,24 @@ class ArmorData(Equipment):
     str_minimum: int
     stealth_disadvantage: bool
 
+    # Magic armor bonuses
+    armor_bonus: int = 0  # +1/+2/+3 to AC
+
+    # Damage resistances (e.g., Armor of Resistance: fire)
+    damage_resistances: List[str] = field(default_factory=list)  # ["fire", "cold", "lightning"]
+
+    # Damage immunities (e.g., Armor of Invulnerability)
+    damage_immunities: List[str] = field(default_factory=list)  # ["poison", "necrotic"]
+
+    # Condition immunities (e.g., Periapt of Proof against Poison)
+    condition_immunities: List[str] = field(default_factory=list)  # ["poisoned", "charmed"]
+
+    # Saving throw bonus (e.g., Cloak of Protection: +1)
+    saving_throw_bonus: int = 0
+
+    # Special properties
+    special_properties: List[str] = field(default_factory=list)  # ["immune to critical hits"]
+
     def __repr__(self):
         return self.name
 

@@ -1,7 +1,24 @@
 """
 D&D 5e Core - Predefined Magic Items
+
+⚠️ DEPRECATED: This module has been merged into magic_item_factory.py
+All functions are still available but will be removed in a future version.
+Please import from magic_item_factory instead:
+
+    from dnd_5e_core.equipment import create_ring_of_protection  # Still works
+    from dnd_5e_core.equipment.magic_item_factory import create_ring_of_protection  # Recommended
+
 Common magic items ready to use in combat and adventures
 """
+import warnings
+
+warnings.warn(
+    "predefined_magic_items module is deprecated and has been merged into magic_item_factory. "
+    "Import from magic_item_factory instead.",
+    DeprecationWarning,
+    stacklevel=2
+)
+
 from .magic_item import (
     MagicItem, MagicItemRarity, MagicItemType,
     MagicItemAction

@@ -548,11 +548,20 @@ def _create_race_from_data(index: str, data: Dict[str, Any]) -> Optional['Race']
     # Ability bonuses
     ability_bonuses = {}
     for bonus in data.get('ability_bonuses', []):
-        ability_bonuses[bonus['ability_score']['index']] = bonus['bonus']
+        # Skip if not a dict
+        if not isinstance(bonus, dict):
+            continue
+        # Also check nested structure
+        if 'ability_score' in bonus and isinstance(bonus['ability_score'], dict):
+            ability_bonuses[bonus['ability_score']['index']] = bonus['bonus']
 
     # Languages
     languages = []
     for lang_data in data.get('languages', []):
+        # Skip if not a dict
+        if not isinstance(lang_data, dict):
+            continue
+
         language = Language(
             index=lang_data.get('index', ''),
             name=lang_data.get('name', ''),
@@ -566,6 +575,10 @@ def _create_race_from_data(index: str, data: Dict[str, Any]) -> Optional['Race']
     # Traits
     traits = []
     for trait_data in data.get('traits', []):
+        # Skip if not a dict
+        if not isinstance(trait_data, dict):
+            continue
+
         # Trait desc peut être une liste dans le JSON
         desc_value = trait_data.get('desc', [])
         if isinstance(desc_value, list):
@@ -583,6 +596,10 @@ def _create_race_from_data(index: str, data: Dict[str, Any]) -> Optional['Race']
     # Starting proficiencies
     proficiencies = []
     for prof_data in data.get('starting_proficiencies', []):
+        # Skip if not a dict
+        if not isinstance(prof_data, dict):
+            continue
+
         prof_index = prof_data.get('index', '')
         prof_name = prof_data.get('name', prof_index)
 
@@ -610,10 +627,18 @@ def _create_race_from_data(index: str, data: Dict[str, Any]) -> Optional['Race']
     proficiency_options = []
     if 'starting_proficiency_options' in data:
         for option_data in data['starting_proficiency_options']:
+            # Handle case where option_data might be a string or non-dict
+            if not isinstance(option_data, dict):
+                continue
+
             choose = option_data.get('choose', 1)
             from_list = []
 
             for prof_data in option_data.get('from', []):
+                # Also check if prof_data is a dict
+                if not isinstance(prof_data, dict):
+                    continue
+
                 prof_index = prof_data.get('index', '')
                 prof_name = prof_data.get('name', prof_index)
 
@@ -630,7 +655,8 @@ def _create_race_from_data(index: str, data: Dict[str, Any]) -> Optional['Race']
                 )
                 from_list.append(prof)
 
-            proficiency_options.append((choose, from_list))
+            if from_list:  # Only add if we have proficiencies
+                proficiency_options.append((choose, from_list))
 
     return Race(
         index=index,
@@ -981,7 +1007,7 @@ def load_armor(index: str) -> Optional['Armor']:
 
 def load_magic_item(index: str) -> Optional['MagicItem']:
     """
-    Load magic item data from local JSON file or API.
+    Load magic item data from local JSON file.
 
     Args:
         index: Magic item index (e.g., "bag-of-holding", "flame-tongue")
@@ -989,20 +1015,8 @@ def load_magic_item(index: str) -> Optional['MagicItem']:
     Returns:
         MagicItem object or None
     """
-    # Try loading from local file first
+    # Load from local JSON file in dnd_5e_core/data/magic-items
     data = load_json_file("magic-items", index)
-
-    # If not found locally, try API
-    if data is None:
-        try:
-            import requests
-            response = requests.get(f"https://www.dnd5eapi.co/api/magic-items/{index}")
-            if response.status_code == 200:
-                data = response.json()
-        except Exception as e:
-            if os.getenv('DEBUG'):
-                print(f"Error loading magic item from API: {e}")
-            return None
 
     if data is None:
         return None
@@ -1059,27 +1073,13 @@ def load_magic_item(index: str) -> Optional['MagicItem']:
 
 def list_magic_items() -> List[str]:
     """
-    Get list of all available magic items.
+    Get list of all available magic items from local JSON files.
 
     Returns:
         List of magic item indices
     """
-    # Try local first
-    local_items = list_json_files("magic-items")
-    if local_items:
-        return local_items
-
-    # Otherwise get from API
-    try:
-        import requests
-        response = requests.get("https://www.dnd5eapi.co/api/magic-items")
-        if response.status_code == 200:
-            data = response.json()
-            return [item['index'] for item in data.get('results', [])]
-    except Exception:
-        pass
-
-    return []
+    # Load from local JSON files in dnd_5e_core/data/magic-items
+    return list_json_files("magic-items")
 
 
 def load_race(index: str) -> Optional['Race']:

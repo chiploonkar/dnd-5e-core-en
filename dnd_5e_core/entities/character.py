@@ -198,11 +198,29 @@ class Character:
 
 	@property
 	def armor_class(self):
+		from ..equipment.magic_item import MagicItem
+
 		equipped_armors: List[Armor] = [item for item in self.inventory if isinstance(item, Armor) and item.equipped and item.name != "Shield"]
 		equipped_shields: List[Armor] = [item for item in self.inventory if isinstance(item, Armor) and item.name == "Shield" and item.equipped]
 		ac: int = (sum([item.armor_class["base"] for item in equipped_armors]) if equipped_armors else 10)
 		ac += sum([item.armor_class["base"] for item in equipped_shields])
-		return ac + self.ac_bonus if hasattr(self, "ac_bonus") else ac
+
+		# Add magic armor bonuses
+		for armor in equipped_armors + equipped_shields:
+			if hasattr(armor, 'armor_bonus'):
+				ac += armor.armor_bonus
+
+		# Add magic item bonuses (rings, amulets, etc.)
+		magic_items = [item for item in self.inventory if isinstance(item, MagicItem) and item.equipped]
+		for item in magic_items:
+			if item.can_use():  # Check if attuned if required
+				ac += item.ac_bonus
+
+		# Add character's ac_bonus attribute if exists
+		if hasattr(self, "ac_bonus"):
+			ac += self.ac_bonus
+
+		return ac
 
 	@property
 	def damage_dice(self) -> 'DamageDice':
@@ -213,6 +231,7 @@ class Character:
 			return DamageDice("1d2", 0)  # Unarmed
 
 		# Use two-handed damage if available and no shield equipped
+		# For versatile weapons (e.g., Longsword: 1d8 one-handed, 1d10 two-handed)
 		if self.weapon.damage_dice_two_handed and not self.shield:
 			return self.weapon.damage_dice_two_handed
 
@@ -223,9 +242,73 @@ class Character:
 	def can_cast(self, spell: Spell) -> bool:
 		return self.is_spell_caster and spell in self.sc.learned_spells and (self.sc.spell_slots[spell.level - 1] > 0 or spell.is_cantrip)
 
-	def take_damage(self, damage: int):
-		"""Take damage"""
-		self.hit_points = max(0, self.hit_points - damage)
+	def take_damage(self, damage: int, damage_type: str = "bludgeoning"):
+		"""
+		Take damage, applying resistances and immunities from magic armor
+
+		Args:
+			damage: Amount of damage
+			damage_type: Type of damage (fire, cold, slashing, etc.)
+		"""
+		from ..equipment.armor import ArmorData
+
+		actual_damage = damage
+
+		# Check for damage immunities from armor
+		if self.armor and isinstance(self.armor, ArmorData):
+			if hasattr(self.armor, 'damage_immunities') and self.armor.damage_immunities:
+				if damage_type in self.armor.damage_immunities:
+					actual_damage = 0
+			if actual_damage > 0 and hasattr(self.armor, 'damage_resistances') and self.armor.damage_resistances:
+				if damage_type in self.armor.damage_resistances:
+					actual_damage = damage // 2
+
+		# Check for resistances from magic items (weapons like Frost Brand)
+		from ..equipment.weapon import WeaponData
+		if actual_damage > 0 and self.weapon and isinstance(self.weapon, WeaponData):
+			if hasattr(self.weapon, 'resistances_granted') and self.weapon.resistances_granted:
+				if damage_type in self.weapon.resistances_granted:
+					actual_damage = actual_damage // 2
+
+		self.hit_points = max(0, self.hit_points - actual_damage)
+		return actual_damage
+
+	def calculate_weapon_damage(self, target: Optional['Monster'] = None) -> int:
+		"""
+		Calculate total weapon damage including magic bonuses
+
+		Args:
+			target: Target monster (for creature-specific bonuses)
+
+		Returns:
+			Total damage roll
+		"""
+		from ..mechanics.dice import DamageDice
+		from ..equipment.weapon import WeaponData
+
+		# Base weapon damage
+		base_damage = self.damage_dice.roll()
+
+		# Add magic weapon bonus damage
+		if self.weapon and isinstance(self.weapon, WeaponData):
+			# Add flat damage bonus (+1/+2/+3 weapons)
+			base_damage += self.weapon.damage_bonus
+
+			# Add elemental bonus damage (e.g., Flame Tongue: +2d6 fire)
+			if self.weapon.bonus_damage:
+				for damage_type, dice_str in self.weapon.bonus_damage.items():
+					bonus_dice = DamageDice(dice_str)
+					base_damage += bonus_dice.roll()
+
+			# Add creature-type bonus damage (e.g., Giant Slayer: +2d6 vs giants)
+			if self.weapon.creature_type_damage and target and hasattr(target, 'creature_type'):
+				if target.creature_type and target.creature_type in self.weapon.creature_type_damage:
+					dice_str = self.weapon.creature_type_damage[target.creature_type]
+					bonus_dice = DamageDice(dice_str)
+					creature_bonus = bonus_dice.roll()
+					base_damage += creature_bonus
+
+		return base_damage
 
 	def heal(self, amount: int):
 		"""Heal hit points"""
@@ -421,8 +504,14 @@ class Character:
 				if self.hit_points <= 0:
 					break
 				attack_roll = randint(1, 20) + self.ability_modifiers.get_value_by_index("str") + prof_bonus(self.level)
+
+				# Add magic weapon attack bonus
+				if self.weapon and hasattr(self.weapon, 'attack_bonus'):
+					attack_roll += self.weapon.attack_bonus
+
 				if attack_roll >= monster.armor_class:
-					damage_roll = self.damage_dice.roll()
+					# Use calculate_weapon_damage to include magic bonuses
+					damage_roll = self.calculate_weapon_damage(target=monster)
 					if damage_roll:
 						attack_type = self.weapon.damage_type.index.replace("ing", "es") if self.weapon and hasattr(self.weapon, 'damage_type') else "punches"
 						display_msg.append(f"{self.name} {attack_type} {monster.name} for {damage_roll} hit points!")
@@ -764,6 +853,61 @@ class Character:
 			print(messages)
 
 		return messages, found_item
+
+	def equip_magic_item(self, item, auto_attune: bool = True, verbose: bool = False) -> tuple:
+		"""
+		Equip a magic item (weapon, armor, or accessory) automatically.
+
+		Args:
+			item: Magic item to equip
+			auto_attune: If True, automatically attune items that require it
+			verbose: If True, print messages
+
+		Returns:
+			tuple: (messages: str, success: bool)
+		"""
+		from ..equipment import Armor, Weapon
+		from ..equipment.magic_item import MagicItem
+
+		display_msg: List[str] = []
+		success = False
+
+		# Mark as equipped
+		if hasattr(item, 'equipped'):
+			item.equipped = True
+
+		# Handle attunement for magic items
+		if isinstance(item, MagicItem) and auto_attune:
+			if hasattr(item, 'requires_attunement') and item.requires_attunement:
+				if hasattr(item, 'attuned'):
+					item.attuned = True
+					display_msg.append(f"✨ {self.name} attuned to {item.name}")
+
+		# Add to inventory if not already there
+		if item not in self.inventory:
+			if not self.is_full:
+				free_slot = min([i for i, inv_item in enumerate(self.inventory) if inv_item is None])
+				self.inventory[free_slot] = item
+				display_msg.append(f"📦 {item.name} added to inventory")
+			else:
+				display_msg.append(f"❌ Inventory full! Cannot add {item.name}")
+				return '\n'.join(display_msg), False
+
+		# Use the equip() method for weapons and armors
+		if isinstance(item, (Weapon, Armor)):
+			equip_msg, equip_success = self.equip(item, verbose=False)
+			display_msg.append(equip_msg)
+			success = equip_success
+		else:
+			# For other magic items (rings, amulets, etc.)
+			display_msg.append(f"⚔️  {self.name} equipped {item.name}")
+			success = True
+
+		messages = '\n'.join(display_msg)
+		if verbose:
+			print(messages)
+
+		return messages, success
 
 	def cancel_haste_effect(self, verbose: bool = False) -> tuple:
 		"""

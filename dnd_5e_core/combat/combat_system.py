@@ -139,13 +139,16 @@ class CombatSystem:
             attack_spell = max(castable_spells, key=lambda s: s.level)
 
             try:
-                attack_msg, damage = monster.cast_attack(target_char, attack_spell, verbose=False)
+                attack_msg, damage, damage_type = monster.cast_attack(target_char, attack_spell, verbose=False)
 
                 if attack_msg:
                     self.log_message(attack_msg, clean_ansi=True)
 
                 if damage > 0:
-                    target_char.hit_points -= damage
+                    # Use take_damage to apply resistances/immunities
+                    actual_damage = target_char.take_damage(damage, damage_type)
+                    if actual_damage < damage:
+                        self.log_message(f"   (Reduced from {damage} to {actual_damage} due to resistance/immunity)")
 
                 if target_char.hit_points <= 0:
                     if target_char in alive_chars:
@@ -197,13 +200,16 @@ class CombatSystem:
         for target_char in target_chars:
             if target_char in alive_chars:
                 try:
-                    attack_msg, damage = monster.special_attack(target_char, special_attack, verbose=False)
+                    attack_msg, damage, damage_type = monster.special_attack(target_char, special_attack, verbose=False)
 
                     if attack_msg:
                         self.log_message(attack_msg, clean_ansi=True)
 
                     if damage > 0:
-                        target_char.hit_points -= damage
+                        # Use take_damage to apply resistances/immunities
+                        actual_damage = target_char.take_damage(damage, damage_type)
+                        if actual_damage < damage:
+                            self.log_message(f"   (Reduced from {damage} to {actual_damage} due to resistance/immunity)")
 
                     if target_char.hit_points <= 0:
                         if target_char in alive_chars:
@@ -213,8 +219,8 @@ class CombatSystem:
                 except Exception:
                     # Fallback
                     damage = randint(1, 8)
-                    target_char.hit_points -= damage
-                    self.log_message(f"{monster.name} hits {target_char.name} for {damage} damage!")
+                    actual_damage = target_char.take_damage(damage, "bludgeoning")
+                    self.log_message(f"{monster.name} hits {target_char.name} for {actual_damage} damage!")
 
     def _monster_normal_attack(self, monster, melee_chars, ranged_chars, alive_chars):
         """Execute normal monster attack"""
@@ -228,13 +234,16 @@ class CombatSystem:
 
         if melee_attacks:
             try:
-                attack_msg, damage = monster.attack(target=target_char, actions=melee_attacks, verbose=False)
+                attack_msg, damage, damage_type = monster.attack(target=target_char, actions=melee_attacks, verbose=False)
 
                 if attack_msg:
                     self.log_message(attack_msg, clean_ansi=True)
 
                 if damage > 0:
-                    target_char.hit_points -= damage
+                    # Use take_damage to apply resistances/immunities
+                    actual_damage = target_char.take_damage(damage, damage_type)
+                    if actual_damage < damage:
+                        self.log_message(f"   (Reduced from {damage} to {actual_damage} due to resistance/immunity)")
 
                 if target_char.hit_points <= 0:
                     if target_char in alive_chars:
@@ -250,8 +259,9 @@ class CombatSystem:
         """Simple fallback attack"""
         target = choice(melee_chars) if melee_chars else choice(alive_chars)
         damage = randint(1, 8)
-        target.hit_points -= damage
-        self.log_message(f"{monster.name} attacks {target.name} for {damage} damage!")
+        # Use take_damage to apply resistances/immunities
+        actual_damage = target.take_damage(damage, "bludgeoning")
+        self.log_message(f"{monster.name} attacks {target.name} for {actual_damage} damage!")
 
         if target.hit_points <= 0:
             if target in alive_chars:

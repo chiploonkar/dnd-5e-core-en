@@ -6,7 +6,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import List, Optional, TYPE_CHECKING
+from typing import List, Optional, Dict, TYPE_CHECKING
 
 from .equipment import Equipment
 
@@ -89,6 +89,22 @@ class WeaponData(Equipment):
     weapon_range: Optional[WeaponRange] = None
     throw_range: Optional[WeaponThrowRange] = None
     is_magic: bool = False
+
+    # Magic weapon bonuses
+    attack_bonus: int = 0  # +1/+2/+3 to attack rolls
+    damage_bonus: int = 0  # +1/+2/+3 to damage rolls
+
+    # Additional elemental/typed damage (e.g., Flame Tongue: +2d6 fire)
+    bonus_damage: Optional[Dict[str, str]] = None  # {"fire": "2d6", "cold": "1d6"}
+
+    # Bonus damage vs specific creature types (e.g., Giant Slayer: +2d6 vs giants)
+    creature_type_damage: Optional[Dict[str, str]] = None  # {"giant": "2d6", "dragon": "3d6"}
+
+    # Resistances granted by weapon (e.g., Frost Brand: fire resistance)
+    resistances_granted: Optional[List[str]] = None  # ["fire", "cold"]
+
+    # Special properties for magic items
+    special_properties: Optional[List[str]] = None  # ["glows near dragons", "extinguishes flames"]
 
     # Computed fields
     range: Optional[WeaponRange] = field(default=None, init=False)

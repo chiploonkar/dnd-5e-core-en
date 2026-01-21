@@ -53,6 +53,7 @@ class Monster:
     sc: Optional['SpellCaster'] = None  # Spellcaster (if monster can cast spells)
     sa: Optional[List['SpecialAbility']] = None  # Special abilities
     source: Optional[str] = None  # Source book (e.g., "MM", "MPMM", "SKT")
+    creature_type: Optional[str] = None  # Type (aberration, beast, celestial, construct, dragon, elemental, fey, fiend, giant, humanoid, monstrosity, ooze, plant, undead)
     attack_round: int = 0
     max_hit_points: int = field(init=False)
 
@@ -198,7 +199,7 @@ class Monster:
             verbose: If True, print messages. If False, only return them.
 
         Returns:
-            tuple: (messages: str, damage: int)
+            tuple: (messages: str, damage: int, damage_type: str)
         """
         from typing import List as ListType
 
@@ -208,9 +209,10 @@ class Monster:
             messages = ""
             if verbose:
                 print(messages)
-            return messages, 0
+            return messages, 0, "force"
 
         total_damage = 0
+        primary_damage_type = spell.damage_type if hasattr(spell, 'damage_type') and spell.damage_type else "force"
 
         display_msg.append(f"{self.name} casts {spell.name.upper()} on {target.name}!")
 
@@ -245,7 +247,7 @@ class Monster:
         if verbose:
             print(messages)
 
-        return messages, total_damage
+        return messages, total_damage, primary_damage_type
 
     def special_attack(self, target, sa: 'SpecialAbility', verbose: bool = False) -> tuple:
         """
@@ -257,15 +259,21 @@ class Monster:
             verbose: If True, print messages. If False, only return them.
 
         Returns:
-            tuple: (messages: str, damage: int)
+            tuple: (messages: str, damage: int, damage_type: str)
         """
         from typing import List as ListType
 
         display_msg: ListType[str] = []
 
         total_damage = 0
+        primary_damage_type = "force"  # Default for special abilities
+
         for damage in sa.damages:
-            total_damage += damage.roll()
+            damage_roll = damage.roll()
+            total_damage += damage_roll
+            # Track primary damage type
+            if hasattr(damage, 'type') and damage.type:
+                primary_damage_type = damage.type.index
 
         display_msg.append(f"{self.name} uses {sa.name} on {target.name}!")
 
@@ -288,7 +296,7 @@ class Monster:
         if verbose:
             print(messages)
 
-        return messages, total_damage
+        return messages, total_damage, primary_damage_type
 
     def attack(self, target: 'Character', actions: Optional[List['Action']] = None, distance: float = 5.0, verbose: bool = False) -> tuple:
         """
@@ -301,7 +309,7 @@ class Monster:
             verbose: If True, print messages. If False, only return them.
 
         Returns:
-            tuple: (messages: str, damage: int)
+            tuple: (messages: str, damage: int, damage_type: str)
         """
         from typing import List as ListType
 
@@ -311,12 +319,13 @@ class Monster:
             actions = self.actions
 
         total_damage = 0
+        primary_damage_type = "bludgeoning"  # Default damage type
 
         if not actions:
             messages = ""
             if verbose:
                 print(messages)
-            return messages, 0
+            return messages, 0, primary_damage_type
 
         # Choose an action
         action = choice(actions)
@@ -333,9 +342,11 @@ class Monster:
         for attack_action in attacks:
             # Special ability attack
             if isinstance(attack_action, SpecialAbility):
-                special_msg, special_damage = self.special_attack(target, attack_action, verbose=False)
+                special_msg, special_damage, special_type = self.special_attack(target, attack_action, verbose=False)
                 display_msg.append(special_msg)
                 total_damage += special_damage
+                if total_damage > 0 and special_type:
+                    primary_damage_type = special_type
             else:
                 # Normal attack
                 from ..combat.action import ActionType
@@ -361,6 +372,10 @@ class Monster:
                             damage_given = damage.roll()
                             attack_damage += damage_given
                             total_damage += damage_given
+
+                            # Track primary damage type
+                            if hasattr(damage, 'type') and damage.type:
+                                primary_damage_type = damage.type.index
 
                     # Format attack message
                     attack_type = attack_action.name if attack_action.name else attack_action.type.value
@@ -408,7 +423,7 @@ class Monster:
         if verbose:
             print(messages)
 
-        return messages, total_damage
+        return messages, total_damage, primary_damage_type
 
     def take_damage(self, damage: int):
         """
