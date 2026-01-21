@@ -1231,6 +1231,345 @@ def list_classes() -> List[str]:
     return list_json_files("classes")
 
 
+def load_damage_type(index: str) -> Optional['DamageType']:
+    """
+    Load damage type data from local JSON file.
+
+    Args:
+        index: Damage type index (e.g., "fire", "slashing", "poison")
+
+    Returns:
+        DamageType object or None
+    """
+    data = load_json_file("damage-types", index)
+    if data is None:
+        return None
+
+    from ..equipment.weapon import DamageType
+    return DamageType(
+        index=data['index'],
+        name=data['name'],
+        desc='\n'.join(data.get('desc', [])) if isinstance(data.get('desc'), list) else data.get('desc', '')
+    )
+
+
+def load_condition(index: str) -> Optional['Condition']:
+    """
+    Load condition data from local JSON file.
+
+    Args:
+        index: Condition index (e.g., "blinded", "poisoned", "stunned")
+
+    Returns:
+        Condition object or None
+    """
+    data = load_json_file("conditions", index)
+    if data is None:
+        return None
+
+    from ..combat.condition import Condition
+    return Condition(
+        index=data['index'],
+        name=data['name'],
+        desc='\n'.join(data.get('desc', [])) if isinstance(data.get('desc'), list) else data.get('desc', '')
+    )
+
+
+def load_trait(index: str) -> Optional['Trait']:
+    """
+    Load trait data from local JSON file.
+
+    Args:
+        index: Trait index (e.g., "darkvision", "fey-ancestry")
+
+    Returns:
+        Trait object or None
+    """
+    data = load_json_file("traits", index)
+    if data is None:
+        return None
+
+    from ..races.trait import Trait
+    return Trait(
+        index=data['index'],
+        name=data['name'],
+        desc='\n'.join(data.get('desc', [])) if isinstance(data.get('desc'), list) else data.get('desc', '')
+    )
+
+
+def load_subrace(index: str) -> Optional['SubRace']:
+    """
+    Load subrace data from local JSON file.
+
+    Args:
+        index: Subrace index (e.g., "high-elf", "hill-dwarf")
+
+    Returns:
+        SubRace object or None
+    """
+    data = load_json_file("subraces", index)
+    if data is None:
+        return None
+
+    from ..races.subrace import SubRace
+    from ..classes.proficiency import Proficiency, ProfType
+
+    # Parse ability bonuses
+    ability_bonuses = {}
+    for bonus in data.get('ability_bonuses', []):
+        if isinstance(bonus, dict) and 'ability_score' in bonus:
+            ability_bonuses[bonus['ability_score']['index']] = bonus['bonus']
+
+    # Load starting proficiencies
+    starting_proficiencies = []
+    for prof_data in data.get('starting_proficiencies', []):
+        if isinstance(prof_data, dict):
+            prof_index = prof_data.get('index', '')
+            prof_name = prof_data.get('name', prof_index)
+
+            # Determine type
+            if 'skill' in prof_index:
+                prof_type = ProfType.SKILL
+            elif 'weapon' in prof_index:
+                prof_type = ProfType.WEAPON
+            elif 'armor' in prof_index:
+                prof_type = ProfType.ARMOR
+            else:
+                prof_type = ProfType.OTHER
+
+            prof = Proficiency(
+                index=prof_index,
+                name=prof_name,
+                type=prof_type,
+                ref=None
+            )
+            starting_proficiencies.append(prof)
+
+    # Load racial traits
+    racial_traits = []
+    for trait_data in data.get('racial_traits', []):
+        if isinstance(trait_data, dict):
+            trait = load_trait(trait_data.get('index', ''))
+            if trait:
+                racial_traits.append(trait)
+
+    return SubRace(
+        index=data['index'],
+        name=data['name'],
+        desc=data.get('desc', ''),
+        ability_bonuses=ability_bonuses,
+        starting_proficiencies=starting_proficiencies,
+        racial_traits=racial_traits
+    )
+
+
+def load_language(index: str) -> Optional['Language']:
+    """
+    Load language data from local JSON file.
+
+    Args:
+        index: Language index (e.g., "common", "elvish", "dwarvish")
+
+    Returns:
+        Language object or None
+    """
+    data = load_json_file("languages", index)
+    if data is None:
+        return None
+
+    from ..races.language import Language
+    return Language(
+        index=data['index'],
+        name=data['name'],
+        desc=data.get('desc', ''),
+        type=data.get('type', ''),
+        typical_speakers=data.get('typical_speakers', []),
+        script=data.get('script', '')
+    )
+
+
+def load_proficiency(index: str) -> Optional['Proficiency']:
+    """
+    Load proficiency data from local JSON file.
+
+    Args:
+        index: Proficiency index (e.g., "skill-perception", "armor-light")
+
+    Returns:
+        Proficiency object or None
+    """
+    data = load_json_file("proficiencies", index)
+    if data is None:
+        return None
+
+    from ..classes.proficiency import Proficiency, ProfType
+    from ..abilities.abilities import AbilityType
+
+    # Parse type
+    prof_type_str = data.get('type', 'other')
+    try:
+        prof_type = ProfType(prof_type_str)
+    except ValueError:
+        prof_type = ProfType.OTHER
+
+    # Parse reference (if available)
+    ref = None
+    if 'reference' in data:
+        ref_url = data['reference'].get('url', '')
+        if ref_url:
+            parts = ref_url.split('/')
+            if len(parts) >= 4:
+                category = parts[2]
+                ref_index = parts[3]
+
+                if category == 'equipment':
+                    ref = load_equipment(ref_index)
+                elif category == 'equipment-categories':
+                    ref = load_equipment_category(ref_index)
+                elif category == 'ability-scores':
+                    try:
+                        ref = AbilityType(ref_index.upper())
+                    except ValueError:
+                        pass
+
+    # Parse classes and races
+    classes = [c['index'] for c in data.get('classes', []) if isinstance(c, dict)]
+    races = [r['index'] for r in data.get('races', []) if isinstance(r, dict)]
+
+    return Proficiency(
+        index=data['index'],
+        name=data['name'],
+        type=prof_type,
+        ref=ref,
+        classes=classes,
+        races=races
+    )
+
+
+def load_weapon_property(index: str) -> Optional['WeaponProperty']:
+    """
+    Load weapon property data from local JSON file.
+
+    Args:
+        index: Weapon property index (e.g., "finesse", "versatile", "two-handed")
+
+    Returns:
+        WeaponProperty object or None
+    """
+    data = load_json_file("weapon-properties", index)
+    if data is None:
+        return None
+
+    from ..equipment.weapon import WeaponProperty
+    return WeaponProperty(
+        index=data['index'],
+        name=data['name'],
+        desc='\n'.join(data.get('desc', [])) if isinstance(data.get('desc'), list) else data.get('desc', '')
+    )
+
+
+def load_equipment_category(index: str) -> Optional['EquipmentCategory']:
+    """
+    Load equipment category data from local JSON file.
+
+    Args:
+        index: Equipment category index (e.g., "weapon", "armor", "adventuring-gear")
+
+    Returns:
+        EquipmentCategory object or None
+    """
+    data = load_json_file("equipment-categories", index)
+    if data is None:
+        return None
+
+    from ..equipment.equipment import EquipmentCategory
+    return EquipmentCategory(
+        index=data['index'],
+        name=data['name'],
+        url=data.get('url', f'/api/equipment-categories/{index}')
+    )
+
+
+def list_damage_types() -> List[str]:
+    """
+    Get list of all available damage types from local files.
+
+    Returns:
+        List of damage type indices
+    """
+    return list_json_files("damage-types")
+
+
+def list_conditions() -> List[str]:
+    """
+    Get list of all available conditions from local files.
+
+    Returns:
+        List of condition indices
+    """
+    return list_json_files("conditions")
+
+
+def list_traits() -> List[str]:
+    """
+    Get list of all available traits from local files.
+
+    Returns:
+        List of trait indices
+    """
+    return list_json_files("traits")
+
+
+def list_subraces() -> List[str]:
+    """
+    Get list of all available subraces from local files.
+
+    Returns:
+        List of subrace indices
+    """
+    return list_json_files("subraces")
+
+
+def list_languages() -> List[str]:
+    """
+    Get list of all available languages from local files.
+
+    Returns:
+        List of language indices
+    """
+    return list_json_files("languages")
+
+
+def list_proficiencies() -> List[str]:
+    """
+    Get list of all available proficiencies from local files.
+
+    Returns:
+        List of proficiency indices
+    """
+    return list_json_files("proficiencies")
+
+
+def list_weapon_properties() -> List[str]:
+    """
+    Get list of all available weapon properties from local files.
+
+    Returns:
+        List of weapon property indices
+    """
+    return list_json_files("weapon-properties")
+
+
+def list_equipment_categories() -> List[str]:
+    """
+    Get list of all available equipment categories from local files.
+
+    Returns:
+        List of equipment category indices
+    """
+    return list_json_files("equipment-categories")
+
+
 def clear_cache():
     """
     Note: No cache needed when using local files.

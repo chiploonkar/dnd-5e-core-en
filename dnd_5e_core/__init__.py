@@ -67,6 +67,9 @@ from .spells import Spell, SpellCaster
 from .data import load_monster, load_spell, load_weapon, load_armor
 from .ui import Color, color, cprint
 
+# Agent integration helpers
+from .agent import init_for_agent, serialize_for_agent, AgentContext
+
 __all__ = [
     # Version
     '__version__',
@@ -92,6 +95,8 @@ __all__ = [
     'load_monster', 'load_spell', 'load_weapon', 'load_armor',
     # UI helpers
     'Color', 'color', 'cprint',
+    # Agent helpers
+    'init_for_agent', 'serialize_for_agent', 'AgentContext',
 ]
 
 # Additional exports available via submodules

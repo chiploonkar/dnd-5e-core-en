@@ -62,19 +62,23 @@ def get_collections_directory() -> Path:
     return _COLLECTIONS_DIR
 
 
-def load_collection(collection_name: str, collections_path: Optional[str] = None) -> Dict[str, Any]:
+def load_collection(collection_name: str, collections_path: Optional[str] = None, validate: bool = False, schema_path: Optional[str] = None) -> Dict[str, Any]:
     """
     Load a collection index file.
 
     Args:
         collection_name: Name of the collection (e.g., 'monsters', 'spells')
         collections_path: Optional custom path to collections directory
+        validate: If True, validate the loaded JSON against the collections schema (requires `jsonschema`)
+        schema_path: Optional explicit path to a JSON Schema file. If not provided, the package `schemas/collections_schema.json` is used when available.
 
     Returns:
         Dictionary with 'count' and 'results' keys
 
     Raises:
         FileNotFoundError: If collection file doesn't exist
+        RuntimeError: If validate=True but jsonschema is not installed
+        ValueError: If validation fails
     """
     if collections_path:
         collections_dir = Path(collections_path)
@@ -87,7 +91,35 @@ def load_collection(collection_name: str, collections_path: Optional[str] = None
         raise FileNotFoundError(f"Collection file not found: {file_path}")
 
     with open(file_path, "r", encoding="utf-8") as f:
-        return json.load(f)
+        data = json.load(f)
+
+    # Optional validation step
+    if validate:
+        try:
+            import jsonschema
+        except Exception:
+            raise RuntimeError("jsonschema is required to validate collections; install it with `pip install jsonschema`")
+
+        # Determine schema location
+        if schema_path:
+            schema_file = Path(schema_path)
+        else:
+            # Default schema lives in the package 'schemas' directory next to project root
+            schema_file = Path(__file__).parent.parent / "schemas" / "collections_schema.json"
+
+        if not schema_file.exists():
+            raise FileNotFoundError(f"Collections schema not found: {schema_file}")
+
+        with open(schema_file, "r", encoding="utf-8") as sf:
+            schema = json.load(sf)
+
+        try:
+            jsonschema.validate(instance=data, schema=schema)
+        except Exception as exc:
+            # Re-raise as ValueError with the original message for callers
+            raise ValueError(f"Collection validation failed for {file_path}: {exc}")
+
+    return data
 
 
 def populate(collection_name: str, key_name: str = "results",
