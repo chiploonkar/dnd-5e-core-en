@@ -252,7 +252,7 @@ class MagicItem(Equipment):
             healing = dice.roll()
             total_healing = healing
 
-            messages.append(f"{target.name} is healed for {healing} hit points!")
+            messages.append(f"{user.name} is healed for {healing} hit points!")
 
             # Apply healing
             if hasattr(target, 'heal'):

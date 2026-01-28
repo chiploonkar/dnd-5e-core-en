@@ -37,6 +37,18 @@ class ArmorData(Equipment):
     def __repr__(self):
         return self.name
 
+    def __eq__(self, other):
+        """Compare armors by their unique index when possible to avoid AttributeError
+        when older objects without all fields are compared. Return NotImplemented for unknown types."""
+        if other is None:
+            return False
+        if isinstance(other, ArmorData):
+            return getattr(self, 'index', None) == getattr(other, 'index', None)
+        # Fallback: compare by index attribute if present on other
+        if hasattr(other, 'index'):
+            return getattr(self, 'index', None) == getattr(other, 'index', None)
+        return NotImplemented
+
 
 # Alias for compatibility
 Armor = ArmorData

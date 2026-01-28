@@ -355,6 +355,27 @@ class CombatSystem:
         # Priority 4: Attack
         in_melee = character in alive_chars[:3] if alive_chars else True
 
+        # Try to use a magic item action before normal weapon attack
+        try:
+            magic_actions = self._get_available_magic_item_actions(character)
+            if magic_actions:
+                item_obj, action_obj = choice(magic_actions)
+                self.log_message(f"{character.name} uses {item_obj.name} -> {action_obj.name}!")
+                msg, dmg, heal = item_obj.perform_action(action_obj, monster, user=character, verbose=False)
+                if msg:
+                    self.log_message(msg, clean_ansi=True)
+                if dmg and dmg > 0:
+                    monster.hit_points -= dmg
+                    if monster.hit_points <= 0:
+                        if monster in alive_monsters:
+                            alive_monsters.remove(monster)
+                        self.log_message(f"{monster.name.title()} is KILLED!")
+                        self._handle_victory(character, monster, weapons, armors, equipments, potions)
+                    return
+        # Fallback to normal attack if no item action used
+        except Exception:
+            pass
+
         try:
             self.log_message(f"{character.name} attacks {monster.name.title()}!")
             attack_msg, damage = character.attack(monster=monster, in_melee=in_melee, verbose=False)
@@ -431,6 +452,19 @@ class CombatSystem:
         if not hasattr(character, "kills"):
             character.kills = []
         character.kills.append(monster)
+
+    def _get_available_magic_item_actions(self, character):
+        """Return list of tuples (item, action) for equipped magic items that can act"""
+        from ..equipment.magic_item import MagicItem
+        actions = []
+        if not hasattr(character, 'inventory'):
+            return actions
+        for it in [i for i in character.inventory if i and getattr(i, 'equipped', False)]:
+            if isinstance(it, MagicItem) and getattr(it, 'actions', None):
+                for act in it.actions:
+                    if act.can_use():
+                        actions.append((it, act))
+        return actions
 
 
 # Convenience function for simple combat execution

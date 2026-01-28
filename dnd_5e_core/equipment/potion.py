@@ -157,3 +157,16 @@ class StrengthPotion(Potion):
         minutes = self.duration // 60
         return f"Increases strength to {self.value} for {minutes} minutes"
 
+
+class SimplePotion(Potion):
+    """
+    Generic potion for non-healing effects (invisibility, oil, antitoxin, etc.)
+    """
+    def __init__(self, name: str, rarity: PotionRarity, min_cost: int, max_cost: int, description: str, duration: Optional[int] = None, min_level: int = 1):
+        super().__init__(name, rarity, min_cost, max_cost, min_level)
+        self.description = description
+        self.duration = duration
+
+    def effect(self) -> str:
+        return self.description
+

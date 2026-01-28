@@ -109,14 +109,16 @@ class Character:
 	def armor(self) -> Optional['Armor']:
 		"""Get equipped armor (not shield)"""
 		from ..equipment.armor import Armor
-		equipped_armors = [item for item in self.inventory if item and isinstance(item, Armor) and item.equipped and item.index != 'shield']
+		# Treat shields by category.index == 'shield' to include magical shields
+		equipped_armors = [item for item in self.inventory if item and isinstance(item, Armor) and item.equipped and (not hasattr(item, 'category') or getattr(item.category, 'index', None) != 'shield')]
 		return equipped_armors[0] if equipped_armors else None
 
 	@property
 	def shield(self) -> Optional['Armor']:
 		"""Get equipped shield"""
 		from ..equipment.armor import Armor
-		equipped_shields = [item for item in self.inventory if item and isinstance(item, Armor) and item.equipped and item.index == 'shield']
+		# identify shields by their equipment category index == 'shield'
+		equipped_shields = [item for item in self.inventory if item and isinstance(item, Armor) and item.equipped and hasattr(item, 'category') and getattr(item.category, 'index', None) == 'shield']
 		return equipped_shields[0] if equipped_shields else None
 
 	@property
@@ -200,9 +202,24 @@ class Character:
 	def armor_class(self):
 		from ..equipment.magic_item import MagicItem
 
-		equipped_armors: List[Armor] = [item for item in self.inventory if isinstance(item, Armor) and item.equipped and item.name != "Shield"]
-		equipped_shields: List[Armor] = [item for item in self.inventory if isinstance(item, Armor) and item.name == "Shield" and item.equipped]
+		# Separate shields from armors using category
+		equipped_armors: List[Armor] = [
+			item for item in self.inventory
+			if isinstance(item, Armor) and item.equipped
+			and hasattr(item, 'category') and item.category
+			and item.category.index != "shield"
+		]
+		equipped_shields: List[Armor] = [
+			item for item in self.inventory
+			if isinstance(item, Armor) and item.equipped
+			and hasattr(item, 'category') and item.category
+			and item.category.index == "shield"
+		]
+
+		# Base AC from armor or 10 if no armor
 		ac: int = (sum([item.armor_class["base"] for item in equipped_armors]) if equipped_armors else 10)
+
+		# Shield AC stacks with armor
 		ac += sum([item.armor_class["base"] for item in equipped_shields])
 
 		# Add magic armor bonuses
@@ -210,7 +227,7 @@ class Character:
 			if hasattr(armor, 'armor_bonus'):
 				ac += armor.armor_bonus
 
-		# Add magic item bonuses (rings, amulets, etc.)
+		# Add magic item bonuses (rings, amulets, cloaks, bracers, etc.)
 		magic_items = [item for item in self.inventory if isinstance(item, MagicItem) and item.equipped]
 		for item in magic_items:
 			if item.can_use():  # Check if attuned if required
@@ -331,7 +348,7 @@ class Character:
 		return best_slot_level
 
 	def cast_heal(self, spell: Spell, slot_level: int, targets: List[Character]):
-		ability_modifier: int = int(self.ability_modifiers.get_value_by_index(name=self.class_type.spellcasting_ability))
+		ability_modifier: int = (self.get_ability_score(self.class_type.spellcasting_ability) - 10) // 2
 		dd: DamageDice = spell.get_heal_effect(slot_level=slot_level, ability_modifier=ability_modifier)
 		for char in targets:
 			if char.hit_points < char.max_hit_points:
@@ -503,7 +520,26 @@ class Character:
 			for _ in range(self.multi_attacks):
 				if self.hit_points <= 0:
 					break
-				attack_roll = randint(1, 20) + self.ability_modifiers.get_value_by_index("str") + prof_bonus(self.level)
+				# Consider using magic item actions (wands, staves, necklace) at start of each attack
+				from ..equipment.magic_item import MagicItem
+				magic_actions = []
+				for it in [i for i in self.inventory if i and getattr(i, 'equipped', False)]:
+					if isinstance(it, MagicItem) and it.actions:
+						for act in it.actions:
+							if act.can_use():
+								magic_actions.append((it, act))
+
+				# If available, use one with a small probability (or prefer if no weapon)
+				if magic_actions and (not self.weapon or __import__('random').random() < 0.4):
+					item_obj, action_obj = __import__('random').choice(magic_actions)
+					msg, dmg, heal = item_obj.perform_action(action_obj, monster, user=self, verbose=False)
+					if msg:
+						display_msg.append(msg)
+					if dmg:
+						damage_multi += dmg
+						continue
+
+				attack_roll = randint(1, 20) + ((self.get_ability_score('str') - 10) // 2) + prof_bonus(self.level)
 
 				# Add magic weapon attack bonus
 				if self.weapon and hasattr(self.weapon, 'attack_bonus'):
@@ -526,6 +562,7 @@ class Character:
 						damage_multi += damage_roll
 				else:
 					display_msg.append(f"{self.name} misses {monster.name}!")
+
 			damage_roll = damage_multi
 
 		messages = '\n'.join(display_msg)
@@ -553,7 +590,7 @@ class Character:
 
 		display_msg.append(f"{self.name} CAST SPELL ** {spell.name.upper()} ** on {target.name}")
 
-		ability_modifier = int(self.ability_modifiers.get_value_by_index(name=self.class_type.spellcasting_ability))
+		ability_modifier = (self.get_ability_score(self.class_type.spellcasting_ability) - 10) // 2
 		damages = spell.get_spell_damages(caster_level=self.level, ability_modifier=ability_modifier)
 
 		if spell.dc_type:
@@ -724,7 +761,14 @@ class Character:
 				if self.used_shield:
 					if item == self.used_shield:
 						# Un-equip shield
+						prev = item.equipped
 						item.equipped = not item.equipped
+						# If we just unequipped, remove passive effects
+						if prev and not item.equipped:
+							from ..equipment.magic_item import MagicItem
+							if isinstance(item, MagicItem):
+								item.remove_from_character(self)
+
 						display_msg.append(f"{self.name} un-equipped {item.name}")
 						success = True
 					else:
@@ -736,12 +780,22 @@ class Character:
 							display_msg.append(f"Hero cannot equip {item.name} with a 2-handed weapon - Please un-equip {self.used_weapon.name} first!")
 						else:
 							# Equip shield
+							prev = item.equipped
 							item.equipped = not item.equipped
+							if not prev and item.equipped:
+								from ..equipment.magic_item import MagicItem
+								if isinstance(item, MagicItem):
+									item.apply_to_character(self)
 							display_msg.append(f"{self.name} equipped {item.name}")
 							success = True
 					else:
 						# Equip shield
+						prev = item.equipped
 						item.equipped = not item.equipped
+						if not prev and item.equipped:
+							from ..equipment.magic_item import MagicItem
+							if isinstance(item, MagicItem):
+								item.apply_to_character(self)
 						display_msg.append(f"{self.name} equipped {item.name}")
 						success = True
 			else:
@@ -749,7 +803,12 @@ class Character:
 				if self.used_armor:
 					if item == self.used_armor:
 						# Un-equip armor
+						prev = item.equipped
 						item.equipped = not item.equipped
+						if prev and not item.equipped:
+							from ..equipment.magic_item import MagicItem
+							if isinstance(item, MagicItem):
+								item.remove_from_character(self)
 						display_msg.append(f"{self.name} un-equipped {item.name}")
 						success = True
 					else:
@@ -759,7 +818,12 @@ class Character:
 						display_msg.append(f"Hero cannot equip {item.name} - Minimum strength required is {item.str_minimum}!")
 					else:
 						# Equip armor
+						prev = item.equipped
 						item.equipped = not item.equipped
+						if not prev and item.equipped:
+							from ..equipment.magic_item import MagicItem
+							if isinstance(item, MagicItem):
+								item.apply_to_character(self)
 						display_msg.append(f"{self.name} equipped {item.name}")
 						success = True
 
@@ -767,7 +831,12 @@ class Character:
 			if self.used_weapon:
 				if item == self.used_weapon:
 					# Un-equip weapon
+					prev = item.equipped
 					item.equipped = not item.equipped
+					if prev and not item.equipped:
+						from ..equipment.magic_item import MagicItem
+						if isinstance(item, MagicItem):
+							item.remove_from_character(self)
 					display_msg.append(f"{self.name} un-equipped {item.name}")
 					success = True
 				else:
@@ -778,7 +847,12 @@ class Character:
 					display_msg.append(f"Hero cannot equip {item.name} with a shield - Please un-equip {self.used_shield.name} first!")
 				else:
 					# Equip weapon
+					prev = item.equipped
 					item.equipped = not item.equipped
+					if not prev and item.equipped:
+						from ..equipment.magic_item import MagicItem
+						if isinstance(item, MagicItem):
+							item.apply_to_character(self)
 					display_msg.append(f"{self.name} equipped {item.name}")
 					success = True
 		else:
@@ -900,8 +974,69 @@ class Character:
 			success = equip_success
 		else:
 			# For other magic items (rings, amulets, etc.)
-			display_msg.append(f"⚔️  {self.name} equipped {item.name}")
-			success = True
+			# Determine equipment slot to enforce limits (rings max 2, others max 1)
+			def _determine_slot(it):
+				# Prefer explicit category.index
+				cat = None
+				if hasattr(it, 'category') and it.category:
+					cat = getattr(it.category, 'index', None)
+				name = getattr(it, 'index', '')
+				# Rings
+				if cat == 'ring' or 'ring' in name:
+					return 'ring'
+				# Cloak
+				if 'cloak' in name:
+					return 'cloak'
+				# Belt
+				if 'belt' in name:
+					return 'belt'
+				# Boots
+				if 'boots' in name:
+					return 'boots'
+				# Gloves/Gauntlets
+				if 'gauntlet' in name or 'glove' in name:
+					return 'gloves'
+				# Headband
+				if 'headband' in name:
+					return 'headband'
+				# Amulet / Necklace
+				if 'amulet' in name or 'necklace' in name:
+					return 'amulet'
+				# Bracers
+				if 'bracers' in name:
+					return 'bracers'
+				# Wondrous items ambiguous
+				if cat == 'wondrous-items' or cat == 'wondrous':
+					return 'wondrous'
+				# Default
+				return 'misc'
+
+			slot = _determine_slot(item)
+			if slot == 'ring':
+				# Allow up to 2 rings equipped
+				equipped_rings = [it for it in self.inventory if getattr(it, 'equipped', False) and hasattr(it, 'index') and ('ring' in getattr(it, 'index'))]
+				if len(equipped_rings) >= 2:
+					display_msg.append(f"Hero cannot equip {item.name} - already wearing two rings!")
+					messages = '\n'.join(display_msg)
+					if verbose:
+						print(messages)
+					return messages, False
+			elif slot in ('cloak','belt','boots','gloves','headband','amulet','bracers'):
+				equipped_same = [it for it in self.inventory if getattr(it, 'equipped', False) and (_determine_slot(it) == slot)]
+				if equipped_same:
+					display_msg.append(f"Hero cannot equip {item.name} - already wearing {equipped_same[0].name} in slot {slot}!")
+					messages = '\n'.join(display_msg)
+					if verbose:
+						print(messages)
+					return messages, False
+		# Otherwise equip
+		display_msg.append(f"⚔️  {self.name} equipped {item.name}")
+		success = True
+
+		# For non-weapon/armor magic items, make sure passive bonuses are applied if equipped
+		from ..equipment.magic_item import MagicItem
+		if success and hasattr(item, 'equipped') and item.equipped and isinstance(item, MagicItem):
+			item.apply_to_character(self)
 
 		messages = '\n'.join(display_msg)
 		if verbose:
@@ -1029,14 +1164,14 @@ class Character:
 	def used_armor(self):
 		"""Get currently equipped armor (excluding shield)."""
 		from ..equipment import Armor
-		equipped_armors = [item for item in self.inventory if isinstance(item, Armor) and item.equipped and item.name != "Shield"]
+		equipped_armors = [item for item in self.inventory if isinstance(item, Armor) and item.equipped and not (hasattr(item, 'category') and getattr(item.category, 'index', None) == 'shield')]
 		return equipped_armors[0] if equipped_armors else None
 
 	@property
 	def used_shield(self):
 		"""Get currently equipped shield."""
 		from ..equipment import Armor
-		equipped_shields = [item for item in self.inventory if isinstance(item, Armor) and item.name == "Shield" and item.equipped]
+		equipped_shields = [item for item in self.inventory if isinstance(item, Armor) and item.equipped and (hasattr(item, 'category') and getattr(item.category, 'index', None) == 'shield')]
 		return equipped_shields[0] if equipped_shields else None
 
 	@property
@@ -1102,7 +1237,14 @@ class Character:
 		if prof_modifiers:
 			ability_modifier = prof_modifiers[0]
 		else:
-			ability_modifier = ability_mod(self.abilities.get_value_by_index(dc_type)) + prof_bonus(self.level)
+			ability_modifier = ability_mod(self.get_ability_score(dc_type)) + prof_bonus(self.level)
+
+		# Add magic item bonuses to saving throws (Ring of Protection, Cloak of Protection)
+		from ..equipment.magic_item import MagicItem
+		magic_items = [item for item in self.inventory if isinstance(item, MagicItem) and item.equipped]
+		for item in magic_items:
+			if item.can_use() and hasattr(item, 'saving_throw_bonus'):
+				ability_modifier += item.saving_throw_bonus
 
 		# Check for advantage
 		if hasattr(self, "st_advantages") and dc_type in self.st_advantages:
@@ -1138,3 +1280,21 @@ class Character:
 			else max(healing_potions, key=lambda p: p.max_hp_restored)
 		)
 
+	def get_ability_score(self, ability: str) -> int:
+		"""Return effective ability score including magic item bonuses"""
+		# Base value from abilities object
+		base = 0
+		if hasattr(self, 'abilities') and hasattr(self.abilities, 'get_value_by_index'):
+			try:
+				base = int(self.abilities.get_value_by_index(ability))
+			except Exception:
+				base = 10
+
+		# Add bonuses from equipped magic items
+		bonus = 0
+		from ..equipment.magic_item import MagicItem
+		for item in [it for it in self.inventory if it and getattr(it, 'equipped', False)]:
+			if isinstance(item, MagicItem) and hasattr(item, 'ability_bonuses') and item.ability_bonuses:
+				bonus += item.ability_bonuses.get(ability, 0)
+
+		return base + bonus

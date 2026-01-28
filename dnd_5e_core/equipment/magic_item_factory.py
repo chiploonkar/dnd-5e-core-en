@@ -8,6 +8,7 @@ from typing import Optional
 from .magic_item import MagicItem, MagicItemAction, MagicItemRarity, MagicItemType
 from ..combat.condition_parser import ConditionParser
 from .equipment import Cost, EquipmentCategory
+from .potion import HealingPotion, SpeedPotion, StrengthPotion, SimplePotion
 
 
 def create_magic_item_with_conditions(
@@ -617,151 +618,119 @@ def create_rope_of_climbing() -> MagicItem:
 # POTIONS
 # ============================================================================
 
-def create_potion_of_healing() -> MagicItem:
+def create_potion_of_healing() -> HealingPotion:
     """Potion of Healing: Restore 2d4+2 HP"""
-    return MagicItem(
-        index="potion-of-healing",
+    return HealingPotion(
         name="Potion of Healing",
-        cost=Cost(quantity=50, unit="gp"),
-        weight=0.5,
-        desc=["You regain 2d4+2 hit points when you drink this potion."],
-        category=EquipmentCategory(index="potion", name="Potion", url="/api/equipment-categories/potion"),
-        equipped=False,
         rarity=MagicItemRarity.COMMON,
-        item_type=MagicItemType.POTION,
-        requires_attunement=False
+        hit_dice="2d4",
+        bonus=2,
+        min_cost=40,
+        max_cost=60,
+        min_level=1
     )
 
 
-def create_potion_of_greater_healing() -> MagicItem:
+def create_potion_of_greater_healing() -> HealingPotion:
     """Potion of Greater Healing: Restore 4d4+4 HP"""
-    return MagicItem(
-        index="potion-of-greater-healing",
+    return HealingPotion(
         name="Potion of Greater Healing",
-        cost=Cost(quantity=150, unit="gp"),
-        weight=0.5,
-        desc=["You regain 4d4+4 hit points when you drink this potion."],
-        category=EquipmentCategory(index="potion", name="Potion", url="/api/equipment-categories/potion"),
-        equipped=False,
         rarity=MagicItemRarity.UNCOMMON,
-        item_type=MagicItemType.POTION,
-        requires_attunement=False
+        hit_dice="4d4",
+        bonus=4,
+        min_cost=120,
+        max_cost=180,
+        min_level=1
     )
 
 
-def create_potion_of_superior_healing() -> MagicItem:
+def create_potion_of_superior_healing() -> HealingPotion:
     """Potion of Superior Healing: Restore 8d4+8 HP"""
-    return MagicItem(
-        index="potion-of-superior-healing",
+    return HealingPotion(
         name="Potion of Superior Healing",
-        cost=Cost(quantity=450, unit="gp"),
-        weight=0.5,
-        desc=["You regain 8d4+8 hit points when you drink this potion."],
-        category=EquipmentCategory(index="potion", name="Potion", url="/api/equipment-categories/potion"),
-        equipped=False,
         rarity=MagicItemRarity.RARE,
-        item_type=MagicItemType.POTION,
-        requires_attunement=False
+        hit_dice="8d4",
+        bonus=8,
+        min_cost=400,
+        max_cost=500,
+        min_level=1
     )
 
 
-def create_potion_of_supreme_healing() -> MagicItem:
+def create_potion_of_supreme_healing() -> HealingPotion:
     """Potion of Supreme Healing: Restore 10d4+20 HP"""
-    return MagicItem(
-        index="potion-of-supreme-healing",
+    return HealingPotion(
         name="Potion of Supreme Healing",
-        cost=Cost(quantity=1350, unit="gp"),
-        weight=0.5,
-        desc=["You regain 10d4+20 hit points when you drink this potion."],
-        category=EquipmentCategory(index="potion", name="Potion", url="/api/equipment-categories/potion"),
-        equipped=False,
         rarity=MagicItemRarity.VERY_RARE,
-        item_type=MagicItemType.POTION,
-        requires_attunement=False
+        hit_dice="10d4",
+        bonus=20,
+        min_cost=1200,
+        max_cost=1500,
+        min_level=1
     )
 
 
-def create_antitoxin() -> MagicItem:
+def create_antitoxin() -> SimplePotion:
     """Antitoxin: Advantage on saving throws against poison for 1 hour"""
-    return MagicItem(
-        index="antitoxin",
+    return SimplePotion(
         name="Antitoxin",
-        cost=Cost(quantity=50, unit="gp"),
-        weight=0,
-        desc=["A creature that drinks this vial of liquid gains advantage on saving throws against poison for 1 hour. It confers no benefit to undead or constructs."],
-        category=EquipmentCategory(index="potion", name="Potion", url="/api/equipment-categories/potion"),
-        equipped=False,
         rarity=MagicItemRarity.COMMON,
-        item_type=MagicItemType.POTION,
-        requires_attunement=False
+        min_cost=40,
+        max_cost=60,
+        description="Advantage on saving throws against poison for 1 hour",
+        duration=3600
     )
 
 
-def create_potion_of_poison() -> MagicItem:
+def create_potion_of_poison() -> SimplePotion:
     """Potion of Poison: 3d6 poison damage, DC 13 CON save"""
-    return MagicItem(
-        index="potion-of-poison",
+    return SimplePotion(
         name="Potion of Poison",
-        cost=Cost(quantity=100, unit="gp"),
-        weight=0.5,
-        desc=["This concoction looks, smells, and tastes like a potion of healing. However, it is actually poison masked by illusion magic. A creature that drinks this poison must make a DC 13 Constitution saving throw, taking 3d6 poison damage on a failed save, or half as much damage on a successful one."],
-        category=EquipmentCategory(index="potion", name="Potion", url="/api/equipment-categories/potion"),
-        equipped=False,
         rarity=MagicItemRarity.UNCOMMON,
-        item_type=MagicItemType.POTION,
-        requires_attunement=False
+        min_cost=80,
+        max_cost=120,
+        description="3d6 poison damage, DC 13 CON save (half on success)",
+        duration=None
     )
 
 
-def create_potion_of_speed() -> MagicItem:
+def create_potion_of_speed() -> SpeedPotion:
     """Potion of Speed: Haste effect for 1 minute"""
-    return MagicItem(
-        index="potion-of-speed",
+    return SpeedPotion(
         name="Potion of Speed",
-        cost=Cost(quantity=400, unit="gp"),
-        weight=0.5,
-        desc=["When you drink this potion, you gain the effect of the haste spell for 1 minute (no concentration required)."],
-        category=EquipmentCategory(index="potion", name="Potion", url="/api/equipment-categories/potion"),
-        equipped=False,
         rarity=MagicItemRarity.VERY_RARE,
-        item_type=MagicItemType.POTION,
-        requires_attunement=False
+        min_cost=350,
+        max_cost=450,
+        duration=60,
+        min_level=1
     )
 
 
-def create_potion_of_invisibility() -> MagicItem:
+def create_potion_of_invisibility() -> SimplePotion:
     """Potion of Invisibility: Invisible for 1 hour"""
-    return MagicItem(
-        index="potion-of-invisibility",
+    return SimplePotion(
         name="Potion of Invisibility",
-        cost=Cost(quantity=180, unit="gp"),
-        weight=0.5,
-        desc=["When you drink this potion, you become invisible for 1 hour. Anything you wear or carry is invisible with you. The effect ends early if you attack or cast a spell."],
-        category=EquipmentCategory(index="potion", name="Potion", url="/api/equipment-categories/potion"),
-        equipped=False,
         rarity=MagicItemRarity.VERY_RARE,
-        item_type=MagicItemType.POTION,
-        requires_attunement=False
+        min_cost=160,
+        max_cost=200,
+        description="Become invisible for 1 hour (effect ends early if you attack or cast a spell)",
+        duration=3600
     )
 
 
-def create_potion_of_flying() -> MagicItem:
+def create_potion_of_flying() -> SimplePotion:
     """Potion of Flying: Fly for 1 hour"""
-    return MagicItem(
-        index="potion-of-flying",
+    return SimplePotion(
         name="Potion of Flying",
-        cost=Cost(quantity=500, unit="gp"),
-        weight=0.5,
-        desc=["When you drink this potion, you gain a flying speed equal to your walking speed for 1 hour."],
-        category=EquipmentCategory(index="potion", name="Potion", url="/api/equipment-categories/potion"),
-        equipped=False,
         rarity=MagicItemRarity.VERY_RARE,
-        item_type=MagicItemType.POTION,
-        requires_attunement=False
+        min_cost=450,
+        max_cost=550,
+        description="Gain flying speed equal to walking speed for 1 hour",
+        duration=3600
     )
 
 
-def create_potion_of_giant_strength(giant_type: str = "hill") -> MagicItem:
+def create_potion_of_giant_strength(giant_type: str = "hill") -> StrengthPotion:
     """Potion of Giant Strength: Sets Strength for 1 hour"""
     strength_values = {
         "hill": (21, 200),
@@ -772,51 +741,40 @@ def create_potion_of_giant_strength(giant_type: str = "hill") -> MagicItem:
         "storm": (29, 2000)
     }
 
-    strength, cost = strength_values.get(giant_type, strength_values["hill"])
+    strength, _cost = strength_values.get(giant_type, strength_values["hill"])
 
-    return MagicItem(
-        index=f"potion-of-{giant_type}-giant-strength",
+    return StrengthPotion(
         name=f"Potion of {giant_type.title()} Giant Strength",
-        cost=Cost(quantity=cost, unit="gp"),
-        weight=0.5,
-        desc=[f"When you drink this potion, your Strength score changes to {strength} for 1 hour. If your Strength is already equal to or greater than {strength}, the potion has no effect."],
-        category=EquipmentCategory(index="potion", name="Potion", url="/api/equipment-categories/potion"),
-        equipped=False,
         rarity=MagicItemRarity.UNCOMMON if strength <= 21 else MagicItemRarity.RARE if strength <= 25 else MagicItemRarity.VERY_RARE,
-        item_type=MagicItemType.POTION,
-        requires_attunement=False
+        min_cost= _cost if ' _cost' in locals() else 200,
+        max_cost= _cost if ' _cost' in locals() else 300,
+        value=strength,
+        duration=3600,
+        min_level=1
     )
 
 
-def create_elixir_of_health() -> MagicItem:
+def create_elixir_of_health() -> SimplePotion:
     """Elixir of Health: Cures any disease and poisoned condition"""
-    return MagicItem(
-        index="elixir-of-health",
+    return SimplePotion(
         name="Elixir of Health",
-        cost=Cost(quantity=120, unit="gp"),
-        weight=0.5,
-        desc=["When you drink this potion, it cures any disease afflicting you, and it removes the blinded, deafened, paralyzed, and poisoned conditions."],
-        category=EquipmentCategory(index="potion", name="Potion", url="/api/equipment-categories/potion"),
-        equipped=False,
         rarity=MagicItemRarity.RARE,
-        item_type=MagicItemType.POTION,
-        requires_attunement=False
+        min_cost=100,
+        max_cost=140,
+        description="Cures disease and removes blinded, deafened, paralyzed, and poisoned conditions",
+        duration=None
     )
 
 
-def create_oil_of_slipperiness() -> MagicItem:
+def create_oil_of_slipperiness() -> SimplePotion:
     """Oil of Slipperiness: Freedom of movement effect"""
-    return MagicItem(
-        index="oil-of-slipperiness",
+    return SimplePotion(
         name="Oil of Slipperiness",
-        cost=Cost(quantity=480, unit="gp"),
-        weight=0.5,
-        desc=["This sticky black unguent is thick and heavy in the container, but it flows quickly when poured. The oil can cover a Medium or smaller creature, along with the equipment it's wearing and carrying. Applying the oil takes 10 minutes. The affected creature then gains the effect of a freedom of movement spell for 8 hours."],
-        category=EquipmentCategory(index="potion", name="Potion", url="/api/equipment-categories/potion"),
-        equipped=False,
         rarity=MagicItemRarity.UNCOMMON,
-        item_type=MagicItemType.POTION,
-        requires_attunement=False
+        min_cost=420,
+        max_cost=520,
+        description="Grants Freedom of Movement for 8 hours",
+        duration=8*3600
     )
 
 
@@ -946,5 +904,4 @@ __all__ = [
     'PREDEFINED_ITEMS',
     'get_magic_item',
 ]
-
 
