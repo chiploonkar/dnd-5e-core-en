@@ -37,7 +37,7 @@ jobs:
         id: get_version
         run: |
           # Extract version from pyproject.toml and write to GITHUB_OUTPUT for later steps
-          version=$(python -c "import tomllib,sys; data=tomllib.loads(open('pyproject.toml','rb').read()); print(data['project']['version'])")
+          version=$(python -c "import tomllib,sys; data=tomllib.load(open('pyproject.toml','rb')); print(data['project']['version'])")
           echo "version=$version" >> $GITHUB_OUTPUT
 
       - name: Ensure CHANGELOG contains the version
