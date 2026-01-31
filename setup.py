@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name="dnd-5e-core",
-    version="0.4.2",
+    version="0.4.3",
     author="D&D Development Team",
     author_email="",
     description="Complete D&D 5e Rules Engine: Official encounter tables, gold rewards, 332 monsters, 319 spells, standalone loaders. 100% offline.",
