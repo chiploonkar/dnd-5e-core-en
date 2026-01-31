@@ -5,6 +5,50 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.4.3] - 2026-01-31
+
+### Added
+- `simple_character_generator(..., strict_class_prereqs=True, max_attempts=10)` :
+  - Nouveau paramètre `strict_class_prereqs` (bool) qui contrôle le comportement lors de
+    la création d'un personnage avec une `class_name` explicite.
+  - Par défaut (`strict_class_prereqs=True`) : si les caractéristiques ne remplissent
+    pas les prérequis de la classe, la fonction lève une `ValueError` (comportement strict).
+  - Si `strict_class_prereqs=False` : le générateur peut automatiquement reroller les
+    caractéristiques jusqu'à `max_attempts` pour satisfaire la classe demandée.
+- Lorsque `class_name` n'est pas fourni, `simple_character_generator` choisit désormais
+  une classe compatible avec les caractéristiques tirées (ré-essais limités par `max_attempts`).
+- Mise à jour de l'exemple `examples/combat_system.py` pour autoriser le reroll lors de la
+  création du paladin d'exemple (utilisation de `strict_class_prereqs=False`) afin d'éviter
+  des plantages non souhaités dans les démonstrations.
+- Réutilisation centralisée des règles de prérequis de classes via
+  `dnd_5e_core.classes.multiclass.can_multiclass_into` (évite la duplication des règles).
+
+### Changed
+- `dnd_5e_core/data/loaders.py` :
+  - Validation des prérequis de classe lors de la génération simple de personnages.
+  - Ajout d'une logique de reroll contrôlée (explicit class + non-strict mode, et choix de
+    classe compatible si la classe n'est pas fournie).
+  - Correction d'un import typing inutile (réduction des warnings linter).
+- `examples/combat_system.py` : adaptation pour utiliser le nouveau paramètre dans l'exemple
+  du paladin afin que les démos locales s'exécutent de façon robuste.
+
+### Fixed
+- Correction d'un bug : `can_multiclass_into` reçoit maintenant les scores d'ability bruts
+  (`Abilities`) au lieu des modificateurs d'ability (fixe des refus erronés de validation).
+- Amélioration de la robustesse des exemples : rappel d'utiliser `PYTHONPATH=.` pour forcer
+  l'exécution du code local lors du développement (évite d'importer une version installée
+  depuis le virtualenv).
+
+### Notes
+- Le comportement par défaut reste conservateur (strict) pour éviter d'assigner par erreur
+  une classe incompatible dans des usages automatisés ou pipelines de publication.
+- Pour exécuter les exemples localement avec les modifications source :
+
+```bash
+PYTHONPATH=. python examples/combat_system.py
+```
+
+
 ## [0.4.2] - 2026-01-22
 
 ### Added
