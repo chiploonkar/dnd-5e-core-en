@@ -2,7 +2,7 @@
 D&D 5e Core - Character and Monster Loading
 Provides utilities to load characters and monsters from the D&D 5e API
 """
-from typing import List, Dict, Optional, Tuple
+from typing import List, Optional
 from random import choice, randint
 import requests
 
@@ -79,7 +79,9 @@ def simple_character_generator(
     class_name: Optional[str] = None,
     name: Optional[str] = None,
     apply_class_abilities: bool = True,
-    apply_racial_traits: bool = True
+    apply_racial_traits: bool = True,
+    strict_class_prereqs: bool = True,
+    max_attempts: int = 10,
 ):
     """
     Generate a simple character with basic attributes.
@@ -108,9 +110,107 @@ def simple_character_generator(
     if not race_name:
         race_name = choice(["human", "elf", "dwarf", "halfling"])
 
+    # Generate abilities
+    def roll_ability():
+        rolls = sorted([randint(1, 6) for _ in range(4)])
+        return sum(rolls[1:])  # Drop lowest
+
+    strength = roll_ability()
+    dexterity = roll_ability()
+    constitution = roll_ability()
+    intelligence = roll_ability()
+    wisdom = roll_ability()
+    charisma = roll_ability()
+
+    abilities = Abilities(strength, dexterity, constitution, intelligence, wisdom, charisma)
+
+    mod = lambda x: (x - 10) // 2
+    ability_modifiers = Abilities(
+        mod(strength), mod(dexterity), mod(constitution),
+        mod(intelligence), mod(wisdom), mod(charisma)
+    )
+
+    # Generate name
+    if not name:
+        prefixes = ["Ara", "Eld", "Gim", "Tho", "Bil", "Fro"]
+        suffixes = ["dor", "rin", "li", "rgrim", "bo", "do"]
+        name = choice(prefixes) + choice(suffixes)
+
     # Default classes
-    if not class_name:
-        class_name = choice(["fighter", "wizard", "rogue", "cleric"])
+    # Validate class prerequisites: do not allow classes that abilities don't satisfy.
+    # If the user provided a class_name explicitly, ensure abilities meet that class' minimums.
+    from ..classes.multiclass import can_multiclass_into
+
+    # Candidate classes to choose from when randomizing
+    candidate_classes = [
+        "barbarian", "bard", "cleric", "druid", "fighter", "monk",
+        "paladin", "ranger", "rogue", "sorcerer", "warlock", "wizard"
+    ]
+
+    if class_name:
+        ok, reason = can_multiclass_into(class_name, abilities)
+        if not ok:
+            if not strict_class_prereqs:
+                # Attempt to reroll abilities up to max_attempts to satisfy the explicit class
+                attempts = 0
+                while attempts < max_attempts and not ok:
+                    attempts += 1
+                    strength = roll_ability()
+                    dexterity = roll_ability()
+                    constitution = roll_ability()
+                    intelligence = roll_ability()
+                    wisdom = roll_ability()
+                    charisma = roll_ability()
+
+                    abilities = Abilities(strength, dexterity, constitution, intelligence, wisdom, charisma)
+                    ability_modifiers = Abilities(
+                        mod(strength), mod(dexterity), mod(constitution),
+                        mod(intelligence), mod(wisdom), mod(charisma)
+                    )
+
+                    ok, reason = can_multiclass_into(class_name, abilities)
+
+                if not ok:
+                    raise ValueError(
+                        f"After {max_attempts} attempts, abilities do not meet minimum requirements for class '{class_name}': {reason}"
+                    )
+            else:
+                # Explicit class requested but abilities don't match requirements
+                raise ValueError(f"Abilities do not meet minimum requirements for class '{class_name}': {reason}")
+    else:
+        # Try up to N times to generate abilities that allow at least one class
+        attempts = 0
+        max_attempts = 10
+        valid_choice = None
+
+        while attempts < max_attempts:
+            valid_candidates = [c for c in candidate_classes if can_multiclass_into(c, abilities)[0]]
+            if valid_candidates:
+                valid_choice = choice(valid_candidates)
+                break
+
+            # Reroll abilities and modifiers
+            attempts += 1
+            strength = roll_ability()
+            dexterity = roll_ability()
+            constitution = roll_ability()
+            intelligence = roll_ability()
+            wisdom = roll_ability()
+            charisma = roll_ability()
+
+            abilities = Abilities(strength, dexterity, constitution, intelligence, wisdom, charisma)
+            ability_modifiers = Abilities(
+                mod(strength), mod(dexterity), mod(constitution),
+                mod(intelligence), mod(wisdom), mod(charisma)
+            )
+
+        if valid_choice:
+            class_name = valid_choice
+        else:
+            # Failed to produce a valid set after retries; raise to avoid assigning invalid class
+            raise RuntimeError(
+                f"Could not generate abilities satisfying any class prerequisites after {max_attempts} attempts"
+            )
 
     # Create simple race
     race = Race(
@@ -173,31 +273,6 @@ def simple_character_generator(
         cantrips_known=[]
     )
 
-    # Generate abilities
-    def roll_ability():
-        rolls = sorted([randint(1, 6) for _ in range(4)])
-        return sum(rolls[1:])  # Drop lowest
-
-    strength = roll_ability()
-    dexterity = roll_ability()
-    constitution = roll_ability()
-    intelligence = roll_ability()
-    wisdom = roll_ability()
-    charisma = roll_ability()
-
-    abilities = Abilities(strength, dexterity, constitution, intelligence, wisdom, charisma)
-
-    mod = lambda x: (x - 10) // 2
-    ability_modifiers = Abilities(
-        mod(strength), mod(dexterity), mod(constitution),
-        mod(intelligence), mod(wisdom), mod(charisma)
-    )
-
-    # Generate name
-    if not name:
-        prefixes = ["Ara", "Eld", "Gim", "Tho", "Bil", "Fro"]
-        suffixes = ["dor", "rin", "li", "rgrim", "bo", "do"]
-        name = choice(prefixes) + choice(suffixes)
 
     # Calculate HP
     hit_points = class_type.hit_die + ability_modifiers.con
@@ -482,4 +557,3 @@ __all__ = [
     'simple_character_generator',
     'level_up_character',
 ]
-
