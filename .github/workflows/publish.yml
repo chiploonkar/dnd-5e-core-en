@@ -1,0 +1,110 @@
+name: Publish Python package to PyPI
+
+on:
+  push:
+    # Trigger on main branch pushes and on version tags like v0.4.3
+    branches:
+      - main
+    tags:
+      - 'v*.*.*'
+  # Manual trigger from the Actions UI
+  workflow_dispatch: {}
+
+concurrency:
+  group: publish-python-package
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-publish:
+    name: Build and publish
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Get package version from pyproject.toml
+        id: get_version
+        run: |
+          # Extract version from pyproject.toml and write to GITHUB_OUTPUT for later steps
+          version=$(python -c "import tomllib,sys; data=tomllib.loads(open('pyproject.toml','rb').read()); print(data['project']['version'])")
+          echo "version=$version" >> $GITHUB_OUTPUT
+
+      - name: Ensure CHANGELOG contains the version
+        run: |
+          echo "Checking CHANGELOG.md for version ${VERSION}..."
+          VERSION=${{ steps.get_version.outputs.version }}
+          if ! grep -q "## \[${VERSION}\]" CHANGELOG.md; then
+            echo "ERROR: CHANGELOG.md does not contain an entry for version ${VERSION}." >&2
+            echo "Please add a changelog entry for this version before publishing." >&2
+            exit 1
+          fi
+
+      - name: Ensure CHANGELOG was updated in this push (unless triggered by tag)
+        run: |
+          # If this is a tag push (refs/tags/*) skip the modified-file check
+          if [[ "${{ github.ref }}" == refs/tags/* ]]; then
+            echo "Triggered by tag ${GITHUB_REF}; skipping changelog-modified check."
+            exit 0
+          fi
+
+          echo "Checking whether CHANGELOG.md was modified in this push..."
+          git fetch --no-tags --depth=1 origin ${{ github.ref }} || true
+          # Compare the previous commit to current
+          CHANGED=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} || true)
+          echo "Files changed in this push:\n$CHANGED"
+          if ! echo "$CHANGED" | grep -q "CHANGELOG.md"; then
+            echo "ERROR: CHANGELOG.md was not modified in this push. Aborting publication." >&2
+            exit 1
+          fi
+
+      - name: Install build tools
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install --upgrade build twine
+
+      - name: Quick smoke test (import package)
+        run: |
+          PYTHONPATH=. python - <<'PY'
+            import importlib
+            pkg = importlib.import_module('dnd_5e_core')
+            print('Imported', pkg.__name__, 'version', getattr(pkg, '__version__', 'unknown'))
+          PY
+
+      - name: Build distributions
+        run: |
+          python -m build
+
+      - name: Publish to PyPI
+        env:
+          # Use the PyPI API token saved in the repository secrets under the name PYPI_API_TOKEN
+          TWINE_USERNAME: "__token__"
+          TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
+        run: |
+          if [ -z "$(ls -A dist 2>/dev/null)" ]; then
+            echo "No distributions found in dist/; aborting." >&2
+            exit 1
+          fi
+          python -m twine upload dist/* -u "$TWINE_USERNAME" -p "$TWINE_PASSWORD" --non-interactive -r pypi
+
+      - name: Cleanup
+        if: always()
+        run: |
+          rm -rf dist build *.egg-info || true
+
+# Notes:
+# - Set the repository secret `PYPI_API_TOKEN` (Settings -> Secrets -> Actions) to your PyPI API token.
+# - Create an annotated tag locally and push it to trigger the workflow:
+#     git tag -a v0.4.3 -m "Release 0.4.3"
+#     git push origin v0.4.3
+# - The job will run for pushes to `main` and for tag pushes matching v*.*.*.
