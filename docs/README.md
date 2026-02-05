@@ -6,9 +6,14 @@ Bienvenue dans la documentation du package **dnd-5e-core** !
 
 ### Essentiels
 - **[README.md](../README.md)** - Vue d'ensemble du package et guide d'utilisation
+- **[AI_AGENT_GUIDE.md](../AI_AGENT_GUIDE.md)** - 🤖 **Guide complet pour IA agentiques**
 - **[CHANGELOG.md](../CHANGELOG.md)** - Historique des versions et modifications
 - **[CONTRIBUTING.md](../CONTRIBUTING.md)** - Guide pour contribuer au projet
 - **[QUICK_START_DATA.md](../QUICK_START_DATA.md)** - Démarrage rapide avec les données
+
+### Documentation IA
+- **[AI_AGENT_GUIDE.md](../AI_AGENT_GUIDE.md)** - Guide complet pour intégration par IA (100+ exemples)
+- **[.copilot-instructions.md](../.copilot-instructions.md)** - Instructions pour GitHub Copilot
 
 ### Données
 - **[data/README.md](../data/README.md)** - Documentation du contenu des données JSON (2000+ fichiers)

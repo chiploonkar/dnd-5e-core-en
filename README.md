@@ -13,7 +13,7 @@ pip install dnd-5e-core
 ```
 
 ```python
-from dnd_5e_core.data import simple_character_generator
+from dnd_5e_core.data.loaders import simple_character_generator
 from dnd_5e_core import load_monster
 from dnd_5e_core.combat import CombatSystem
 
@@ -60,6 +60,8 @@ combat.character_turn(wizard, party, [orc], party)
 
 ### Character Creation
 ```python
+from dnd_5e_core.data.loaders import simple_character_generator
+
 # Automatic abilities and traits
 fighter = simple_character_generator(5, "dwarf", "fighter", "Gimli")
 # Gets: Extra Attack, Darkvision, Dwarven Resilience, etc.
@@ -200,6 +202,11 @@ MIT License - See LICENSE file for details.
 ## 🤝 Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+
+## 🤖 For AI Agents
+
+**New!** We've created a comprehensive guide specifically for AI agents integrating this package:
+- **[AI Agent Guide](AI_AGENT_GUIDE.md)** - Complete documentation with patterns, error handling, and integration examples
 
 ## 🔗 Related Projects
 

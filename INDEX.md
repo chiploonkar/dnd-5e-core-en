@@ -3,6 +3,7 @@
 ## 📖 Essential Documentation
 
 - **[README.md](README.md)** - Main documentation and quick start
+- **[AI_AGENT_GUIDE.md](AI_AGENT_GUIDE.md)** - 🤖 **Comprehensive guide for AI agents**
 - **[CHANGELOG.md](CHANGELOG.md)** - Version history and changes
 - **[CONTRIBUTING.md](CONTRIBUTING.md)** - How to contribute
 
