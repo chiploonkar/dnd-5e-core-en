@@ -203,6 +203,13 @@ MIT License - See LICENSE file for details.
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
+## 📦 For Maintainers
+
+**Publishing to PyPI:**
+- **[Quick Publish Guide](QUICK_PUBLISH.md)** - Fast start guide for publishing
+- **[Publication PyPI](PUBLICATION_PYPI.md)** - Complete publication documentation
+- **Setup Token**: Run `./setup_pypi_token.sh` to configure your PyPI credentials
+
 ## 🤖 For AI Agents
 
 **New!** We've created a comprehensive guide specifically for AI agents integrating this package:
