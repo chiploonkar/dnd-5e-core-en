@@ -7,14 +7,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.4] - 2026-02-05
+
 ### Added
 - **DOCUMENTATION**: Complete AI Agent integration guide
   - New `AI_AGENT_GUIDE.md` - Comprehensive guide for AI agents (100+ code examples)
   - New `.copilot-instructions.md` - Quick reference for GitHub Copilot
+  - New `QUICK_START_AI.md` - Quick start guide for AI agents
+  - New `archive/AI_DOCUMENTATION_SUMMARY.md` - Documentation summary and metrics
   - Updated README.md with AI agent section
   - Updated INDEX.md with AI documentation links
+  - Updated docs/README.md with AI documentation section
   - Covers: Installation, patterns, error handling, integration, debugging
+  - 8 modules documented (100%), 100+ code examples, 10 patterns, 7 error solutions
+  - 3 advanced use cases (GameEngine, DungeonGenerator, CampaignManager)
+  - 3 UI integrations (PyQt, Pygame, Flask)
   - Optimized for AI-assisted development and automated code generation
+
+### Changed
+- Archived obsolete documentation files to `archive/2026-02-obsolete/`
+  - QUICKFIX_SPELL_SLOTS.md, SPELL_SLOTS_FIX.md, SPELL_SLOTS_SUMMARY.md
+  - TESTING_GUIDE.md, GIT_COMMIT_EQUIPMENT_EXPANSION.txt
+- Archived obsolete test scripts to `archive/2026-02-obsolete/`
+  - test_spell_slots_*.py, validate_spell_slots_fix.py, migrate_spell_slots.py
+  - test_game_integration.py, test_new_loaders.py, test_special_monster_actions.py
+
+## [0.4.3] - 2026-02-03
 
 ### Fixed
 - **CRITICAL**: Fixed KeyError on `spell_slots` during inn rest and level up (2026-02-03)

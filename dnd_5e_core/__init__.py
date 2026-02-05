@@ -46,7 +46,7 @@ Modules
 - data: API loaders and serialization
 """
 
-__version__ = '0.4.3'
+__version__ = '0.4.4'
 __author__ = 'D&D Development Team'
 
 # Import key classes for convenience
@@ -65,7 +65,6 @@ from .classes import ProfType, Proficiency, ClassType
 from .combat import Damage, Condition, ActionType, Action, SpecialAbility
 from .spells import Spell, SpellCaster
 from .data import load_monster, load_spell, load_weapon, load_armor
-from .ui import Color, color, cprint
 
 # Agent integration helpers
 from .agent import init_for_agent, serialize_for_agent, AgentContext
@@ -93,8 +92,6 @@ __all__ = [
     'Spell', 'SpellCaster',
     # Data loaders
     'load_monster', 'load_spell', 'load_weapon', 'load_armor',
-    # UI helpers
-    'Color', 'color', 'cprint',
     # Agent helpers
     'init_for_agent', 'serialize_for_agent', 'AgentContext',
 ]
