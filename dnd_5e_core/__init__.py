@@ -65,6 +65,7 @@ from .classes import ProfType, Proficiency, ClassType
 from .combat import Damage, Condition, ActionType, Action, SpecialAbility
 from .spells import Spell, SpellCaster
 from .data import load_monster, load_spell, load_weapon, load_armor
+from .shop import BoltacShop, get_boltac_shop
 
 # Agent integration helpers
 from .agent import init_for_agent, serialize_for_agent, AgentContext
@@ -92,6 +93,8 @@ __all__ = [
     'Spell', 'SpellCaster',
     # Data loaders
     'load_monster', 'load_spell', 'load_weapon', 'load_armor',
+    # Shop
+    'BoltacShop', 'get_boltac_shop',
     # Agent helpers
     'init_for_agent', 'serialize_for_agent', 'AgentContext',
 ]
