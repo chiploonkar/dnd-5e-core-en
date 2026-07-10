@@ -60,5 +60,5 @@ nav:
       - Rules & Mechanics: core/rules-mechanics.md
       - UI & Utilities: core/ui-utilities.md
 
-docs_dir: docs
-site_dir: site
+docs_dir: api
+site_dir: docs

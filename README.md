@@ -38,7 +38,7 @@ mkdocs build
 ## File Structure
 ```text
 mkdocs
-├── docs -----------------------> markdown documentation
+├── api                        - markdown documentation  
 │   ├── core
 │   │   ├── combat.md
 │   │   ├── customization.md
@@ -51,10 +51,10 @@ mkdocs
 │   ├── index.md
 │   └── stylesheets
 │       └── catppuccin.css
+├── docs                       - static site
 ├── LICENSE
-├── mkdocs.yaml
-├── README.md
-└── site -----------------------> HTML static site
+├── mkdocs.yaml                - mkdocs config file
+└── README.md                  - you are here!
 ```
 
 ## Theme & Customization
