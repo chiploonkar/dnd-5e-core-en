@@ -1,0 +1,65 @@
+site_name: dnd-5e-core API Reference
+site_description: Documentation for the dnd-5e-core Python engine.
+remote_branch: gh-pages
+
+theme:
+  name: material
+  palette:
+    # Palette toggle for automatic mode
+    - media: "(prefers-color-scheme)"
+      toggle:
+        icon: material/brightness-auto
+        name: Switch to dark mode
+
+    # Palette toggle for dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+        
+    # Palette toggle for light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default 
+      primary: black
+      accent: pink
+      toggle:
+        icon: material/brightness-7
+        name: Switch to system preference
+    
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - code.copy
+
+extra_css:
+  - stylesheets/catppuccin.css
+
+plugins:
+  - search
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - tables
+
+docs_dir: api
+
+nav:
+  - Home: index.md
+  - Core Modules:
+      - Combat: core/combat.md
+      - Customization: core/customization.md
+      - Data Loading: core/data-loading.md
+      - Entities: core/entities.md
+      - Equipment: core/equipment.md
+      - Magic & Spells: core/magic-spells.md
+      - Rules & Mechanics: core/rules-mechanics.md
+      - UI & Utilities: core/ui-utilities.md
+

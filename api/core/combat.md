@@ -266,6 +266,73 @@ character.remove_condition(Condition.POISONED)
 
 ---
 
+### ConditionParser
+
+The `ConditionParser` class dynamically parses and extracts D&D 5e conditions and their save DCs from textual action descriptions (e.g., in monster and magic item JSONs).
+
+**Import:**
+```python
+from dnd_5e_core.combat import ConditionParser
+```
+
+**Core Methods:**
+
+* `ConditionParser.parse_condition_from_description(desc: str) -> List[Condition]`  
+  Scans descriptions for standard saving throw DC patterns (such as *"DC 15 Constitution saving throw"*) and matches them to active conditions.
+
+* `ConditionParser.extract_conditions_from_action(action_data: dict) -> List[Condition]`  
+  Extracts and constructs active condition effects directly from parsed action maps.
+
+**Example:**
+```python
+from dnd_5e_core.combat import ConditionParser
+
+desc = "Target must make a DC 14 Wisdom saving throw or be stunned for 1 minute."
+conditions = ConditionParser.parse_condition_from_description(desc)
+
+# Output: [Condition(name="Stunned", dc_type=AbilityType.WIS, dc_value=14)]
+```
+
+---
+
+### Magic Items with Conditions
+
+Equipment and items can apply parsed conditions dynamically to their targets during combat actions.
+
+**Predefined Magic Items:**
+```python
+from dnd_5e_core.equipment import (
+    create_wand_of_paralysis,      # Applies Paralyzed (DC 15 CON save)
+    create_staff_of_entanglement,  # Applies Restrained (DC 13 STR save)
+    create_ring_of_blinding,       # Applies Blinded (DC 14 CON save)
+    create_cloak_of_fear,          # Applies Frightened (DC 15 WIS save)
+    create_poisoned_dagger         # Applies Poisoned (DC 13 CON save)
+)
+
+wand = create_wand_of_paralysis()
+```
+
+**Using Magic Items in Combat:**
+```python
+# Equip and attune
+wand = create_wand_of_paralysis()
+wizard.inventory.append(wand)
+wand.equipped = True
+wand.attune(wizard)
+
+# Use the action
+action = wand.actions[0]  # "Paralyze"
+if action.can_use():
+    messages, damage, healing = wand.perform_action(
+        action=action,
+        target=goblin,
+        user=wizard,
+        verbose=True
+    )
+```
+
+---
+
 ### SpecialAbility
 
 Special abilities of monsters.

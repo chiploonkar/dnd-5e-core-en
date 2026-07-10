@@ -429,7 +429,7 @@ for hero in party:
 total_gold = sum([calculate_gold_reward(m.challenge_rating) for m in defeated])
 gold_per_member = distribute_gold(total_gold, len(party))
 
-print(f"\n💰 Total gold: {total_gold} gp")
+print(f"\nTotal gold: {total_gold} gp")
 print(f"   Gold per member: {gold_per_member} gp")
 
 for hero in party:

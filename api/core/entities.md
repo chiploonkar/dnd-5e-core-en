@@ -299,6 +299,48 @@ print(f"Implemented: {stats['implemented']}")
 
 ---
 
+### SpecialMonsterActionsBuilder & get_special_monster_actions
+
+The engine supports custom manual definitions of special monster actions alongside an automated fallback parser for the extended bestiary files (like `bestiary-sublist-data.json`).
+
+**Import:**
+```python
+from dnd_5e_core.entities import get_special_monster_actions
+```
+
+**Signature:**
+```python
+def get_special_monster_actions(
+    name: str, 
+    use_json_fallback: bool = True
+) -> Tuple[List[Action], List[SpecialAbility], Optional[SpellCaster]]
+```
+
+**Usage Example:**
+```python
+from dnd_5e_core.entities import get_special_monster_actions
+
+# Retrieve actions and abilities for a monster
+actions, abilities, spellcaster = get_special_monster_actions("Goblin Boss")
+
+print(f"Monster Actions:")
+for action in actions:
+    print(f"  - {action.name} (Type: {action.type.value})")
+
+print(f"Special Abilities:")
+for ability in abilities:
+    print(f"  - {ability.name}: {ability.desc}")
+```
+
+#### JSONActionExtractor (Fallback Engine)
+
+When `use_json_fallback=True` is enabled, the engine uses the internal `JSONActionExtractor` to parse raw action blocks:
+* Automatically maps attack bonuses from string structures (e.g., matching `+5 to hit`).
+* Extracts melee, ranged, and mixed combat ranges (e.g., matching `range 30/120 ft`).
+* Configures action types such as `MELEE`, `RANGED`, and `MULTIATTACK` automatically based on text patterns.
+
+---
+
 ## Complete Examples
 
 ### Create a Party of Adventurers

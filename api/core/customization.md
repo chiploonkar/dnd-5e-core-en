@@ -146,7 +146,47 @@ from dnd_5e_core.entities import Character
 hero = Character.generate_random_character(level=3, class_name="fighter")
 
 # Add a level in another class
-# (To be implemented according to your specific needs)
+```
+
+### Class Level Progression & Spellcasting
+
+The engine manages level progression thresholds, newly unlocked class features, and spellcasting slot matrices dynamically for characters up to level 20.
+
+#### ClassLevelProgression
+
+Represents the attributes and progression data of a class at a specific level.
+
+**Import:**
+```python
+from dnd_5e_core.classes import ClassLevelProgression, SpellcastingInfo
+```
+
+**Key Fields on `ClassLevelProgression`:**
+* `level` (`int`): The progression level (1 to 20).
+* `prof_bonus` (`int`): The character proficiency bonus at this level.
+* `features` (`List[ClassFeature]`): A list of class-specific features unlocked at this level.
+* `spellcasting` (`Optional[SpellcastingInfo]`): Spellcasting slots and cantrips known, if the class is a spellcaster.
+* `class_specific` (`Dict[str, Any]`): Class-specific math properties (such as Rage count, Ki points, etc.).
+
+#### SpellcastingInfo
+
+Contains spell slot capacities for full, half, and third spellcasters across all standard spell tiers.
+
+**Usage Example:**
+```python
+# Assuming a Wizard instance is loaded
+wizard_class = ClassType.load_from_json("wizard")
+
+# Retrieve Level 5 progression
+progression = wizard_class.get_level_progression(5)
+print(f"Proficiency Bonus: {progression.prof_bonus}")
+
+if progression.spellcasting:
+    info = progression.spellcasting
+    print(f"Cantrips Known: {info.cantrips_known}")
+    # Array mapping slot counts by tier [cantrips, level1, level2, ... level9]
+    print(f"Spell Slots Array: {info.spell_slots}")
+    # Output: [0, 4, 3, 2, 0, 0, 0, 0, 0, 0] (4 L1 slots, 3 L2 slots, 2 L3 slots)
 ```
 
 ---
