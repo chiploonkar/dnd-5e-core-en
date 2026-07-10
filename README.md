@@ -1,7 +1,7 @@
 # dnd-5e-core-en (mkdocs branch)
 ```
 Pranav Chiploonkar <mail@pranavchip.com>
-Fri 2026-07-10 08:39:11 UTC
+Fri 2026-07-10 08:53:31 UTC
 ```
 
 > [!NOTE]
