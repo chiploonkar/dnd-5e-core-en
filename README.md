@@ -15,6 +15,7 @@ Translated from French to English using `gemini-3.5-flash` via [Google Antigravi
 | archive         | archive.en         |
 
 ## Documentation Static Site
-Mkdocs site can be found here:
+Mkdocs site can be found here:\
 [https://chiploonkar.github.io/dnd-5e-core-en/](https://chiploonkar.github.io/dnd-5e-core-en)
+
 Code and config can be found in the [mkdocs branch](https://github.com/chiploonkar/dnd-5e-core-en/tree/mkdocs).
