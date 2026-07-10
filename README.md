@@ -1,6 +1,8 @@
 # dnd-5e-core-en (mkdocs branch)
-Pranav Chiploonkar <mail@pranavchip.com>\
-Fri 2026-07-10 08:27:17 UTC
+```
+Pranav Chiploonkar <mail@pranavchip.com>
+Fri 2026-07-10 08:30:02 UTC
+```
 
 > [!NOTE]
 > This branch is specifically dedicated to the **Material for MkDocs** documentation site for the English translation of the `dnd-5e-core` engine. The ported codebase and raw markdown source are managed on the `main` branch.
