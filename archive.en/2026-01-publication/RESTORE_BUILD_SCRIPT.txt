@@ -1,0 +1,33 @@
+================================================================================
+✅ BUILD SCRIPT RESTORATION
+================================================================================
+Date: January 18, 2026
+RESTORED FILES:
+  ✅ build_package.sh (200 lines)
+     - Complete PyPI build and publication script
+     - Options: --clean, --build, --test, --publish, --all
+     - TestPyPI and PyPI production management
+     - Automatic checks
+     - Colored interface
+  ✅ PUBLICATION_PYPI_GUIDE.md (350 lines)
+     - Complete publication guide
+     - Step-by-step workflow
+     - PyPI/TestPyPI configuration
+     - Error handling
+     - Publication checklist
+FEATURES:
+  - Automatic cleaning (dist/, build/, *.egg-info)
+  - Build with python-build (modern)
+  - Verification with twine check
+  - Publication to TestPyPI (test)
+  - Publication to PyPI (production)
+  - Error protection
+USAGE:
+  ./build_package.sh --help        # Show help
+  ./build_package.sh --clean       # Clean
+  ./build_package.sh --build       # Build
+  ./build_package.sh --test        # Publish to TestPyPI
+  ./build_package.sh --publish     # Publish to PyPI
+  ./build_package.sh --all         # Do everything
+STATUS: ✅ READY TO USE
+================================================================================

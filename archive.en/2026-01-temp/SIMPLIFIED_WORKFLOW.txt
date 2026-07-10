@@ -1,0 +1,18 @@
+================================================================================
+✅ SIMPLIFIED WORKFLOW - dnd-5e-core
+================================================================================
+SINGLE SCRIPT:
+  ./publish_final.sh
+WORKFLOW:
+  1. If version already exists: increment in the 3 files
+  2. ./publish_final.sh
+  3. Confirm with "yes"
+ORGANIZED ARCHIVES:
+  • archive/2026-01-docs/ (26 docs)
+  • archive/2026-01-scripts/ (10 scripts)  
+  • archive/2026-01-publication/ (10 guides)
+  • archive/2026-01-temp/ (4 temporary)
+NO MORE NEW SCRIPTS!
+NO MORE TEMPORARY DOCUMENTS!
+STATUS: ✅ SIMPLIFIED
+================================================================================

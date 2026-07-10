@@ -1,0 +1,27 @@
+================================================================================
+✅ COMPLETE ARCHIVING - dnd-5e-core
+================================================================================
+Date: January 18, 2026
+ARCHIVED FILES:
+  - 26 Markdown documents → archive/2026-01-docs/
+  - 10 Python/Shell scripts → archive/2026-01-scripts/
+  Total: 36 files
+RETAINED FILES (Root):
+  - 6 essential MD documents:
+    * README.md
+    * CHANGELOG.md
+    * ARCHITECTURE.md
+    * CLASS_PROGRESSION_SYSTEM.md
+    * INDEX.md
+    * CONTRIBUTING.md
+STRUCTURE:
+  dnd-5e-core/
+  ├── (6 essential MD docs)
+  ├── archive/
+  │   ├── 2026-01-README.md
+  │   ├── 2026-01-docs/ (26 files)
+  │   └── 2026-01-scripts/ (10 files)
+  └── dnd_5e_core/
+STATUS: ✅ COMPLETED
+Clean and organized project!
+================================================================================
