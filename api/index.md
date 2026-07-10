@@ -10,6 +10,7 @@ Welcome to the **dnd-5e-core** English API documentation! This site provides a c
     * **Fork Repository:** [chiploonkar/dnd-5e-core-en/tree/main](https://github.com/chiploonkar/dnd-5e-core-en/tree/main)
     * **English Translation:** This scoped version was translated from French to English using [Google Antigravity](https://antigravity.google/).
     * **Documentation Port:** The documentation has been modernized and ported to [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/).
+    * **Theme & Styling:** Styled with the **Catppuccin Mocha** color palette from the [Catppuccin](https://catppuccin.com/) project.
 
 !!! danger "No Support or Maintenance"
     **Absolutely no assistance, maintenance, or troubleshooting will be provided within this ported English repository.**
