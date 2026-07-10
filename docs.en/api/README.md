@@ -189,7 +189,7 @@ To contribute to the documentation:
 2. Fork the repository
 3. Create a pull request
 
-See [CONTRIBUTING.md](../../CONTRIBUTING.md) for more details.
+See [CONTRIBUTING.md](https://github.com/codingame-team/dnd-5e-core/blob/main/CONTRIBUTING.md) for more details.
 
 ## 📄 License
 

@@ -72,20 +72,20 @@ Magic and spells.
 - `spell_slots` - Spell slots
 - `cantrips` - Cantrips
 
-### 👤 [races](./races.md)
+### 👤 [races](./races-classes-abilities.md#module-races)
 Races and sub-races.
 - `Race` - Character races
 - `SubRace` - Sub-races
 - `Trait` - Racial traits
 - `Language` - Languages
 
-### 🎓 [classes](./classes.md)
+### 🎓 [classes](./races-classes-abilities.md#module-classes)
 Character classes.
 - `ClassType` - Character classes
 - `Proficiency` - Proficiencies
 - `multiclass` - Multiclassing
 
-### 💪 [abilities](./abilities.md)
+### 💪 [abilities](./races-classes-abilities.md#module-abilities)
 Ability scores and skills.
 - `Abilities` - Six core ability scores
 - `AbilityType` - Ability score types
@@ -101,13 +101,13 @@ Data loading and management.
 - `api_client` - D&D 5e API client
 - `serialization` - Save/load
 
-### 🎨 [ui](./ui.md)
+### 🎨 [ui](./ui-utils.md#module-ui)
 UI utilities.
 - `Color` - Colors
 - `color()` - Text colorization
 - `cprint()` - Colored printing
 
-### 🔧 [utils](./utils.md)
+### 🔧 [utils](./ui-utils.md#module-utils)
 Miscellaneous utilities.
 - `constants` - Game constants
 - `helpers` - Utility functions
@@ -232,7 +232,7 @@ Graphical frontends (PyQt, Pygame, ncurses).
 
 ## Contributing
 
-Contributions are welcome! See [CONTRIBUTING.md](../../CONTRIBUTING.md) for more details.
+Contributions are welcome! See [CONTRIBUTING.md](https://github.com/codingame-team/dnd-5e-core/blob/main/CONTRIBUTING.md) for more details.
 
 ## License
 

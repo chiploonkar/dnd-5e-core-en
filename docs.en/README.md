@@ -6,18 +6,18 @@ Welcome to the **dnd-5e-core** package documentation!
 
 ### Essentials
 - **[README.md](../README.md)** - Package overview and usage guide
-- **[AI_AGENT_GUIDE.md](../AI_AGENT_GUIDE.md)** - 🤖 **Complete guide for agentic AIs**
-- **[CHANGELOG.md](../CHANGELOG.md)** - Version history and changes
-- **[CONTRIBUTING.md](../CONTRIBUTING.md)** - Guide to contributing to the project
-- **[QUICK_START_DATA.md](../QUICK_START_DATA.md)** - Quick start with data
+- **[AI_AGENT_GUIDE.md](https://github.com/codingame-team/dnd-5e-core/blob/main/AI_AGENT_GUIDE.md)** - 🤖 **Complete guide for agentic AIs**
+- **[CHANGELOG.md](https://github.com/codingame-team/dnd-5e-core/blob/main/CHANGELOG.md)** - Version history and changes
+- **[CONTRIBUTING.md](https://github.com/codingame-team/dnd-5e-core/blob/main/CONTRIBUTING.md)** - Guide to contributing to the project
+- **[QUICK_START_DATA.md](https://github.com/codingame-team/dnd-5e-core/blob/main/archive/QUICK_START_DATA.md)** - Quick start with data
 
 ### AI Documentation
-- **[AI_AGENT_GUIDE.md](../AI_AGENT_GUIDE.md)** - Complete guide for AI integration (100+ examples)
-- **[.copilot-instructions.md](../.copilot-instructions.md)** - Instructions for GitHub Copilot
+- **[AI_AGENT_GUIDE.md](https://github.com/codingame-team/dnd-5e-core/blob/main/AI_AGENT_GUIDE.md)** - Complete guide for AI integration (100+ examples)
+- **[.copilot-instructions.md](https://github.com/codingame-team/dnd-5e-core/blob/main/archive/2026-02-obsolete/copilot-instructions.md)** - Instructions for GitHub Copilot
 
 ### Data
-- **[data/README.md](../data/README.md)** - JSON data content documentation (2000+ files)
-- **[collections/README.md](../collections/README.md)** - API index collections documentation
+- **[data/README.md](https://github.com/codingame-team/dnd-5e-core/tree/main/dnd_5e_core/data)** - JSON data content documentation (2000+ files)
+- **[collections/README.md](https://github.com/codingame-team/dnd-5e-core/blob/main/collections/README.md)** - API index collections documentation
 
 ---
 
@@ -156,13 +156,13 @@ pytest --cov=dnd_5e_core
 ## 📝 Guides and Tutorials
 
 ### For Developers
-- **[CONTRIBUTING.md](../CONTRIBUTING.md)** - How to contribute
+- **[CONTRIBUTING.md](https://github.com/codingame-team/dnd-5e-core/blob/main/CONTRIBUTING.md)** - How to contribute
 - **Migration from DnD-5th-Edition-API** - See `COLLECTIONS_MIGRATION.md`
 
 ### For Users
-- **[QUICK_START_DATA.md](../QUICK_START_DATA.md)** - Quick start guide
-- **[data/README.md](../data/README.md)** - Data documentation
-- **[collections/README.md](../collections/README.md)** - Collections documentation
+- **[QUICK_START_DATA.md](https://github.com/codingame-team/dnd-5e-core/blob/main/archive/QUICK_START_DATA.md)** - Quick start guide
+- **[data/README.md](https://github.com/codingame-team/dnd-5e-core/tree/main/dnd_5e_core/data)** - Data documentation
+- **[collections/README.md](https://github.com/codingame-team/dnd-5e-core/blob/main/collections/README.md)** - Collections documentation
 
 ---
 
@@ -199,7 +199,7 @@ See **[archive/README.md](archive/README.md)** for more details.
 
 ## 📅 Version History
 
-See **[CHANGELOG.md](../CHANGELOG.md)** for full version history.
+See **[CHANGELOG.md](https://github.com/codingame-team/dnd-5e-core/blob/main/CHANGELOG.md)** for full version history.
 
 ### Current Version: Unreleased
 
@@ -213,7 +213,7 @@ Latest features:
 
 ## 🤝 Contributing
 
-Contributions are welcome! See **[CONTRIBUTING.md](../CONTRIBUTING.md)** for more details.
+Contributions are welcome! See **[CONTRIBUTING.md](https://github.com/codingame-team/dnd-5e-core/blob/main/CONTRIBUTING.md)** for more details.
 
 ### Contribution Process
 1. Fork the project
