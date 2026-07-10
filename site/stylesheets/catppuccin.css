@@ -1,0 +1,27 @@
+/* Catpuccin Theme: https://catppuccin.com/ */
+
+[data-md-color-scheme="slate"] {
+  /* Mocha Base Background & Main Text Overrides */
+  --md-default-bg-color: #1e1e2e;
+  --md-default-fg-color: #cdd6f4;
+  --md-default-fg-color--light: #a6adc8;
+  
+  /* Sidebar Panels, Header, and Header Text Backdrops */
+  --md-primary-fg-color: #11111b;
+  --md-primary-fg-color--dark: #181825;
+  --md-primary-bg-color: #cba6f7;
+  --md-primary-bg-color--light: #b4befe;
+  
+  /* Active UI elements and focus wrappers */
+  --md-accent-fg-color: #cba6f7;
+  --md-accent-bg-color: #313244;
+
+  /* Explicit Body Hyperlink Typography Overrides */
+  --md-typeset-a-color: #cba6f7;
+  --md-typeset-a-color--hover: #b4befe;
+}
+
+/* Ensure code syntax titles inside tabs remain readable */
+.md-typeset .tabbed-labels label {
+  color: #cdd6f4;
+}

@@ -1,0 +1,1570 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation for the dnd-5e-core Python engine.">
+      
+      
+      
+      
+        <link rel="prev" href="../magic-spells/">
+      
+      
+        <link rel="next" href="../ui-utilities/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Rules & Mechanics - dnd-5e-core API Reference</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/catppuccin.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#module-mechanics" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="dnd-5e-core API Reference" class="md-header__button md-logo" aria-label="dnd-5e-core API Reference" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            dnd-5e-core API Reference
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Rules & Mechanics
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="pink"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../combat/" class="md-tabs__link">
+          
+  
+  
+  Core Modules
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="dnd-5e-core API Reference" class="md-nav__button md-logo" aria-label="dnd-5e-core API Reference" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    dnd-5e-core API Reference
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Core Modules
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Core Modules
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../combat/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Combat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../customization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Customization
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data-loading/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Loading
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../entities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Entities
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../equipment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Equipment
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../magic-spells/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Magic & Spells
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rules & Mechanics
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rules & Mechanics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#core-classes-and-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Core Classes and Functions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Core Classes and Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#damagedice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DamageDice
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#experience" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Experience
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#challenge-rating-cr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Challenge Rating (CR)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#encounter-builder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Encounter Builder
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#level-up" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Level Up
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gold-rewards" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gold Rewards
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#complete-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Complete Examples
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Complete Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#complete-dice-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Complete Dice System
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xp-and-level-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        XP and Level Management
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#encounter-construction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Encounter Construction
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#complete-reward-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Complete Reward System
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#useful-constants" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Useful Constants
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Useful Constants">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#xp-by-cr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        XP by CR
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xp-thresholds-by-level" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        XP Thresholds by Level
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        See Also
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ui-utilities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UI & Utilities
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#core-classes-and-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Core Classes and Functions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Core Classes and Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#damagedice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DamageDice
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#experience" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Experience
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#challenge-rating-cr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Challenge Rating (CR)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#encounter-builder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Encounter Builder
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#level-up" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Level Up
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gold-rewards" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gold Rewards
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#complete-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Complete Examples
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Complete Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#complete-dice-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Complete Dice System
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xp-and-level-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        XP and Level Management
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#encounter-construction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Encounter Construction
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#complete-reward-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Complete Reward System
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#useful-constants" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Useful Constants
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Useful Constants">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#xp-by-cr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        XP by CR
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xp-thresholds-by-level" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        XP Thresholds by Level
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        See Also
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="module-mechanics">Module: mechanics</h1>
+<h2 id="overview">Overview</h2>
+<p>The <code>mechanics</code> module contains the core game rules of D&amp;D 5e: dice rolling, experience, challenge rating, encounters, and level progression.</p>
+<h2 id="core-classes-and-functions">Core Classes and Functions</h2>
+<h3 id="damagedice">DamageDice</h3>
+<p>Dice rolling system for damage, healing, and other random calculations.</p>
+<p><strong>Import:</strong>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">dnd_5e_core.mechanics</span><span class="w"> </span><span class="kn">import</span> <span class="n">DamageDice</span>
+</code></pre></div></p>
+<p><strong>Creation:</strong></p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Standard Notation</label><label for="__tabbed_1_2">With Separate Bonus</label><label for="__tabbed_1_3">With Penalty</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">dnd_5e_core.mechanics</span><span class="w"> </span><span class="kn">import</span> <span class="n">DamageDice</span>
+
+<span class="n">damage</span> <span class="o">=</span> <span class="n">DamageDice</span><span class="p">(</span><span class="s2">&quot;2d6+3&quot;</span><span class="p">)</span>  <span class="c1"># 2 six-sided dice + 3</span>
+<span class="n">heal</span> <span class="o">=</span> <span class="n">DamageDice</span><span class="p">(</span><span class="s2">&quot;1d8&quot;</span><span class="p">)</span>      <span class="c1"># 1 eight-sided die</span>
+<span class="n">fireball</span> <span class="o">=</span> <span class="n">DamageDice</span><span class="p">(</span><span class="s2">&quot;8d6&quot;</span><span class="p">)</span>  <span class="c1"># 8 six-sided dice</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">dnd_5e_core.mechanics</span><span class="w"> </span><span class="kn">import</span> <span class="n">DamageDice</span>
+
+<span class="n">damage</span> <span class="o">=</span> <span class="n">DamageDice</span><span class="p">(</span><span class="s2">&quot;2d6&quot;</span><span class="p">,</span> <span class="n">bonus</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">dnd_5e_core.mechanics</span><span class="w"> </span><span class="kn">import</span> <span class="n">DamageDice</span>
+
+<span class="n">damage</span> <span class="o">=</span> <span class="n">DamageDice</span><span class="p">(</span><span class="s2">&quot;1d6-2&quot;</span><span class="p">)</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<p><strong>Methods:</strong></p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Roll the dice</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">damage</span><span class="o">.</span><span class="n">roll</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Result: </span><span class="si">{</span><span class="n">result</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Maximum possible value</span>
+<span class="n">max_dmg</span> <span class="o">=</span> <span class="n">damage</span><span class="o">.</span><span class="n">max_score</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Maximum: </span><span class="si">{</span><span class="n">max_dmg</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Average expected value</span>
+<span class="n">avg_dmg</span> <span class="o">=</span> <span class="n">damage</span><span class="o">.</span><span class="n">avg</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Average: </span><span class="si">{</span><span class="n">avg_dmg</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Score with success modifier</span>
+<span class="c1"># &quot;none&quot; = full damage, &quot;half&quot; = half damage</span>
+<span class="n">score</span> <span class="o">=</span> <span class="n">damage</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">success_type</span><span class="o">=</span><span class="s2">&quot;half&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p><strong>Comparison:</strong>
+<div class="highlight"><pre><span></span><code><span class="n">d6</span> <span class="o">=</span> <span class="n">DamageDice</span><span class="p">(</span><span class="s2">&quot;1d6&quot;</span><span class="p">)</span>
+<span class="n">d8</span> <span class="o">=</span> <span class="n">DamageDice</span><span class="p">(</span><span class="s2">&quot;1d8&quot;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">d8</span> <span class="o">&gt;</span> <span class="n">d6</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The d8 deals more damage&quot;</span><span class="p">)</span>
+</code></pre></div></p>
+<hr />
+<h3 id="experience">Experience</h3>
+<p>XP and level management.</p>
+<p><strong>Import:</strong>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">dnd_5e_core.mechanics</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">xp_by_cr</span><span class="p">,</span>
+    <span class="n">xp_thresholds_by_level</span><span class="p">,</span>
+    <span class="n">calculate_level_from_xp</span>
+<span class="p">)</span>
+</code></pre></div></p>
+<p><strong>XP by CR:</strong>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">dnd_5e_core.mechanics</span><span class="w"> </span><span class="kn">import</span> <span class="n">xp_by_cr</span>
+
+<span class="c1"># XP by CR dictionary</span>
+<span class="n">xp</span> <span class="o">=</span> <span class="n">xp_by_cr</span><span class="p">[</span><span class="mf">0.5</span><span class="p">]</span>  <span class="c1"># CR 1/2 awards 100 XP</span>
+<span class="n">xp</span> <span class="o">=</span> <span class="n">xp_by_cr</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span>    <span class="c1"># CR 5 awards 1800 XP</span>
+<span class="n">xp</span> <span class="o">=</span> <span class="n">xp_by_cr</span><span class="p">[</span><span class="mi">20</span><span class="p">]</span>   <span class="c1"># CR 20 awards 25000 XP</span>
+</code></pre></div></p>
+<p><strong>Calculate Level:</strong>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">dnd_5e_core.mechanics</span><span class="w"> </span><span class="kn">import</span> <span class="n">calculate_level_from_xp</span>
+
+<span class="n">level</span> <span class="o">=</span> <span class="n">calculate_level_from_xp</span><span class="p">(</span><span class="mi">5000</span><span class="p">)</span>  <span class="c1"># Returns the corresponding level</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Level: </span><span class="si">{</span><span class="n">level</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div></p>
+<p><strong>XP Thresholds by Level:</strong>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">dnd_5e_core.mechanics</span><span class="w"> </span><span class="kn">import</span> <span class="n">xp_thresholds_by_level</span>
+
+<span class="c1"># Thresholds for encounters (easy, medium, hard, deadly)</span>
+<span class="n">thresholds</span> <span class="o">=</span> <span class="n">xp_thresholds_by_level</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Level 5:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Easy: </span><span class="si">{</span><span class="n">thresholds</span><span class="p">[</span><span class="s1">&#39;easy&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Medium: </span><span class="si">{</span><span class="n">thresholds</span><span class="p">[</span><span class="s1">&#39;medium&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Hard: </span><span class="si">{</span><span class="n">thresholds</span><span class="p">[</span><span class="s1">&#39;hard&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Deadly: </span><span class="si">{</span><span class="n">thresholds</span><span class="p">[</span><span class="s1">&#39;deadly&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div></p>
+<hr />
+<h3 id="challenge-rating-cr">Challenge Rating (CR)</h3>
+<p>Challenge rating calculation and encounter generation.</p>
+<p><strong>Import:</strong>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">dnd_5e_core.mechanics</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">generate_encounter_cr</span><span class="p">,</span>
+    <span class="n">calculate_party_strength</span>
+<span class="p">)</span>
+</code></pre></div></p>
+<p><strong>Generate Encounter CR:</strong>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">dnd_5e_core.mechanics</span><span class="w"> </span><span class="kn">import</span> <span class="n">generate_encounter_cr</span>
+
+<span class="c1"># Party of 4 level 5 characters</span>
+<span class="n">party_levels</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+
+<span class="c1"># Medium encounter</span>
+<span class="n">min_cr</span><span class="p">,</span> <span class="n">max_cr</span> <span class="o">=</span> <span class="n">generate_encounter_cr</span><span class="p">(</span>
+    <span class="n">party_levels</span><span class="p">,</span>
+    <span class="n">difficulty</span><span class="o">=</span><span class="s2">&quot;medium&quot;</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Recommended CR: </span><span class="si">{</span><span class="n">min_cr</span><span class="si">}</span><span class="s2"> - </span><span class="si">{</span><span class="n">max_cr</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Other available difficulties</span>
+<span class="n">min_cr</span><span class="p">,</span> <span class="n">max_cr</span> <span class="o">=</span> <span class="n">generate_encounter_cr</span><span class="p">(</span><span class="n">party_levels</span><span class="p">,</span> <span class="n">difficulty</span><span class="o">=</span><span class="s2">&quot;easy&quot;</span><span class="p">)</span>
+<span class="n">min_cr</span><span class="p">,</span> <span class="n">max_cr</span> <span class="o">=</span> <span class="n">generate_encounter_cr</span><span class="p">(</span><span class="n">party_levels</span><span class="p">,</span> <span class="n">difficulty</span><span class="o">=</span><span class="s2">&quot;hard&quot;</span><span class="p">)</span>
+<span class="n">min_cr</span><span class="p">,</span> <span class="n">max_cr</span> <span class="o">=</span> <span class="n">generate_encounter_cr</span><span class="p">(</span><span class="n">party_levels</span><span class="p">,</span> <span class="n">difficulty</span><span class="o">=</span><span class="s2">&quot;deadly&quot;</span><span class="p">)</span>
+</code></pre></div></p>
+<p><strong>Calculate Party Strength:</strong>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">dnd_5e_core.mechanics</span><span class="w"> </span><span class="kn">import</span> <span class="n">calculate_party_strength</span>
+
+<span class="n">party_levels</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
+<span class="n">strength</span> <span class="o">=</span> <span class="n">calculate_party_strength</span><span class="p">(</span><span class="n">party_levels</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Party strength: </span><span class="si">{</span><span class="n">strength</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div></p>
+<hr />
+<h3 id="encounter-builder">Encounter Builder</h3>
+<p>Building balanced encounters.</p>
+<p><strong>Import:</strong>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">dnd_5e_core.mechanics</span><span class="w"> </span><span class="kn">import</span> <span class="n">build_encounter</span>
+</code></pre></div></p>
+<p><strong>Build an Encounter:</strong>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">dnd_5e_core.mechanics</span><span class="w"> </span><span class="kn">import</span> <span class="n">build_encounter</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dnd_5e_core.data</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_monster</span>
+
+<span class="c1"># Party</span>
+<span class="n">party_levels</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+
+<span class="c1"># Available monster pool</span>
+<span class="n">available_monsters</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">load_monster</span><span class="p">(</span><span class="s2">&quot;goblin&quot;</span><span class="p">),</span>
+    <span class="n">load_monster</span><span class="p">(</span><span class="s2">&quot;hobgoblin&quot;</span><span class="p">),</span>
+    <span class="n">load_monster</span><span class="p">(</span><span class="s2">&quot;bugbear&quot;</span><span class="p">),</span>
+    <span class="n">load_monster</span><span class="p">(</span><span class="s2">&quot;orc&quot;</span><span class="p">),</span>
+<span class="p">]</span>
+
+<span class="c1"># Build a balanced encounter</span>
+<span class="n">encounter</span> <span class="o">=</span> <span class="n">build_encounter</span><span class="p">(</span>
+    <span class="n">party_levels</span><span class="o">=</span><span class="n">party_levels</span><span class="p">,</span>
+    <span class="n">available_monsters</span><span class="o">=</span><span class="n">available_monsters</span><span class="p">,</span>
+    <span class="n">difficulty</span><span class="o">=</span><span class="s2">&quot;medium&quot;</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Encounter created with </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">encounter</span><span class="p">)</span><span class="si">}</span><span class="s2"> monsters:&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">monster</span> <span class="ow">in</span> <span class="n">encounter</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  - </span><span class="si">{</span><span class="n">monster</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> (CR </span><span class="si">{</span><span class="n">monster</span><span class="o">.</span><span class="n">challenge_rating</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+</code></pre></div></p>
+<hr />
+<h3 id="level-up">Level Up</h3>
+<p>Level up management.</p>
+<p><strong>Import:</strong>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">dnd_5e_core.mechanics</span><span class="w"> </span><span class="kn">import</span> <span class="n">level_up_character</span>
+</code></pre></div></p>
+<p><strong>Level Up:</strong>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">dnd_5e_core.mechanics</span><span class="w"> </span><span class="kn">import</span> <span class="n">level_up_character</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dnd_5e_core.entities</span><span class="w"> </span><span class="kn">import</span> <span class="n">Character</span>
+
+<span class="n">hero</span> <span class="o">=</span> <span class="n">Character</span><span class="o">.</span><span class="n">generate_random_character</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">class_name</span><span class="o">=</span><span class="s2">&quot;fighter&quot;</span><span class="p">)</span>
+
+<span class="c1"># Gain XP</span>
+<span class="n">hero</span><span class="o">.</span><span class="n">experience_points</span> <span class="o">+=</span> <span class="mi">3000</span>
+
+<span class="c1"># Check for level up</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dnd_5e_core.mechanics</span><span class="w"> </span><span class="kn">import</span> <span class="n">calculate_level_from_xp</span>
+<span class="n">new_level</span> <span class="o">=</span> <span class="n">calculate_level_from_xp</span><span class="p">(</span><span class="n">hero</span><span class="o">.</span><span class="n">experience_points</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">new_level</span> <span class="o">&gt;</span> <span class="n">hero</span><span class="o">.</span><span class="n">level</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Level up! </span><span class="si">{</span><span class="n">hero</span><span class="o">.</span><span class="n">level</span><span class="si">}</span><span class="s2"> -&gt; </span><span class="si">{</span><span class="n">new_level</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">level_up_character</span><span class="p">(</span><span class="n">hero</span><span class="p">)</span>
+</code></pre></div></p>
+<hr />
+<h3 id="gold-rewards">Gold Rewards</h3>
+<p>Gold reward calculations.</p>
+<p><strong>Import:</strong>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">dnd_5e_core.mechanics</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">calculate_gold_reward</span><span class="p">,</span>
+    <span class="n">distribute_gold</span>
+<span class="p">)</span>
+</code></pre></div></p>
+<p><strong>Calculate Gold:</strong>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">dnd_5e_core.mechanics</span><span class="w"> </span><span class="kn">import</span> <span class="n">calculate_gold_reward</span>
+
+<span class="c1"># Gold based on CR</span>
+<span class="n">gold</span> <span class="o">=</span> <span class="n">calculate_gold_reward</span><span class="p">(</span><span class="n">challenge_rating</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Gold earned: </span><span class="si">{</span><span class="n">gold</span><span class="si">}</span><span class="s2"> gp&quot;</span><span class="p">)</span>
+</code></pre></div></p>
+<p><strong>Distribute Gold:</strong>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">dnd_5e_core.mechanics</span><span class="w"> </span><span class="kn">import</span> <span class="n">distribute_gold</span>
+
+<span class="n">total_gold</span> <span class="o">=</span> <span class="mi">1000</span>
+<span class="n">party_size</span> <span class="o">=</span> <span class="mi">4</span>
+
+<span class="n">gold_per_member</span> <span class="o">=</span> <span class="n">distribute_gold</span><span class="p">(</span><span class="n">total_gold</span><span class="p">,</span> <span class="n">party_size</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Each member receives: </span><span class="si">{</span><span class="n">gold_per_member</span><span class="si">}</span><span class="s2"> gp&quot;</span><span class="p">)</span>
+</code></pre></div></p>
+<hr />
+<h2 id="complete-examples">Complete Examples</h2>
+<h3 id="complete-dice-system">Complete Dice System</h3>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">dnd_5e_core.mechanics</span><span class="w"> </span><span class="kn">import</span> <span class="n">DamageDice</span>
+
+<span class="c1"># Weapon damage</span>
+<span class="n">longsword</span> <span class="o">=</span> <span class="n">DamageDice</span><span class="p">(</span><span class="s2">&quot;1d8+3&quot;</span><span class="p">)</span>
+<span class="n">greataxe</span> <span class="o">=</span> <span class="n">DamageDice</span><span class="p">(</span><span class="s2">&quot;1d12+5&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Longsword: </span><span class="si">{</span><span class="n">longsword</span><span class="o">.</span><span class="n">roll</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Greataxe: </span><span class="si">{</span><span class="n">greataxe</span><span class="o">.</span><span class="n">roll</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Fireball spell (level 3)</span>
+<span class="n">fireball_lv3</span> <span class="o">=</span> <span class="n">DamageDice</span><span class="p">(</span><span class="s2">&quot;8d6&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Fireball: </span><span class="si">{</span><span class="n">fireball_lv3</span><span class="o">.</span><span class="n">roll</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Upcasted Fireball spell (level 5)</span>
+<span class="n">fireball_lv5</span> <span class="o">=</span> <span class="n">DamageDice</span><span class="p">(</span><span class="s2">&quot;10d6&quot;</span><span class="p">)</span>  <span class="c1"># +1d6 per level above 3</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Level 5 Fireball: </span><span class="si">{</span><span class="n">fireball_lv5</span><span class="o">.</span><span class="n">roll</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Healing</span>
+<span class="n">cure_wounds</span> <span class="o">=</span> <span class="n">DamageDice</span><span class="p">(</span><span class="s2">&quot;1d8+4&quot;</span><span class="p">)</span>
+<span class="n">hp_restored</span> <span class="o">=</span> <span class="n">cure_wounds</span><span class="o">.</span><span class="n">roll</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Healing: </span><span class="si">{</span><span class="n">hp_restored</span><span class="si">}</span><span class="s2"> HP&quot;</span><span class="p">)</span>
+
+<span class="c1"># Compare damage</span>
+<span class="k">if</span> <span class="n">greataxe</span> <span class="o">&gt;</span> <span class="n">longsword</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The greataxe deals more damage (on average)&quot;</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="xp-and-level-management">XP and Level Management</h3>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">dnd_5e_core.mechanics</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">xp_by_cr</span><span class="p">,</span>
+    <span class="n">calculate_level_from_xp</span>
+<span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dnd_5e_core.entities</span><span class="w"> </span><span class="kn">import</span> <span class="n">Character</span>
+
+<span class="c1"># Create a level 1 hero</span>
+<span class="n">hero</span> <span class="o">=</span> <span class="n">Character</span><span class="o">.</span><span class="n">generate_random_character</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">class_name</span><span class="o">=</span><span class="s2">&quot;fighter&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">hero</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> - Level </span><span class="si">{</span><span class="n">hero</span><span class="o">.</span><span class="n">level</span><span class="si">}</span><span class="s2"> - XP: </span><span class="si">{</span><span class="n">hero</span><span class="o">.</span><span class="n">experience_points</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Fight monsters</span>
+<span class="n">defeated_monsters</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s2">&quot;goblin&quot;</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">),</span>      <span class="c1"># CR 1/4 = 50 XP</span>
+    <span class="p">(</span><span class="s2">&quot;goblin&quot;</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;hobgoblin&quot;</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span>    <span class="c1"># CR 1/2 = 100 XP</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">monster_name</span><span class="p">,</span> <span class="n">cr</span> <span class="ow">in</span> <span class="n">defeated_monsters</span><span class="p">:</span>
+    <span class="n">xp_gained</span> <span class="o">=</span> <span class="n">xp_by_cr</span><span class="p">[</span><span class="n">cr</span><span class="p">]</span>
+    <span class="n">hero</span><span class="o">.</span><span class="n">experience_points</span> <span class="o">+=</span> <span class="n">xp_gained</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Defeated </span><span class="si">{</span><span class="n">monster_name</span><span class="si">}</span><span class="s2">! +</span><span class="si">{</span><span class="n">xp_gained</span><span class="si">}</span><span class="s2"> XP&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Check for level up</span>
+    <span class="n">new_level</span> <span class="o">=</span> <span class="n">calculate_level_from_xp</span><span class="p">(</span><span class="n">hero</span><span class="o">.</span><span class="n">experience_points</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">new_level</span> <span class="o">&gt;</span> <span class="n">hero</span><span class="o">.</span><span class="n">level</span><span class="p">:</span>
+        <span class="n">old_level</span> <span class="o">=</span> <span class="n">hero</span><span class="o">.</span><span class="n">level</span>
+        <span class="n">hero</span><span class="o">.</span><span class="n">level_up</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;LEVEL UP! </span><span class="si">{</span><span class="n">old_level</span><span class="si">}</span><span class="s2"> -&gt; </span><span class="si">{</span><span class="n">hero</span><span class="o">.</span><span class="n">level</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   New max HP: </span><span class="si">{</span><span class="n">hero</span><span class="o">.</span><span class="n">max_hit_points</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   New proficiency bonus: </span><span class="si">{</span><span class="n">hero</span><span class="o">.</span><span class="n">proficiency_bonus</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Final: </span><span class="si">{</span><span class="n">hero</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> - Level </span><span class="si">{</span><span class="n">hero</span><span class="o">.</span><span class="n">level</span><span class="si">}</span><span class="s2"> - XP: </span><span class="si">{</span><span class="n">hero</span><span class="o">.</span><span class="n">experience_points</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="encounter-construction">Encounter Construction</h3>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">dnd_5e_core.mechanics</span><span class="w"> </span><span class="kn">import</span> <span class="n">generate_encounter_cr</span><span class="p">,</span> <span class="n">xp_by_cr</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dnd_5e_core.data</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_monster</span>
+
+<span class="c1"># Party of 4 level 5 adventurers</span>
+<span class="n">party_levels</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+
+<span class="c1"># Determine appropriate CR</span>
+<span class="n">min_cr</span><span class="p">,</span> <span class="n">max_cr</span> <span class="o">=</span> <span class="n">generate_encounter_cr</span><span class="p">(</span>
+    <span class="n">party_levels</span><span class="p">,</span>
+    <span class="n">difficulty</span><span class="o">=</span><span class="s2">&quot;medium&quot;</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Recommended CR for medium encounter: </span><span class="si">{</span><span class="n">min_cr</span><span class="si">}</span><span class="s2"> - </span><span class="si">{</span><span class="n">max_cr</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Load monsters in this range</span>
+<span class="n">possible_monsters</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;goblin&quot;</span><span class="p">,</span>           <span class="c1"># CR 0.25</span>
+    <span class="s2">&quot;hobgoblin&quot;</span><span class="p">,</span>        <span class="c1"># CR 0.5</span>
+    <span class="s2">&quot;orc&quot;</span><span class="p">,</span>              <span class="c1"># CR 1</span>
+    <span class="s2">&quot;ogre&quot;</span><span class="p">,</span>             <span class="c1"># CR 2</span>
+    <span class="s2">&quot;owlbear&quot;</span><span class="p">,</span>          <span class="c1"># CR 3</span>
+    <span class="s2">&quot;hill-giant&quot;</span><span class="p">,</span>       <span class="c1"># CR 5</span>
+<span class="p">]</span>
+
+<span class="n">encounter</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">total_xp</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">target_xp</span> <span class="o">=</span> <span class="mi">1400</span>  <span class="c1"># XP budget for a medium level 5 encounter</span>
+
+<span class="k">for</span> <span class="n">monster_name</span> <span class="ow">in</span> <span class="n">possible_monsters</span><span class="p">:</span>
+    <span class="n">monster</span> <span class="o">=</span> <span class="n">load_monster</span><span class="p">(</span><span class="n">monster_name</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">min_cr</span> <span class="o">&lt;=</span> <span class="n">monster</span><span class="o">.</span><span class="n">challenge_rating</span> <span class="o">&lt;=</span> <span class="n">max_cr</span><span class="p">:</span>
+        <span class="c1"># Add copies until budget is met</span>
+        <span class="k">while</span> <span class="n">total_xp</span> <span class="o">+</span> <span class="n">monster</span><span class="o">.</span><span class="n">xp</span> <span class="o">&lt;=</span> <span class="n">target_xp</span><span class="p">:</span>
+            <span class="n">encounter</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">load_monster</span><span class="p">(</span><span class="n">monster_name</span><span class="p">))</span>
+            <span class="n">total_xp</span> <span class="o">+=</span> <span class="n">monster</span><span class="o">.</span><span class="n">xp</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Encounter generated (Total XP: </span><span class="si">{</span><span class="n">total_xp</span><span class="si">}</span><span class="s2">):&quot;</span><span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">Counter</span>
+<span class="n">monster_counts</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">([</span><span class="n">m</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">encounter</span><span class="p">])</span>
+<span class="k">for</span> <span class="n">monster_name</span><span class="p">,</span> <span class="n">count</span> <span class="ow">in</span> <span class="n">monster_counts</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">monster</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">m</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">encounter</span> <span class="k">if</span> <span class="n">m</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="n">monster_name</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">count</span><span class="si">}</span><span class="s2">x </span><span class="si">{</span><span class="n">monster_name</span><span class="si">}</span><span class="s2"> (CR </span><span class="si">{</span><span class="n">monster</span><span class="o">.</span><span class="n">challenge_rating</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="complete-reward-system">Complete Reward System</h3>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">dnd_5e_core.mechanics</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">xp_by_cr</span><span class="p">,</span>
+    <span class="n">calculate_gold_reward</span><span class="p">,</span>
+    <span class="n">distribute_gold</span>
+<span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dnd_5e_core.entities</span><span class="w"> </span><span class="kn">import</span> <span class="n">Character</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dnd_5e_core.data</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_monster</span>
+
+<span class="c1"># Party</span>
+<span class="n">party</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">Character</span><span class="o">.</span><span class="n">generate_random_character</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">class_name</span><span class="o">=</span><span class="s2">&quot;fighter&quot;</span><span class="p">),</span>
+    <span class="n">Character</span><span class="o">.</span><span class="n">generate_random_character</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">class_name</span><span class="o">=</span><span class="s2">&quot;wizard&quot;</span><span class="p">),</span>
+    <span class="n">Character</span><span class="o">.</span><span class="n">generate_random_character</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">class_name</span><span class="o">=</span><span class="s2">&quot;cleric&quot;</span><span class="p">),</span>
+    <span class="n">Character</span><span class="o">.</span><span class="n">generate_random_character</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">class_name</span><span class="o">=</span><span class="s2">&quot;rogue&quot;</span><span class="p">),</span>
+<span class="p">]</span>
+
+<span class="c1"># Defeated monsters</span>
+<span class="n">defeated</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">load_monster</span><span class="p">(</span><span class="s2">&quot;orc&quot;</span><span class="p">),</span>
+    <span class="n">load_monster</span><span class="p">(</span><span class="s2">&quot;orc&quot;</span><span class="p">),</span>
+    <span class="n">load_monster</span><span class="p">(</span><span class="s2">&quot;ogre&quot;</span><span class="p">),</span>
+<span class="p">]</span>
+
+<span class="c1"># Calculate total XP</span>
+<span class="n">total_xp</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span><span class="n">m</span><span class="o">.</span><span class="n">xp</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">defeated</span><span class="p">])</span>
+<span class="n">xp_per_member</span> <span class="o">=</span> <span class="n">total_xp</span> <span class="o">//</span> <span class="nb">len</span><span class="p">(</span><span class="n">party</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Defeated monsters:&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">monster</span> <span class="ow">in</span> <span class="n">defeated</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  - </span><span class="si">{</span><span class="n">monster</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> (CR </span><span class="si">{</span><span class="n">monster</span><span class="o">.</span><span class="n">challenge_rating</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">monster</span><span class="o">.</span><span class="n">xp</span><span class="si">}</span><span class="s2"> XP)&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Total XP: </span><span class="si">{</span><span class="n">total_xp</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   XP per member: </span><span class="si">{</span><span class="n">xp_per_member</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Distribute XP</span>
+<span class="k">for</span> <span class="n">hero</span> <span class="ow">in</span> <span class="n">party</span><span class="p">:</span>
+    <span class="n">old_xp</span> <span class="o">=</span> <span class="n">hero</span><span class="o">.</span><span class="n">experience_points</span>
+    <span class="n">hero</span><span class="o">.</span><span class="n">gain_xp</span><span class="p">(</span><span class="n">xp_per_member</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   </span><span class="si">{</span><span class="n">hero</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">old_xp</span><span class="si">}</span><span class="s2"> -&gt; </span><span class="si">{</span><span class="n">hero</span><span class="o">.</span><span class="n">experience_points</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Calculate gold</span>
+<span class="n">total_gold</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span><span class="n">calculate_gold_reward</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">challenge_rating</span><span class="p">)</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">defeated</span><span class="p">])</span>
+<span class="n">gold_per_member</span> <span class="o">=</span> <span class="n">distribute_gold</span><span class="p">(</span><span class="n">total_gold</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">party</span><span class="p">))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Total gold: </span><span class="si">{</span><span class="n">total_gold</span><span class="si">}</span><span class="s2"> gp&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   Gold per member: </span><span class="si">{</span><span class="n">gold_per_member</span><span class="si">}</span><span class="s2"> gp&quot;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">hero</span> <span class="ow">in</span> <span class="n">party</span><span class="p">:</span>
+    <span class="n">hero</span><span class="o">.</span><span class="n">gold</span> <span class="o">+=</span> <span class="n">gold_per_member</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   </span><span class="si">{</span><span class="n">hero</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">hero</span><span class="o">.</span><span class="n">gold</span><span class="si">}</span><span class="s2"> gp&quot;</span><span class="p">)</span>
+</code></pre></div>
+<hr />
+<h2 id="useful-constants">Useful Constants</h2>
+<h3 id="xp-by-cr">XP by CR</h3>
+<div class="highlight"><pre><span></span><code><span class="n">xp_by_cr</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="mi">0</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+    <span class="mf">0.125</span><span class="p">:</span> <span class="mi">25</span><span class="p">,</span>
+    <span class="mf">0.25</span><span class="p">:</span> <span class="mi">50</span><span class="p">,</span>
+    <span class="mf">0.5</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
+    <span class="mi">1</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span>
+    <span class="mi">2</span><span class="p">:</span> <span class="mi">450</span><span class="p">,</span>
+    <span class="mi">3</span><span class="p">:</span> <span class="mi">700</span><span class="p">,</span>
+    <span class="mi">4</span><span class="p">:</span> <span class="mi">1100</span><span class="p">,</span>
+    <span class="mi">5</span><span class="p">:</span> <span class="mi">1800</span><span class="p">,</span>
+    <span class="mi">10</span><span class="p">:</span> <span class="mi">5900</span><span class="p">,</span>
+    <span class="mi">15</span><span class="p">:</span> <span class="mi">13000</span><span class="p">,</span>
+    <span class="mi">20</span><span class="p">:</span> <span class="mi">25000</span><span class="p">,</span>
+    <span class="mi">30</span><span class="p">:</span> <span class="mi">155000</span><span class="p">,</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="xp-thresholds-by-level">XP Thresholds by Level</h3>
+<div class="highlight"><pre><span></span><code><span class="n">xp_thresholds_by_level</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="mi">1</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;easy&quot;</span><span class="p">:</span> <span class="mi">25</span><span class="p">,</span> <span class="s2">&quot;medium&quot;</span><span class="p">:</span> <span class="mi">50</span><span class="p">,</span> <span class="s2">&quot;hard&quot;</span><span class="p">:</span> <span class="mi">75</span><span class="p">,</span> <span class="s2">&quot;deadly&quot;</span><span class="p">:</span> <span class="mi">100</span><span class="p">},</span>
+    <span class="mi">5</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;easy&quot;</span><span class="p">:</span> <span class="mi">500</span><span class="p">,</span> <span class="s2">&quot;medium&quot;</span><span class="p">:</span> <span class="mi">1100</span><span class="p">,</span> <span class="s2">&quot;hard&quot;</span><span class="p">:</span> <span class="mi">1600</span><span class="p">,</span> <span class="s2">&quot;deadly&quot;</span><span class="p">:</span> <span class="mi">2400</span><span class="p">},</span>
+    <span class="mi">10</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;easy&quot;</span><span class="p">:</span> <span class="mi">1200</span><span class="p">,</span> <span class="s2">&quot;medium&quot;</span><span class="p">:</span> <span class="mi">2400</span><span class="p">,</span> <span class="s2">&quot;hard&quot;</span><span class="p">:</span> <span class="mi">3600</span><span class="p">,</span> <span class="s2">&quot;deadly&quot;</span><span class="p">:</span> <span class="mi">5400</span><span class="p">},</span>
+    <span class="mi">20</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;easy&quot;</span><span class="p">:</span> <span class="mi">2800</span><span class="p">,</span> <span class="s2">&quot;medium&quot;</span><span class="p">:</span> <span class="mi">5700</span><span class="p">,</span> <span class="s2">&quot;hard&quot;</span><span class="p">:</span> <span class="mi">8500</span><span class="p">,</span> <span class="s2">&quot;deadly&quot;</span><span class="p">:</span> <span class="mi">12700</span><span class="p">},</span>
+<span class="p">}</span>
+</code></pre></div>
+<hr />
+<h2 id="see-also">See Also</h2>
+<ul>
+<li><a href="../combat/">combat</a> - Combat system</li>
+<li><a href="../entities/">entities</a> - Characters and monsters</li>
+<li><a href="../magic-spells/">spells</a> - Spells and magic</li>
+<li><a href="../equipment/">equipment</a> - Equipment</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

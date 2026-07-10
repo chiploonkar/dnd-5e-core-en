@@ -1,0 +1,1762 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation for the dnd-5e-core Python engine.">
+      
+      
+      
+      
+        <link rel="prev" href="../data-loading/">
+      
+      
+        <link rel="next" href="../equipment/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Entities - dnd-5e-core API Reference</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/catppuccin.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#module-entities" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="dnd-5e-core API Reference" class="md-header__button md-logo" aria-label="dnd-5e-core API Reference" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            dnd-5e-core API Reference
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Entities
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="pink"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../combat/" class="md-tabs__link">
+          
+  
+  
+  Core Modules
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="dnd-5e-core API Reference" class="md-nav__button md-logo" aria-label="dnd-5e-core API Reference" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    dnd-5e-core API Reference
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Core Modules
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Core Modules
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../combat/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Combat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../customization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Customization
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data-loading/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Loading
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Entities
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Entities
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#core-classes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Core Classes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Core Classes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sprite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sprite
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#character" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Character
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Character">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#creation-and-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Creation and Management
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#combat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Combat
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#equipment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Equipment
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#spells-for-spellcasters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Spells (for spellcasters)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resting
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#serialization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Serialization
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#monster" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Monster
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#utility-classes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Utility Classes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Utility Classes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#extendedmonsterloader" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ExtendedMonsterLoader
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#specialmonsteractionsbuilder-get_special_monster_actions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SpecialMonsterActionsBuilder &amp; get_special_monster_actions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SpecialMonsterActionsBuilder &amp; get_special_monster_actions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#jsonactionextractor-fallback-engine" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JSONActionExtractor (Fallback Engine)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#complete-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Complete Examples
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Complete Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-a-party-of-adventurers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Create a Party of Adventurers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#simple-combat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Simple Combat
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#save-and-load" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Save and Load
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        See Also
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../equipment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Equipment
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../magic-spells/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Magic & Spells
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rules-mechanics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rules & Mechanics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ui-utilities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UI & Utilities
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#core-classes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Core Classes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Core Classes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sprite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sprite
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#character" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Character
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Character">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#creation-and-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Creation and Management
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#combat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Combat
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#equipment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Equipment
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#spells-for-spellcasters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Spells (for spellcasters)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resting
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#serialization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Serialization
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#monster" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Monster
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#utility-classes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Utility Classes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Utility Classes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#extendedmonsterloader" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ExtendedMonsterLoader
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#specialmonsteractionsbuilder-get_special_monster_actions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SpecialMonsterActionsBuilder &amp; get_special_monster_actions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SpecialMonsterActionsBuilder &amp; get_special_monster_actions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#jsonactionextractor-fallback-engine" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JSONActionExtractor (Fallback Engine)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#complete-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Complete Examples
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Complete Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-a-party-of-adventurers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Create a Party of Adventurers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#simple-combat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Simple Combat
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#save-and-load" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Save and Load
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        See Also
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="module-entities">Module: entities</h1>
+<h2 id="overview">Overview</h2>
+<p>The <code>entities</code> module contains the core classes to represent player characters and monsters in D&amp;D 5e.</p>
+<h2 id="core-classes">Core Classes</h2>
+<h3 id="sprite">Sprite</h3>
+<p>Base class for all living beings (characters and monsters).</p>
+<p><strong>Import:</strong>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">dnd_5e_core.entities</span><span class="w"> </span><span class="kn">import</span> <span class="n">Sprite</span>
+</code></pre></div></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id</code></td>
+<td><code>int</code></td>
+<td>Unique identifier</td>
+</tr>
+<tr>
+<td><code>name</code></td>
+<td><code>str</code></td>
+<td>Entity name</td>
+</tr>
+<tr>
+<td><code>position</code></td>
+<td><code>tuple[int, int]</code></td>
+<td>Position (x, y) for UI</td>
+</tr>
+<tr>
+<td><code>hit_points</code></td>
+<td><code>int</code></td>
+<td>Current hit points</td>
+</tr>
+<tr>
+<td><code>max_hit_points</code></td>
+<td><code>int</code></td>
+<td>Maximum hit points</td>
+</tr>
+<tr>
+<td><code>armor_class</code></td>
+<td><code>int</code></td>
+<td>Armor class</td>
+</tr>
+<tr>
+<td><code>speed</code></td>
+<td><code>int</code></td>
+<td>Movement speed</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Methods:</strong>
+- <code>is_alive() -&gt; bool</code> - Checks if the entity is alive
+- <code>take_damage(amount: int)</code> - Deals damage
+- <code>heal(amount: int)</code> - Heals the entity</p>
+<hr />
+<h3 id="character">Character</h3>
+<p>Represents a player character with all their D&amp;D 5e attributes.</p>
+<p><strong>Import:</strong>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">dnd_5e_core.entities</span><span class="w"> </span><span class="kn">import</span> <span class="n">Character</span>
+</code></pre></div></p>
+<p><strong>Creation:</strong></p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Random Generation</label><label for="__tabbed_1_2">Manual Creation</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">dnd_5e_core.entities</span><span class="w"> </span><span class="kn">import</span> <span class="n">Character</span>
+
+<span class="n">hero</span> <span class="o">=</span> <span class="n">Character</span><span class="o">.</span><span class="n">generate_random_character</span><span class="p">(</span>
+    <span class="n">level</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+    <span class="n">class_name</span><span class="o">=</span><span class="s2">&quot;wizard&quot;</span>
+<span class="p">)</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">dnd_5e_core.entities</span><span class="w"> </span><span class="kn">import</span> <span class="n">Character</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dnd_5e_core.abilities</span><span class="w"> </span><span class="kn">import</span> <span class="n">Abilities</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dnd_5e_core.races</span><span class="w"> </span><span class="kn">import</span> <span class="n">Race</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dnd_5e_core.classes</span><span class="w"> </span><span class="kn">import</span> <span class="n">ClassType</span>
+
+<span class="n">abilities</span> <span class="o">=</span> <span class="n">Abilities</span><span class="p">(</span><span class="nb">str</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">dex</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">con</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="nb">int</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">wis</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span> <span class="n">cha</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">race</span> <span class="o">=</span> <span class="n">Race</span><span class="o">.</span><span class="n">load_from_json</span><span class="p">(</span><span class="s2">&quot;elf&quot;</span><span class="p">)</span>
+<span class="n">char_class</span> <span class="o">=</span> <span class="n">ClassType</span><span class="o">.</span><span class="n">load_from_json</span><span class="p">(</span><span class="s2">&quot;wizard&quot;</span><span class="p">)</span>
+
+<span class="n">wizard</span> <span class="o">=</span> <span class="n">Character</span><span class="p">(</span>
+    <span class="nb">id</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Gandalf&quot;</span><span class="p">,</span>
+    <span class="n">abilities</span><span class="o">=</span><span class="n">abilities</span><span class="p">,</span>
+    <span class="n">race</span><span class="o">=</span><span class="n">race</span><span class="p">,</span>
+    <span class="n">classe</span><span class="o">=</span><span class="n">char_class</span><span class="p">,</span>
+    <span class="n">level</span><span class="o">=</span><span class="mi">5</span>
+<span class="p">)</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+<td><code>str</code></td>
+<td>Character name</td>
+</tr>
+<tr>
+<td><code>level</code></td>
+<td><code>int</code></td>
+<td>Character level</td>
+</tr>
+<tr>
+<td><code>race</code></td>
+<td><code>Race</code></td>
+<td>Character race</td>
+</tr>
+<tr>
+<td><code>classe</code></td>
+<td><code>ClassType</code></td>
+<td>Character class</td>
+</tr>
+<tr>
+<td><code>abilities</code></td>
+<td><code>Abilities</code></td>
+<td>The 6 ability scores (STR, DEX, CON, INT, WIS, CHA)</td>
+</tr>
+<tr>
+<td><code>hit_points</code></td>
+<td><code>int</code></td>
+<td>Current hit points</td>
+</tr>
+<tr>
+<td><code>max_hit_points</code></td>
+<td><code>int</code></td>
+<td>Maximum hit points</td>
+</tr>
+<tr>
+<td><code>armor_class</code></td>
+<td><code>int</code></td>
+<td>Armor class</td>
+</tr>
+<tr>
+<td><code>proficiency_bonus</code></td>
+<td><code>int</code></td>
+<td>Proficiency bonus</td>
+</tr>
+<tr>
+<td><code>experience_points</code></td>
+<td><code>int</code></td>
+<td>Experience points</td>
+</tr>
+<tr>
+<td><code>inventory</code></td>
+<td><code>Inventory</code></td>
+<td>Equipment inventory</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Core Methods:</strong></p>
+<h4 id="creation-and-management">Creation and Management</h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># Generate a random character</span>
+<span class="n">char</span> <span class="o">=</span> <span class="n">Character</span><span class="o">.</span><span class="n">generate_random_character</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">class_name</span><span class="o">=</span><span class="s2">&quot;fighter&quot;</span><span class="p">)</span>
+
+<span class="c1"># Level up</span>
+<span class="n">char</span><span class="o">.</span><span class="n">level_up</span><span class="p">()</span>
+
+<span class="c1"># Gain XP</span>
+<span class="n">char</span><span class="o">.</span><span class="n">gain_xp</span><span class="p">(</span><span class="mi">300</span><span class="p">)</span>
+</code></pre></div>
+<h4 id="combat">Combat</h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># Attack</span>
+<span class="n">char</span><span class="o">.</span><span class="n">melee_attack</span><span class="p">(</span><span class="n">monster</span><span class="p">)</span>
+<span class="n">char</span><span class="o">.</span><span class="n">ranged_attack</span><span class="p">(</span><span class="n">monster</span><span class="p">)</span>
+
+<span class="c1"># Cast a spell</span>
+<span class="n">char</span><span class="o">.</span><span class="n">cast_spell</span><span class="p">(</span><span class="n">spell</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
+
+<span class="c1"># Saving throws</span>
+<span class="n">success</span> <span class="o">=</span> <span class="n">char</span><span class="o">.</span><span class="n">saving_throw</span><span class="p">(</span><span class="n">dc_type</span><span class="o">=</span><span class="s2">&quot;dex&quot;</span><span class="p">,</span> <span class="n">dc_value</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+</code></pre></div>
+<h4 id="equipment">Equipment</h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># Equip a weapon</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dnd_5e_core.data</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_weapon</span>
+<span class="n">weapon</span> <span class="o">=</span> <span class="n">load_weapon</span><span class="p">(</span><span class="s2">&quot;longsword&quot;</span><span class="p">)</span>
+<span class="n">char</span><span class="o">.</span><span class="n">equip_weapon</span><span class="p">(</span><span class="n">weapon</span><span class="p">)</span>
+
+<span class="c1"># Equip an armor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dnd_5e_core.data</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_armor</span>
+<span class="n">armor</span> <span class="o">=</span> <span class="n">load_armor</span><span class="p">(</span><span class="s2">&quot;chain-mail&quot;</span><span class="p">)</span>
+<span class="n">char</span><span class="o">.</span><span class="n">equip_armor</span><span class="p">(</span><span class="n">armor</span><span class="p">)</span>
+
+<span class="c1"># Use a potion</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dnd_5e_core.equipment</span><span class="w"> </span><span class="kn">import</span> <span class="n">HealingPotion</span><span class="p">,</span> <span class="n">PotionRarity</span>
+<span class="n">potion</span> <span class="o">=</span> <span class="n">HealingPotion</span><span class="p">(</span>
+    <span class="nb">id</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Potion of Healing&quot;</span><span class="p">,</span>
+    <span class="n">rarity</span><span class="o">=</span><span class="n">PotionRarity</span><span class="o">.</span><span class="n">COMMON</span><span class="p">,</span>
+    <span class="n">hit_dice</span><span class="o">=</span><span class="s2">&quot;2d4&quot;</span><span class="p">,</span>
+    <span class="n">bonus</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="n">min_cost</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+    <span class="n">max_cost</span><span class="o">=</span><span class="mi">50</span>
+<span class="p">)</span>
+<span class="n">hp_gained</span> <span class="o">=</span> <span class="n">char</span><span class="o">.</span><span class="n">drink_potion</span><span class="p">(</span><span class="n">potion</span><span class="p">)</span>
+</code></pre></div>
+<h4 id="spells-for-spellcasters">Spells (for spellcasters)</h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># Prepare spells</span>
+<span class="n">char</span><span class="o">.</span><span class="n">prepare_spells</span><span class="p">([</span><span class="n">spell1</span><span class="p">,</span> <span class="n">spell2</span><span class="p">,</span> <span class="n">spell3</span><span class="p">])</span>
+
+<span class="c1"># Cast a spell</span>
+<span class="n">char</span><span class="o">.</span><span class="n">cast_spell</span><span class="p">(</span><span class="n">spell</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">slot_level</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Check available spell slots</span>
+<span class="n">slots</span> <span class="o">=</span> <span class="n">char</span><span class="o">.</span><span class="n">spell_slots</span>
+</code></pre></div>
+<h4 id="resting">Resting</h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># Short rest</span>
+<span class="n">char</span><span class="o">.</span><span class="n">short_rest</span><span class="p">()</span>
+
+<span class="c1"># Long rest</span>
+<span class="n">char</span><span class="o">.</span><span class="n">long_rest</span><span class="p">()</span>
+</code></pre></div>
+<h4 id="serialization">Serialization</h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># Save</span>
+<span class="n">char_data</span> <span class="o">=</span> <span class="n">char</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;character.json&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">char_data</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+
+<span class="c1"># Load</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;character.json&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">char_data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+<span class="n">char</span> <span class="o">=</span> <span class="n">Character</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">char_data</span><span class="p">)</span>
+</code></pre></div>
+<hr />
+<h3 id="monster">Monster</h3>
+<p>Represents a creature or a monster.</p>
+<p><strong>Import:</strong>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">dnd_5e_core.entities</span><span class="w"> </span><span class="kn">import</span> <span class="n">Monster</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dnd_5e_core.data</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_monster</span>
+</code></pre></div></p>
+<p><strong>Creation:</strong></p>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Loading from Data</label><label for="__tabbed_2_2">Creating a Copy</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">dnd_5e_core.data</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_monster</span>
+
+<span class="n">goblin</span> <span class="o">=</span> <span class="n">load_monster</span><span class="p">(</span><span class="s2">&quot;goblin&quot;</span><span class="p">)</span>
+<span class="n">dragon</span> <span class="o">=</span> <span class="n">load_monster</span><span class="p">(</span><span class="s2">&quot;ancient-red-dragon&quot;</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">copy</span><span class="w"> </span><span class="kn">import</span> <span class="n">copy</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dnd_5e_core.data</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_monster</span>
+
+<span class="n">goblin</span> <span class="o">=</span> <span class="n">load_monster</span><span class="p">(</span><span class="s2">&quot;goblin&quot;</span><span class="p">)</span>
+<span class="n">goblin2</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="n">goblin</span><span class="p">)</span>
+<span class="n">goblin2</span><span class="o">.</span><span class="n">hp_roll</span><span class="p">()</span>  <span class="c1"># Reroll HP</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>index</code></td>
+<td><code>str</code></td>
+<td>API identifier (e.g. "goblin")</td>
+</tr>
+<tr>
+<td><code>name</code></td>
+<td><code>str</code></td>
+<td>Display name</td>
+</tr>
+<tr>
+<td><code>abilities</code></td>
+<td><code>Abilities</code></td>
+<td>The 6 ability scores</td>
+</tr>
+<tr>
+<td><code>armor_class</code></td>
+<td><code>int</code></td>
+<td>AC</td>
+</tr>
+<tr>
+<td><code>hit_points</code></td>
+<td><code>int</code></td>
+<td>Current HP</td>
+</tr>
+<tr>
+<td><code>max_hit_points</code></td>
+<td><code>int</code></td>
+<td>Maximum HP</td>
+</tr>
+<tr>
+<td><code>hit_dice</code></td>
+<td><code>str</code></td>
+<td>Hit dice (e.g. "2d8+2")</td>
+</tr>
+<tr>
+<td><code>challenge_rating</code></td>
+<td><code>float</code></td>
+<td>Challenge rating</td>
+</tr>
+<tr>
+<td><code>xp</code></td>
+<td><code>int</code></td>
+<td>XP awarded on defeat</td>
+</tr>
+<tr>
+<td><code>speed</code></td>
+<td><code>int</code></td>
+<td>Speed</td>
+</tr>
+<tr>
+<td><code>actions</code></td>
+<td><code>List[Action]</code></td>
+<td>Combat actions</td>
+</tr>
+<tr>
+<td><code>sc</code></td>
+<td><code>SpellCaster</code></td>
+<td>Spellcaster (optional)</td>
+</tr>
+<tr>
+<td><code>sa</code></td>
+<td><code>List[SpecialAbility]</code></td>
+<td>Special abilities (optional)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Core Methods:</strong></p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Check state</span>
+<span class="k">if</span> <span class="n">monster</span><span class="o">.</span><span class="n">is_alive</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">monster</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> is alive&quot;</span><span class="p">)</span>
+
+<span class="c1"># Reroll HP</span>
+<span class="n">monster</span><span class="o">.</span><span class="n">hp_roll</span><span class="p">()</span>
+
+<span class="c1"># Saving throws</span>
+<span class="n">success</span> <span class="o">=</span> <span class="n">monster</span><span class="o">.</span><span class="n">saving_throw</span><span class="p">(</span><span class="n">dc_type</span><span class="o">=</span><span class="s2">&quot;con&quot;</span><span class="p">,</span> <span class="n">dc_value</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+
+<span class="c1"># Cast a healing spell (if spellcaster)</span>
+<span class="k">if</span> <span class="n">monster</span><span class="o">.</span><span class="n">is_spell_caster</span><span class="p">:</span>
+    <span class="n">hp_gained</span> <span class="o">=</span> <span class="n">monster</span><span class="o">.</span><span class="n">cast_heal</span><span class="p">(</span><span class="n">spell</span><span class="p">,</span> <span class="n">slot_level</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="n">ally</span><span class="p">])</span>
+
+<span class="c1"># Cast an attack spell</span>
+<span class="k">if</span> <span class="n">monster</span><span class="o">.</span><span class="n">is_spell_caster</span><span class="p">:</span>
+    <span class="n">messages</span><span class="p">,</span> <span class="n">damage</span> <span class="o">=</span> <span class="n">monster</span><span class="o">.</span><span class="n">cast_attack</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">spell</span><span class="p">)</span>
+</code></pre></div>
+<p><strong>Calculated Properties:</strong></p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Effective level</span>
+<span class="n">effective_level</span> <span class="o">=</span> <span class="n">monster</span><span class="o">.</span><span class="n">level</span>
+
+<span class="c1"># Spell DC</span>
+<span class="k">if</span> <span class="n">monster</span><span class="o">.</span><span class="n">is_spell_caster</span><span class="p">:</span>
+    <span class="n">dc</span> <span class="o">=</span> <span class="n">monster</span><span class="o">.</span><span class="n">dc_value</span>
+</code></pre></div>
+<hr />
+<h2 id="utility-classes">Utility Classes</h2>
+<h3 id="extendedmonsterloader">ExtendedMonsterLoader</h3>
+<p>Loader for extended monsters (complete bestiary).</p>
+<p><strong>Import:</strong>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">dnd_5e_core.entities</span><span class="w"> </span><span class="kn">import</span> <span class="n">ExtendedMonsterLoader</span>
+</code></pre></div></p>
+<p><strong>Usage:</strong></p>
+<div class="highlight"><pre><span></span><code><span class="n">loader</span> <span class="o">=</span> <span class="n">ExtendedMonsterLoader</span><span class="p">()</span>
+
+<span class="c1"># Load all implemented monsters</span>
+<span class="n">monsters</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="n">load_implemented_monsters</span><span class="p">()</span>
+
+<span class="c1"># Search for monsters</span>
+<span class="n">goblins</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="n">search_monsters</span><span class="p">(</span>
+    <span class="n">name_contains</span><span class="o">=</span><span class="s2">&quot;goblin&quot;</span><span class="p">,</span>
+    <span class="n">min_cr</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="n">max_cr</span><span class="o">=</span><span class="mi">2</span>
+<span class="p">)</span>
+
+<span class="c1"># Load a specific monster</span>
+<span class="n">goblin_boss</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="n">load_monster_by_index</span><span class="p">(</span><span class="s2">&quot;goblin-boss&quot;</span><span class="p">)</span>
+
+<span class="c1"># Get stats</span>
+<span class="n">stats</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="n">get_monster_stats</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Total: </span><span class="si">{</span><span class="n">stats</span><span class="p">[</span><span class="s1">&#39;total&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Implemented: </span><span class="si">{</span><span class="n">stats</span><span class="p">[</span><span class="s1">&#39;implemented&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<hr />
+<h3 id="specialmonsteractionsbuilder-get_special_monster_actions">SpecialMonsterActionsBuilder &amp; get_special_monster_actions</h3>
+<p>The engine supports custom manual definitions of special monster actions alongside an automated fallback parser for the extended bestiary files (like <code>bestiary-sublist-data.json</code>).</p>
+<p><strong>Import:</strong>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">dnd_5e_core.entities</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_special_monster_actions</span>
+</code></pre></div></p>
+<p><strong>Signature:</strong>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_special_monster_actions</span><span class="p">(</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> 
+    <span class="n">use_json_fallback</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Action</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="n">SpecialAbility</span><span class="p">],</span> <span class="n">Optional</span><span class="p">[</span><span class="n">SpellCaster</span><span class="p">]]</span>
+</code></pre></div></p>
+<p><strong>Usage Example:</strong>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">dnd_5e_core.entities</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_special_monster_actions</span>
+
+<span class="c1"># Retrieve actions and abilities for a monster</span>
+<span class="n">actions</span><span class="p">,</span> <span class="n">abilities</span><span class="p">,</span> <span class="n">spellcaster</span> <span class="o">=</span> <span class="n">get_special_monster_actions</span><span class="p">(</span><span class="s2">&quot;Goblin Boss&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Monster Actions:&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">action</span> <span class="ow">in</span> <span class="n">actions</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  - </span><span class="si">{</span><span class="n">action</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> (Type: </span><span class="si">{</span><span class="n">action</span><span class="o">.</span><span class="n">type</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Special Abilities:&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">ability</span> <span class="ow">in</span> <span class="n">abilities</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  - </span><span class="si">{</span><span class="n">ability</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">ability</span><span class="o">.</span><span class="n">desc</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div></p>
+<h4 id="jsonactionextractor-fallback-engine">JSONActionExtractor (Fallback Engine)</h4>
+<p>When <code>use_json_fallback=True</code> is enabled, the engine uses the internal <code>JSONActionExtractor</code> to parse raw action blocks:
+* Automatically maps attack bonuses from string structures (e.g., matching <code>+5 to hit</code>).
+* Extracts melee, ranged, and mixed combat ranges (e.g., matching <code>range 30/120 ft</code>).
+* Configures action types such as <code>MELEE</code>, <code>RANGED</code>, and <code>MULTIATTACK</code> automatically based on text patterns.</p>
+<hr />
+<h2 id="complete-examples">Complete Examples</h2>
+<h3 id="create-a-party-of-adventurers">Create a Party of Adventurers</h3>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">dnd_5e_core.entities</span><span class="w"> </span><span class="kn">import</span> <span class="n">Character</span>
+
+<span class="n">party</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">Character</span><span class="o">.</span><span class="n">generate_random_character</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">class_name</span><span class="o">=</span><span class="s2">&quot;fighter&quot;</span><span class="p">),</span>
+    <span class="n">Character</span><span class="o">.</span><span class="n">generate_random_character</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">class_name</span><span class="o">=</span><span class="s2">&quot;wizard&quot;</span><span class="p">),</span>
+    <span class="n">Character</span><span class="o">.</span><span class="n">generate_random_character</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">class_name</span><span class="o">=</span><span class="s2">&quot;cleric&quot;</span><span class="p">),</span>
+    <span class="n">Character</span><span class="o">.</span><span class="n">generate_random_character</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">class_name</span><span class="o">=</span><span class="s2">&quot;rogue&quot;</span><span class="p">),</span>
+<span class="p">]</span>
+
+<span class="c1"># Display the party</span>
+<span class="k">for</span> <span class="n">hero</span> <span class="ow">in</span> <span class="n">party</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">hero</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> - </span><span class="si">{</span><span class="n">hero</span><span class="o">.</span><span class="n">classe</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> level </span><span class="si">{</span><span class="n">hero</span><span class="o">.</span><span class="n">level</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  HP: </span><span class="si">{</span><span class="n">hero</span><span class="o">.</span><span class="n">hit_points</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">hero</span><span class="o">.</span><span class="n">max_hit_points</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  AC: </span><span class="si">{</span><span class="n">hero</span><span class="o">.</span><span class="n">armor_class</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="simple-combat">Simple Combat</h3>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">dnd_5e_core.entities</span><span class="w"> </span><span class="kn">import</span> <span class="n">Character</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dnd_5e_core.data</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_monster</span>
+
+<span class="c1"># Create the combatants</span>
+<span class="n">hero</span> <span class="o">=</span> <span class="n">Character</span><span class="o">.</span><span class="n">generate_random_character</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">class_name</span><span class="o">=</span><span class="s2">&quot;fighter&quot;</span><span class="p">)</span>
+<span class="n">goblin</span> <span class="o">=</span> <span class="n">load_monster</span><span class="p">(</span><span class="s2">&quot;goblin&quot;</span><span class="p">)</span>
+
+<span class="c1"># Combat</span>
+<span class="k">while</span> <span class="n">hero</span><span class="o">.</span><span class="n">is_alive</span> <span class="ow">and</span> <span class="n">goblin</span><span class="o">.</span><span class="n">is_alive</span><span class="p">:</span>
+    <span class="c1"># Hero&#39;s turn</span>
+    <span class="n">damage</span> <span class="o">=</span> <span class="n">hero</span><span class="o">.</span><span class="n">melee_attack</span><span class="p">(</span><span class="n">goblin</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">hero</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> deals </span><span class="si">{</span><span class="n">damage</span><span class="si">}</span><span class="s2"> damage to </span><span class="si">{</span><span class="n">goblin</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">goblin</span><span class="o">.</span><span class="n">is_alive</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">goblin</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> is defeated!&quot;</span><span class="p">)</span>
+        <span class="k">break</span>
+
+    <span class="c1"># Monster&#39;s turn (simplified)</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">random</span><span class="w"> </span><span class="kn">import</span> <span class="n">randint</span>
+    <span class="n">action</span> <span class="o">=</span> <span class="n">goblin</span><span class="o">.</span><span class="n">actions</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">attack_roll</span> <span class="o">=</span> <span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span> <span class="o">+</span> <span class="n">action</span><span class="o">.</span><span class="n">attack_bonus</span>
+
+    <span class="k">if</span> <span class="n">attack_roll</span> <span class="o">&gt;=</span> <span class="n">hero</span><span class="o">.</span><span class="n">armor_class</span><span class="p">:</span>
+        <span class="n">damage</span> <span class="o">=</span> <span class="n">action</span><span class="o">.</span><span class="n">damage</span><span class="o">.</span><span class="n">roll</span><span class="p">()</span>
+        <span class="n">hero</span><span class="o">.</span><span class="n">hit_points</span> <span class="o">-=</span> <span class="n">damage</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">goblin</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> deals </span><span class="si">{</span><span class="n">damage</span><span class="si">}</span><span class="s2"> damage to </span><span class="si">{</span><span class="n">hero</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">hero</span><span class="o">.</span><span class="n">is_alive</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">hero</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> is defeated!&quot;</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="save-and-load">Save and Load</h3>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dnd_5e_core.entities</span><span class="w"> </span><span class="kn">import</span> <span class="n">Character</span>
+
+<span class="c1"># Create and save</span>
+<span class="n">hero</span> <span class="o">=</span> <span class="n">Character</span><span class="o">.</span><span class="n">generate_random_character</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">class_name</span><span class="o">=</span><span class="s2">&quot;wizard&quot;</span><span class="p">)</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;hero.json&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">hero</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(),</span> <span class="n">f</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># Load</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;hero.json&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+<span class="n">loaded_hero</span> <span class="o">=</span> <span class="n">Character</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Loaded hero: </span><span class="si">{</span><span class="n">loaded_hero</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<hr />
+<h2 id="see-also">See Also</h2>
+<ul>
+<li><a href="../combat/">combat</a> - Combat system</li>
+<li><a href="../rules-mechanics/">mechanics</a> - Game rules</li>
+<li><a href="../equipment/">equipment</a> - Equipment</li>
+<li><a href="../magic-spells/">spells</a> - Spells</li>
+<li><a href="../data-loading/">data</a> - Data loading</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

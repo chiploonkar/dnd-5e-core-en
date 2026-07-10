@@ -1,0 +1,1688 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation for the dnd-5e-core Python engine.">
+      
+      
+      
+      
+        <link rel="prev" href="../combat/">
+      
+      
+        <link rel="next" href="../data-loading/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Customization - dnd-5e-core API Reference</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/catppuccin.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#modules-races-classes-abilities" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="dnd-5e-core API Reference" class="md-header__button md-logo" aria-label="dnd-5e-core API Reference" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            dnd-5e-core API Reference
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Customization
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="pink"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../combat/" class="md-tabs__link">
+          
+  
+  
+  Core Modules
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="dnd-5e-core API Reference" class="md-nav__button md-logo" aria-label="dnd-5e-core API Reference" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    dnd-5e-core API Reference
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Core Modules
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Core Modules
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../combat/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Combat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Customization
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Customization
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#module-races" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Module: races
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Module: races">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#race" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Race
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#subrace" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SubRace
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trait" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trait
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#language" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Language
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#module-classes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Module: classes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Module: classes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#overview_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#classtype" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ClassType
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#proficiency" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Proficiency
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multiclass" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Multiclass
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#class-level-progression-spellcasting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Class Level Progression &amp; Spellcasting
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Class Level Progression &amp; Spellcasting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#classlevelprogression" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ClassLevelProgression
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#spellcastinginfo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SpellcastingInfo
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#module-abilities" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Module: abilities
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Module: abilities">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#overview_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#abilities" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Abilities
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#abilitytype" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        AbilityType
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#skill" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Skill
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#saving-throw" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Saving Throw
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#complete-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Complete Examples
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Complete Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-a-complete-character" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Create a Complete Character
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#display-all-races" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Display All Races
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#display-all-classes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Display All Classes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        See Also
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data-loading/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Loading
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../entities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Entities
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../equipment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Equipment
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../magic-spells/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Magic & Spells
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rules-mechanics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rules & Mechanics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ui-utilities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UI & Utilities
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#module-races" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Module: races
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Module: races">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#race" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Race
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#subrace" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SubRace
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trait" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trait
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#language" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Language
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#module-classes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Module: classes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Module: classes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#overview_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#classtype" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ClassType
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#proficiency" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Proficiency
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multiclass" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Multiclass
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#class-level-progression-spellcasting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Class Level Progression &amp; Spellcasting
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Class Level Progression &amp; Spellcasting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#classlevelprogression" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ClassLevelProgression
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#spellcastinginfo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SpellcastingInfo
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#module-abilities" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Module: abilities
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Module: abilities">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#overview_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#abilities" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Abilities
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#abilitytype" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        AbilityType
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#skill" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Skill
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#saving-throw" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Saving Throw
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#complete-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Complete Examples
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Complete Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-a-complete-character" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Create a Complete Character
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#display-all-races" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Display All Races
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#display-all-classes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Display All Classes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        See Also
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="modules-races-classes-abilities">Modules: races, classes, abilities</h1>
+<h2 id="module-races">Module: races</h2>
+<h3 id="overview">Overview</h3>
+<p>Management of D&amp;D 5e character races and sub-races.</p>
+<h3 id="race">Race</h3>
+<p><strong>Import:</strong>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">dnd_5e_core.races</span><span class="w"> </span><span class="kn">import</span> <span class="n">Race</span>
+</code></pre></div></p>
+<p><strong>Available Races:</strong>
+- Dwarf
+- Elf
+- Halfling
+- Human
+- Dragonborn
+- Gnome
+- Half-Elf
+- Half-Orc
+- Tiefling</p>
+<p><strong>Usage:</strong>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">dnd_5e_core.races</span><span class="w"> </span><span class="kn">import</span> <span class="n">Race</span>
+
+<span class="c1"># Load a race</span>
+<span class="n">elf_race</span> <span class="o">=</span> <span class="n">Race</span><span class="o">.</span><span class="n">load_from_json</span><span class="p">(</span><span class="s2">&quot;elf&quot;</span><span class="p">)</span>
+<span class="n">dwarf_race</span> <span class="o">=</span> <span class="n">Race</span><span class="o">.</span><span class="n">load_from_json</span><span class="p">(</span><span class="s2">&quot;dwarf&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">elf_race</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Bonus: +</span><span class="si">{</span><span class="n">elf_race</span><span class="o">.</span><span class="n">ability_bonuses</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Speed: </span><span class="si">{</span><span class="n">elf_race</span><span class="o">.</span><span class="n">speed</span><span class="si">}</span><span class="s2"> feet&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Languages: </span><span class="si">{</span><span class="n">elf_race</span><span class="o">.</span><span class="n">languages</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div></p>
+<h3 id="subrace">SubRace</h3>
+<p><strong>Sub-races:</strong>
+- High Elf / Wood Elf
+- Mountain Dwarf / Hill Dwarf
+- Lightfoot Halfling / Stout Halfling</p>
+<h3 id="trait">Trait</h3>
+<p>Special racial traits.</p>
+<p><strong>Example:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Traits are automatically loaded with the race</span>
+<span class="n">elf</span> <span class="o">=</span> <span class="n">Race</span><span class="o">.</span><span class="n">load_from_json</span><span class="p">(</span><span class="s2">&quot;elf&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">trait</span> <span class="ow">in</span> <span class="n">elf</span><span class="o">.</span><span class="n">traits</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;- </span><span class="si">{</span><span class="n">trait</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">trait</span><span class="o">.</span><span class="n">desc</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div></p>
+<h3 id="language">Language</h3>
+<p>Known languages.</p>
+<p><strong>Standard Languages:</strong>
+- Common
+- Elvish
+- Dwarvish
+- Draconic
+- etc.</p>
+<hr />
+<h2 id="module-classes">Module: classes</h2>
+<h3 id="overview_1">Overview</h3>
+<p>Character classes with level progression.</p>
+<h3 id="classtype">ClassType</h3>
+<p><strong>Import:</strong>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">dnd_5e_core.classes</span><span class="w"> </span><span class="kn">import</span> <span class="n">ClassType</span>
+</code></pre></div></p>
+<p><strong>Available Classes:</strong>
+- Barbarian
+- Bard
+- Cleric
+- Druid
+- Fighter
+- Monk
+- Paladin
+- Ranger
+- Rogue
+- Sorcerer
+- Warlock
+- Wizard</p>
+<p><strong>Usage:</strong>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">dnd_5e_core.classes</span><span class="w"> </span><span class="kn">import</span> <span class="n">ClassType</span>
+
+<span class="c1"># Load a class</span>
+<span class="n">fighter</span> <span class="o">=</span> <span class="n">ClassType</span><span class="o">.</span><span class="n">load_from_json</span><span class="p">(</span><span class="s2">&quot;fighter&quot;</span><span class="p">)</span>
+<span class="n">wizard</span> <span class="o">=</span> <span class="n">ClassType</span><span class="o">.</span><span class="n">load_from_json</span><span class="p">(</span><span class="s2">&quot;wizard&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">fighter</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Hit Die: d</span><span class="si">{</span><span class="n">fighter</span><span class="o">.</span><span class="n">hit_die</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Proficiencies: </span><span class="si">{</span><span class="n">fighter</span><span class="o">.</span><span class="n">proficiencies</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div></p>
+<h3 id="proficiency">Proficiency</h3>
+<p>Proficiencies and skills.</p>
+<p><strong>Types:</strong>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">dnd_5e_core.classes</span><span class="w"> </span><span class="kn">import</span> <span class="n">ProfType</span>
+
+<span class="n">ProfType</span><span class="o">.</span><span class="n">ARMOR</span>     <span class="c1"># Armor</span>
+<span class="n">ProfType</span><span class="o">.</span><span class="n">WEAPON</span>    <span class="c1"># Weapons</span>
+<span class="n">ProfType</span><span class="o">.</span><span class="n">TOOL</span>      <span class="c1"># Tools</span>
+<span class="n">ProfType</span><span class="o">.</span><span class="n">SKILL</span>     <span class="c1"># Skills</span>
+<span class="n">ProfType</span><span class="o">.</span><span class="n">SAVING_THROW</span>  <span class="c1"># Saving throws</span>
+</code></pre></div></p>
+<p><strong>Example:</strong>
+<div class="highlight"><pre><span></span><code><span class="n">fighter</span> <span class="o">=</span> <span class="n">ClassType</span><span class="o">.</span><span class="n">load_from_json</span><span class="p">(</span><span class="s2">&quot;fighter&quot;</span><span class="p">)</span>
+
+<span class="c1"># Armor proficiencies</span>
+<span class="n">armor_profs</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">fighter</span><span class="o">.</span><span class="n">proficiencies</span> <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">ProfType</span><span class="o">.</span><span class="n">ARMOR</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Armor proficiencies:&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">prof</span> <span class="ow">in</span> <span class="n">armor_profs</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  - </span><span class="si">{</span><span class="n">prof</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div></p>
+<h3 id="multiclass">Multiclass</h3>
+<p>Multiclassing management.</p>
+<p><strong>Example:</strong>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">dnd_5e_core.entities</span><span class="w"> </span><span class="kn">import</span> <span class="n">Character</span>
+
+<span class="c1"># Create a multiclassed character</span>
+<span class="n">hero</span> <span class="o">=</span> <span class="n">Character</span><span class="o">.</span><span class="n">generate_random_character</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">class_name</span><span class="o">=</span><span class="s2">&quot;fighter&quot;</span><span class="p">)</span>
+
+<span class="c1"># Add a level in another class</span>
+</code></pre></div></p>
+<h3 id="class-level-progression-spellcasting">Class Level Progression &amp; Spellcasting</h3>
+<p>The engine manages level progression thresholds, newly unlocked class features, and spellcasting slot matrices dynamically for characters up to level 20.</p>
+<h4 id="classlevelprogression">ClassLevelProgression</h4>
+<p>Represents the attributes and progression data of a class at a specific level.</p>
+<p><strong>Import:</strong>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">dnd_5e_core.classes</span><span class="w"> </span><span class="kn">import</span> <span class="n">ClassLevelProgression</span><span class="p">,</span> <span class="n">SpellcastingInfo</span>
+</code></pre></div></p>
+<p><strong>Key Fields on <code>ClassLevelProgression</code>:</strong>
+* <code>level</code> (<code>int</code>): The progression level (1 to 20).
+* <code>prof_bonus</code> (<code>int</code>): The character proficiency bonus at this level.
+* <code>features</code> (<code>List[ClassFeature]</code>): A list of class-specific features unlocked at this level.
+* <code>spellcasting</code> (<code>Optional[SpellcastingInfo]</code>): Spellcasting slots and cantrips known, if the class is a spellcaster.
+* <code>class_specific</code> (<code>Dict[str, Any]</code>): Class-specific math properties (such as Rage count, Ki points, etc.).</p>
+<h4 id="spellcastinginfo">SpellcastingInfo</h4>
+<p>Contains spell slot capacities for full, half, and third spellcasters across all standard spell tiers.</p>
+<p><strong>Usage Example:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Assuming a Wizard instance is loaded</span>
+<span class="n">wizard_class</span> <span class="o">=</span> <span class="n">ClassType</span><span class="o">.</span><span class="n">load_from_json</span><span class="p">(</span><span class="s2">&quot;wizard&quot;</span><span class="p">)</span>
+
+<span class="c1"># Retrieve Level 5 progression</span>
+<span class="n">progression</span> <span class="o">=</span> <span class="n">wizard_class</span><span class="o">.</span><span class="n">get_level_progression</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Proficiency Bonus: </span><span class="si">{</span><span class="n">progression</span><span class="o">.</span><span class="n">prof_bonus</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">progression</span><span class="o">.</span><span class="n">spellcasting</span><span class="p">:</span>
+    <span class="n">info</span> <span class="o">=</span> <span class="n">progression</span><span class="o">.</span><span class="n">spellcasting</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Cantrips Known: </span><span class="si">{</span><span class="n">info</span><span class="o">.</span><span class="n">cantrips_known</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="c1"># Array mapping slot counts by tier [cantrips, level1, level2, ... level9]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Spell Slots Array: </span><span class="si">{</span><span class="n">info</span><span class="o">.</span><span class="n">spell_slots</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="c1"># Output: [0, 4, 3, 2, 0, 0, 0, 0, 0, 0] (4 L1 slots, 3 L2 slots, 2 L3 slots)</span>
+</code></pre></div></p>
+<hr />
+<h2 id="module-abilities">Module: abilities</h2>
+<h3 id="overview_2">Overview</h3>
+<p>The six core ability scores and their modifiers.</p>
+<h3 id="abilities">Abilities</h3>
+<p><strong>Import:</strong>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">dnd_5e_core.abilities</span><span class="w"> </span><span class="kn">import</span> <span class="n">Abilities</span><span class="p">,</span> <span class="n">AbilityType</span>
+</code></pre></div></p>
+<p><strong>Creation:</strong></p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Specific Values</label><label for="__tabbed_1_2">Random Rolling</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">dnd_5e_core.abilities</span><span class="w"> </span><span class="kn">import</span> <span class="n">Abilities</span>
+
+<span class="n">abilities</span> <span class="o">=</span> <span class="n">Abilities</span><span class="p">(</span>
+    <span class="nb">str</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>  <span class="c1"># Strength</span>
+    <span class="n">dex</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span>  <span class="c1"># Dexterity</span>
+    <span class="n">con</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span>  <span class="c1"># Constitution</span>
+    <span class="nb">int</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span>  <span class="c1"># Intelligence</span>
+    <span class="n">wis</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>  <span class="c1"># Wisdom</span>
+    <span class="n">cha</span><span class="o">=</span><span class="mi">8</span>    <span class="c1"># Charisma</span>
+<span class="p">)</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">dnd_5e_core.abilities</span><span class="w"> </span><span class="kn">import</span> <span class="n">Abilities</span>
+
+<span class="n">abilities</span> <span class="o">=</span> <span class="n">Abilities</span><span class="o">.</span><span class="n">roll_abilities</span><span class="p">()</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<p><strong>Usage:</strong></p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Access to values</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Strength: </span><span class="si">{</span><span class="n">abilities</span><span class="o">.</span><span class="n">str</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Strength modifier: </span><span class="si">{</span><span class="n">abilities</span><span class="o">.</span><span class="n">str_mod</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># All modifiers</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;STR: </span><span class="si">{</span><span class="n">abilities</span><span class="o">.</span><span class="n">str</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">abilities</span><span class="o">.</span><span class="n">str_mod</span><span class="si">:</span><span class="s2">+d</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;DEX: </span><span class="si">{</span><span class="n">abilities</span><span class="o">.</span><span class="n">dex</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">abilities</span><span class="o">.</span><span class="n">dex_mod</span><span class="si">:</span><span class="s2">+d</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;CON: </span><span class="si">{</span><span class="n">abilities</span><span class="o">.</span><span class="n">con</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">abilities</span><span class="o">.</span><span class="n">con_mod</span><span class="si">:</span><span class="s2">+d</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;INT: </span><span class="si">{</span><span class="n">abilities</span><span class="o">.</span><span class="n">int</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">abilities</span><span class="o">.</span><span class="n">int_mod</span><span class="si">:</span><span class="s2">+d</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;WIS: </span><span class="si">{</span><span class="n">abilities</span><span class="o">.</span><span class="n">wis</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">abilities</span><span class="o">.</span><span class="n">wis_mod</span><span class="si">:</span><span class="s2">+d</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;CHA: </span><span class="si">{</span><span class="n">abilities</span><span class="o">.</span><span class="n">cha</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">abilities</span><span class="o">.</span><span class="n">cha_mod</span><span class="si">:</span><span class="s2">+d</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="abilitytype">AbilityType</h3>
+<p>Ability score types.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">dnd_5e_core.abilities</span><span class="w"> </span><span class="kn">import</span> <span class="n">AbilityType</span>
+
+<span class="n">AbilityType</span><span class="o">.</span><span class="n">STRENGTH</span>      <span class="c1"># Strength</span>
+<span class="n">AbilityType</span><span class="o">.</span><span class="n">DEXTERITY</span>     <span class="c1"># Dexterity</span>
+<span class="n">AbilityType</span><span class="o">.</span><span class="n">CONSTITUTION</span>  <span class="c1"># Constitution</span>
+<span class="n">AbilityType</span><span class="o">.</span><span class="n">INTELLIGENCE</span>  <span class="c1"># Intelligence</span>
+<span class="n">AbilityType</span><span class="o">.</span><span class="n">WISDOM</span>        <span class="c1"># Wisdom</span>
+<span class="n">AbilityType</span><span class="o">.</span><span class="n">CHARISMA</span>      <span class="c1"># Charisma</span>
+</code></pre></div>
+<h3 id="skill">Skill</h3>
+<p>Skills based on ability scores.</p>
+<p><strong>Skills by Ability Score:</strong></p>
+<p><strong>Strength:</strong>
+- Athletics</p>
+<p><strong>Dexterity:</strong>
+- Acrobatics
+- Sleight of Hand
+- Stealth</p>
+<p><strong>Intelligence:</strong>
+- Arcana
+- History
+- Investigation
+- Nature
+- Religion</p>
+<p><strong>Wisdom:</strong>
+- Animal Handling
+- Insight
+- Medicine
+- Perception
+- Survival</p>
+<p><strong>Charisma:</strong>
+- Deception
+- Intimidation
+- Performance
+- Persuasion</p>
+<p><strong>Example:</strong>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">dnd_5e_core.entities</span><span class="w"> </span><span class="kn">import</span> <span class="n">Character</span>
+
+<span class="n">hero</span> <span class="o">=</span> <span class="n">Character</span><span class="o">.</span><span class="n">generate_random_character</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">class_name</span><span class="o">=</span><span class="s2">&quot;rogue&quot;</span><span class="p">)</span>
+
+<span class="c1"># Skill check</span>
+<span class="n">perception_bonus</span> <span class="o">=</span> <span class="n">hero</span><span class="o">.</span><span class="n">abilities</span><span class="o">.</span><span class="n">wis_mod</span> <span class="o">+</span> <span class="n">hero</span><span class="o">.</span><span class="n">proficiency_bonus</span>
+<span class="n">perception_roll</span> <span class="o">=</span> <span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span> <span class="o">+</span> <span class="n">perception_bonus</span>
+
+<span class="k">if</span> <span class="n">perception_roll</span> <span class="o">&gt;=</span> <span class="mi">15</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;You spot the ambush!&quot;</span><span class="p">)</span>
+</code></pre></div></p>
+<h3 id="saving-throw">Saving Throw</h3>
+<p>Saving throws.</p>
+<p><strong>Example:</strong>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">dnd_5e_core.entities</span><span class="w"> </span><span class="kn">import</span> <span class="n">Character</span>
+
+<span class="n">hero</span> <span class="o">=</span> <span class="n">Character</span><span class="o">.</span><span class="n">generate_random_character</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">class_name</span><span class="o">=</span><span class="s2">&quot;wizard&quot;</span><span class="p">)</span>
+
+<span class="c1"># Saving throw</span>
+<span class="n">dc_value</span> <span class="o">=</span> <span class="mi">15</span>
+<span class="n">success</span> <span class="o">=</span> <span class="n">hero</span><span class="o">.</span><span class="n">saving_throw</span><span class="p">(</span><span class="n">dc_type</span><span class="o">=</span><span class="s2">&quot;dex&quot;</span><span class="p">,</span> <span class="n">dc_value</span><span class="o">=</span><span class="n">dc_value</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">success</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Saving throw succeeded!&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Saving throw failed!&quot;</span><span class="p">)</span>
+</code></pre></div></p>
+<hr />
+<h2 id="complete-examples">Complete Examples</h2>
+<h3 id="create-a-complete-character">Create a Complete Character</h3>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">dnd_5e_core.entities</span><span class="w"> </span><span class="kn">import</span> <span class="n">Character</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dnd_5e_core.abilities</span><span class="w"> </span><span class="kn">import</span> <span class="n">Abilities</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dnd_5e_core.races</span><span class="w"> </span><span class="kn">import</span> <span class="n">Race</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dnd_5e_core.classes</span><span class="w"> </span><span class="kn">import</span> <span class="n">ClassType</span>
+
+<span class="c1"># Create the components</span>
+<span class="n">abilities</span> <span class="o">=</span> <span class="n">Abilities</span><span class="p">(</span><span class="nb">str</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">dex</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">con</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="nb">int</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">wis</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">cha</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">race</span> <span class="o">=</span> <span class="n">Race</span><span class="o">.</span><span class="n">load_from_json</span><span class="p">(</span><span class="s2">&quot;dwarf&quot;</span><span class="p">)</span>
+<span class="n">char_class</span> <span class="o">=</span> <span class="n">ClassType</span><span class="o">.</span><span class="n">load_from_json</span><span class="p">(</span><span class="s2">&quot;fighter&quot;</span><span class="p">)</span>
+
+<span class="c1"># Create the character</span>
+<span class="n">hero</span> <span class="o">=</span> <span class="n">Character</span><span class="p">(</span>
+    <span class="nb">id</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Thorin Oakenshield&quot;</span><span class="p">,</span>
+    <span class="n">abilities</span><span class="o">=</span><span class="n">abilities</span><span class="p">,</span>
+    <span class="n">race</span><span class="o">=</span><span class="n">race</span><span class="p">,</span>
+    <span class="n">classe</span><span class="o">=</span><span class="n">char_class</span><span class="p">,</span>
+    <span class="n">level</span><span class="o">=</span><span class="mi">5</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">hero</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Race: </span><span class="si">{</span><span class="n">hero</span><span class="o">.</span><span class="n">race</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Class: </span><span class="si">{</span><span class="n">hero</span><span class="o">.</span><span class="n">classe</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> level </span><span class="si">{</span><span class="n">hero</span><span class="o">.</span><span class="n">level</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  HP: </span><span class="si">{</span><span class="n">hero</span><span class="o">.</span><span class="n">max_hit_points</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  AC: </span><span class="si">{</span><span class="n">hero</span><span class="o">.</span><span class="n">armor_class</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="display-all-races">Display All Races</h3>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">dnd_5e_core.races</span><span class="w"> </span><span class="kn">import</span> <span class="n">Race</span>
+
+<span class="n">races</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;dwarf&quot;</span><span class="p">,</span> <span class="s2">&quot;elf&quot;</span><span class="p">,</span> <span class="s2">&quot;halfling&quot;</span><span class="p">,</span> <span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;dragonborn&quot;</span><span class="p">,</span> 
+         <span class="s2">&quot;gnome&quot;</span><span class="p">,</span> <span class="s2">&quot;half-elf&quot;</span><span class="p">,</span> <span class="s2">&quot;half-orc&quot;</span><span class="p">,</span> <span class="s2">&quot;tiefling&quot;</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;AVAILABLE RACES:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">race_name</span> <span class="ow">in</span> <span class="n">races</span><span class="p">:</span>
+    <span class="n">race</span> <span class="o">=</span> <span class="n">Race</span><span class="o">.</span><span class="n">load_from_json</span><span class="p">(</span><span class="n">race_name</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">race</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Speed: </span><span class="si">{</span><span class="n">race</span><span class="o">.</span><span class="n">speed</span><span class="si">}</span><span class="s2"> feet&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Languages: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">race</span><span class="o">.</span><span class="n">languages</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Traits: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">race</span><span class="o">.</span><span class="n">traits</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">()</span>
+</code></pre></div>
+<h3 id="display-all-classes">Display All Classes</h3>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">dnd_5e_core.classes</span><span class="w"> </span><span class="kn">import</span> <span class="n">ClassType</span>
+
+<span class="n">classes</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;barbarian&quot;</span><span class="p">,</span> <span class="s2">&quot;bard&quot;</span><span class="p">,</span> <span class="s2">&quot;cleric&quot;</span><span class="p">,</span> <span class="s2">&quot;druid&quot;</span><span class="p">,</span> <span class="s2">&quot;fighter&quot;</span><span class="p">,</span>
+           <span class="s2">&quot;monk&quot;</span><span class="p">,</span> <span class="s2">&quot;paladin&quot;</span><span class="p">,</span> <span class="s2">&quot;ranger&quot;</span><span class="p">,</span> <span class="s2">&quot;rogue&quot;</span><span class="p">,</span> <span class="s2">&quot;sorcerer&quot;</span><span class="p">,</span>
+           <span class="s2">&quot;warlock&quot;</span><span class="p">,</span> <span class="s2">&quot;wizard&quot;</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;AVAILABLE CLASSES:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">class_name</span> <span class="ow">in</span> <span class="n">classes</span><span class="p">:</span>
+    <span class="n">char_class</span> <span class="o">=</span> <span class="n">ClassType</span><span class="o">.</span><span class="n">load_from_json</span><span class="p">(</span><span class="n">class_name</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">char_class</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Hit Die: d</span><span class="si">{</span><span class="n">char_class</span><span class="o">.</span><span class="n">hit_die</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Primary Ability: </span><span class="si">{</span><span class="n">char_class</span><span class="o">.</span><span class="n">primary_ability</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">()</span>
+</code></pre></div>
+<hr />
+<h2 id="see-also">See Also</h2>
+<ul>
+<li><a href="../entities/">entities</a> - Characters using races and classes</li>
+<li><a href="../rules-mechanics/">mechanics</a> - Modifier calculations</li>
+<li><a href="../combat/">combat</a> - Use of skills in combat</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

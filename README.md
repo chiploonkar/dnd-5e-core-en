@@ -1,7 +1,7 @@
 # dnd-5e-core-en (mkdocs branch)
 ```
 Pranav Chiploonkar <mail@pranavchip.com>
-Fri 2026-07-10 08:30:02 UTC
+Fri 2026-07-10 08:39:11 UTC
 ```
 
 > [!NOTE]
@@ -37,22 +37,24 @@ mkdocs build
 
 ## File Structure
 ```text
-mkdocs/
-├── mkdocs.yaml                 # MkDocs configuration file (navigation, theme, palettes)
-├── README.md                   # This README file
-└── api/                        # Source directory for the documentation site
-    ├── index.md                # Homepage / Landing page
-    ├── core/                   # Detailed module documentation pages
-    │   ├── combat.md           # Combat initiative, action economy, and damage
-    │   ├── customization.md    # Racial features, subclassing, and multiclassing
-    │   ├── data-loading.md     # Game file JSON databases and loader logic
-    │   ├── entities.md         # Core actors, monster models, and stats
-    │   ├── equipment.md        # Inventories, items, weapons, and armor
-    │   ├── magic-spells.md     # Spellcasting, spell slots, and spell lists
-    │   ├── rules-mechanics.md  # Ability checks, saving throws, and dice rolling
-    │   └── ui-utilities.md     # Helper utilities and ncurses UI layout
-    └── stylesheets/
-        └── catppuccin.css      # Custom Catppuccin Mocha theme stylesheet
+mkdocs
+├── docs -----------------------> markdown documentation
+│   ├── core
+│   │   ├── combat.md
+│   │   ├── customization.md
+│   │   ├── data-loading.md
+│   │   ├── entities.md
+│   │   ├── equipment.md
+│   │   ├── magic-spells.md
+│   │   ├── rules-mechanics.md
+│   │   └── ui-utilities.md
+│   ├── index.md
+│   └── stylesheets
+│       └── catppuccin.css
+├── LICENSE
+├── mkdocs.yaml
+├── README.md
+└── site -----------------------> HTML static site
 ```
 
 ## Theme & Customization
