@@ -1,8 +1,8 @@
-# 🔗 Link to Complete History
+# Link to Complete History
 
 This project shares its development history with **DnD-5th-Edition-API**.
 
-## 📖 Consult the Complete History
+## Consult the Complete History
 
 To access the complete documentation of all developments carried out on the D&D 5e projects, consult:
 
@@ -15,21 +15,21 @@ To access the complete documentation of all developments carried out on the D&D 
 
 ---
 
-## 📋 History Content
+## History Content
 
 The complete history documents:
 
-- ✅ **Migration to dnd-5e-core** - Legacy code extraction
-- ✅ **Data migration** - Integration of 2000+ JSON files
-- ✅ **Bug fixes** - All applied fixes
-- ✅ **Implemented features** - NCurses, Pygame, PyQt5
-- ✅ **Documentation archival** - Docs organization
-- ✅ **Useful commands** - Scripts and tests
-- ✅ **Final architecture** - Projects structure
+- **Migration to dnd-5e-core** - Legacy code extraction
+- **Data migration** - Integration of 2000+ JSON files
+- **Bug fixes** - All applied fixes
+- **Implemented features** - NCurses, Pygame, PyQt5
+- **Documentation archival** - Docs organization
+- **Useful commands** - Scripts and tests
+- **Final architecture** - Projects structure
 
 ---
 
-## 🎯 Projects Concerned
+## Projects Concerned
 
 - **DnD-5th-Edition-API** - Games using dnd-5e-core
 - **dnd-5e-core** - Game logic package (this project)
@@ -37,7 +37,7 @@ The complete history documents:
 
 ---
 
-## 📚 Local Documentation
+## Local Documentation
 
 To read documentation specific to `dnd-5e-core`, consult:
 
@@ -48,4 +48,5 @@ To read documentation specific to `dnd-5e-core`, consult:
 
 ---
 
-**Note:** This file serves as a link to the centralized history in DnD-5th-Edition-API.
+!!! note
+    This file serves as a link to the centralized history in DnD-5th-Edition-API.

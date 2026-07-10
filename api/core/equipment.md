@@ -31,17 +31,18 @@ print(f"  Type: {longsword.damage_type}")
 print(f"  Range: {longsword.range_type}")
 ```
 
-**Properties:**
-- `name: str` - Weapon name
-- `equipment_category: str` - Category ("Weapon")
-- `weapon_category: str` - Type ("Martial", "Simple")
-- `weapon_range: str` - Range ("Melee", "Ranged")
-- `damage: DamageDice` - Damage dice
-- `damage_type: str` - Damage type (slashing, piercing, bludgeoning)
-- `range_type: RangeType` - MELEE or RANGED
-- `normal_range: int` - Normal range (in feet)
-- `long_range: int` - Long range (in feet)
-- `cost: Cost` - Cost in gold pieces
+| Property | Type | Description |
+|---|---|---|
+| `name` | `str` | Weapon name |
+| `equipment_category` | `str` | Category ("Weapon") |
+| `weapon_category` | `str` | Type ("Martial", "Simple") |
+| `weapon_range` | `str` | Range ("Melee", "Ranged") |
+| `damage` | `DamageDice` | Damage dice |
+| `damage_type` | `str` | Damage type (slashing, piercing, bludgeoning) |
+| `range_type` | `RangeType` | MELEE or RANGED |
+| `normal_range` | `int` | Normal range (in feet) |
+| `long_range` | `int` | Long range (in feet) |
+| `cost` | `Cost` | Cost in gold pieces |
 
 **Usage:**
 ```python
@@ -92,13 +93,14 @@ print(f"  Category: {plate.armor_category}")
 print(f"  Cost: {plate.cost.quantity} {plate.cost.unit}")
 ```
 
-**Properties:**
-- `name: str` - Armor name
-- `armor_category: str` - Category ("Light", "Medium", "Heavy")
-- `armor_class: int` - Base AC bonus
-- `str_minimum: int` - Minimum strength required
-- `stealth_disadvantage: bool` - Stealth disadvantage
-- `cost: Cost` - Cost
+| Property | Type | Description |
+|---|---|---|
+| `name` | `str` | Armor name |
+| `armor_category` | `str` | Category ("Light", "Medium", "Heavy") |
+| `armor_class` | `int` | Base AC bonus |
+| `str_minimum` | `int` | Minimum strength required |
+| `stealth_disadvantage` | `bool` | Stealth disadvantage |
+| `cost` | `Cost` | Cost |
 
 **Categories:**
 - **Light Armor** - Adds full DEX modifier

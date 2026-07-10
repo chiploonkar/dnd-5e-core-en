@@ -76,10 +76,10 @@ pip install dnd-5e-core
 I created a modern `pyproject.toml` file that replaces `setup.py`. It is the new Python standard (PEP 517/518).
 
 ### Advantages:
-- ✅ Compatible with Python 3.13
-- ✅ Simpler and declarative
-- ✅ Modern standard
-- ✅ Avoids obsolete setuptools errors
+- Compatible with Python 3.13
+- Simpler and declarative
+- Modern standard
+- Avoids obsolete setuptools errors
 
 ### What to do with setup.py?
 
@@ -98,20 +98,20 @@ I recommend **Option B** for a new project.
 
 ---
 
-## 📝 Files to Exclude from Git
+## Files to Exclude from Git
 
 Your `.gitignore` is already well configured. These files MUST NOT be versioned:
 
-- ❌ `*.egg-info/` - Local build artifacts
-- ❌ `build/` - Temporary build folder
-- ❌ `dist/` - Created distributions (tar.gz, whl)
-- ❌ `__pycache__/` - Python cache
+- `*.egg-info/` - Local build artifacts
+- `build/` - Temporary build folder
+- `dist/` - Created distributions (tar.gz, whl)
+- `__pycache__/` - Python cache
 
-These files are already excluded in your `.gitignore` ✅
+These files are already excluded in your `.gitignore`
 
 ---
 
-## 🚀 Recommended Publication Workflow
+## Recommended Publication Workflow
 
 ### 1. Development
 ```bash
@@ -185,12 +185,12 @@ password = pypi-AgEI...
 
 ---
 
-## 📊 Summary
+## Summary
 
 | Aspect | GitHub | PyPI |
 |--------|--------|------|
 | **Installation** | `pip install git+https://...` | `pip install dnd-5e-core` |
-| **Visibility** | ⭐⭐ | ⭐⭐⭐⭐⭐ |
+| **Visibility** | Medium | Maximum |
 | **Setup** | None | Account + upload |
 | **Cost** | Free | Free |
 | **Recommended for** | Internal projects | Public projects |
@@ -213,7 +213,7 @@ Your project specifies `>=3.10`. This is good for a modern project in 2026.
 
 ---
 
-## 📚 Resources
+## Resources
 
 - PyPI Documentation: https://packaging.python.org/
 - Packaging guide: https://packaging.python.org/tutorials/packaging-projects/

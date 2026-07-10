@@ -1,11 +1,11 @@
-# 📊 CONTEXT SUMMARY - D&D 5e Projects
+# CONTEXT SUMMARY - D&D 5e Projects
 
-**Date:** December 23, 2025  
+**Date:** December 23, 2025
 **Analyst:** GitHub Copilot
 
 ---
 
-## 🎯 Overview
+## Overview
 
 ### 3 Interconnected Projects
 
@@ -46,18 +46,18 @@ Standalone Python package containing **all D&D 5e business logic**, without UI d
   - `data/collections.py` module for loading
 
 ### Key Features
-- ✅ Auto-detection of `data/` and `collections/` directories
-- ✅ `populate()` function compatible with old code
-- ✅ Convenience functions (`get_monsters_list()`, etc.)
-- ✅ Automatic fallback to `DnD-5th-Edition-API`
-- ✅ 100% backward compatible
+- Auto-detection of `data/` and `collections/` directories
+- `populate()` function compatible with old code
+- Convenience functions (`get_monsters_list()`, etc.)
+- Automatic fallback to `DnD-5th-Edition-API`
+- 100% backward compatible
 
 ### Current Status
-- ✅ Code migration COMPLETED (December 2024)
-- ✅ Data migration COMPLETED (December 2024)
-- ✅ Collections migration COMPLETED (December 2025)
-- ✅ Tests 7/7 PASSED
-- ⏳ Version 0.1.0 in preparation
+- Code migration COMPLETED (December 2024)
+- Data migration COMPLETED (December 2024)
+- Collections migration COMPLETED (December 2025)
+- Tests 7/7 PASSED
+- Version 0.1.0 in preparation
 
 ---
 
@@ -111,11 +111,11 @@ Main project containing **7 different interfaces** to play D&D 5e, using the `dn
   - Tests: `test_populate_migration.py`
 
 ### Current Status
-- ✅ 7 functional game versions
-- ✅ v2 versions use `dnd-5e-core`
-- ✅ `populate_functions.py` adapted
-- ✅ Migration tests passed
-- ✅ Local collections kept (fallback)
+- 7 functional game versions
+- v2 versions use `dnd-5e-core`
+- `populate_functions.py` adapted
+- Migration tests passed
+- Local collections kept (fallback)
 
 ---
 
@@ -141,15 +141,15 @@ Standalone and simple ncurses game with heroes, dungeons, combat, and shop.
 - `starter.py` - POC/demo
 
 ### Current Status
-- ✅ Functional and complete game
-- ✅ Inventory system with equipment
-- ✅ Shop with buying/selling
-- ✅ Automatic save
-- ⏳ Independent of `dnd-5e-core` (for now)
+- Functional and complete game
+- Inventory system with equipment
+- Shop with buying/selling
+- Automatic save
+- Independent of `dnd-5e-core` (for now)
 
 ---
 
-## 🔄 Development History
+## Development History
 
 ### December 2024
 1. **Code Migration** - Extraction of `dao_classes` to `dnd-5e-core`
@@ -166,7 +166,7 @@ Standalone and simple ncurses game with heroes, dungeons, combat, and shop.
 
 ---
 
-## 📊 Statistics
+## Statistics
 
 ### dnd-5e-core
 - **Code:** ~5000+ Python lines
@@ -186,9 +186,9 @@ Standalone and simple ncurses game with heroes, dungeons, combat, and shop.
 
 ---
 
-## 🎯 Current Development Status
+## Current Development Status
 
-### ✅ Completed
+### Completed
 - [x] Code migration to `dnd-5e-core`
 - [x] JSON data migration to `dnd-5e-core`
 - [x] Collections migration to `dnd-5e-core`
@@ -197,12 +197,12 @@ Standalone and simple ncurses game with heroes, dungeons, combat, and shop.
 - [x] Validation tests (7/7)
 - [x] Complete documentation
 
-### 🚧 In Progress
+### In Progress
 - [ ] Automated unit tests (pytest)
 - [ ] `dnd-5e-core` package publication
 - [ ] CI/CD integration
 
-### 📋 Next Steps
+### Next Steps
 - [ ] Test all games with the new `populate()`
 - [ ] Deprecate local collections
 - [ ] `dnd-5e-core` version 0.1.0
@@ -244,7 +244,7 @@ dnd-5e-core (standalone)
 
 ---
 
-## 📖 Available Documentation
+## Available Documentation
 
 ### dnd-5e-core
 - `README.md` - Overview and quick start
@@ -271,16 +271,16 @@ dnd-5e-core (standalone)
 
 ---
 
-## 🎉 Conclusion
+## Conclusion
 
 ### Strengths
-- ✅ Modular and clear architecture
-- ✅ Successful UI/Logic separation
-- ✅ Reusable `dnd-5e-core` package
-- ✅ 7 different functional interfaces
-- ✅ Robust auto-detection and fallbacks
-- ✅ Exhaustive documentation
-- ✅ Validation tests passed
+- Modular and clear architecture
+- Successful UI/Logic separation
+- Reusable `dnd-5e-core` package
+- 7 different functional interfaces
+- Robust auto-detection and fallbacks
+- Exhaustive documentation
+- Validation tests passed
 
 ### Recommended Next Actions
 1. Test all games with migrated `populate()`
@@ -295,5 +295,5 @@ dnd-5e-core (standalone)
 
 ---
 
-**Summary date:** December 23, 2025  
-**Status:** ✅ **COMPLETE CONTEXT ANALYZED**
+**Summary date:** December 23, 2025
+**Status:** **COMPLETE CONTEXT ANALYZED**

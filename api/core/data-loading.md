@@ -4,7 +4,8 @@
 
 The `data` module provides loading and serialization functions for all game data: monsters, spells, weapons, armors, races, classes.
 
-**Important:** All `load_*()` functions now return class objects (Monster, Spell, Weapon, Armor) instead of JSON dictionaries. This allows direct use of the methods and properties of these objects.
+!!! important
+    All `load_*()` functions now return class objects (`Monster`, `Spell`, `Weapon`, `Armor`) instead of JSON dictionaries. This allows direct use of the methods and properties of these objects.
 
 ## Loading Functions
 
@@ -40,9 +41,9 @@ dragon = load_monster("ancient-red-dragon")
 lich = load_monster("lich")
 ```
 
-**Returns:**
-- A `Monster` object with all its properties and methods
-- `None` if the monster is not found
+!!! note "Returns"
+    - A `Monster` object with all its properties and methods
+    - `None` if the monster is not found
 
 **Available Monsters:**
 - Low-level creatures: goblin, kobold, orc, skeleton, zombie
@@ -85,9 +86,9 @@ cure_wounds = load_spell("cure-wounds")
 shield = load_spell("shield")
 ```
 
-**Returns:**
-- A `Spell` object with all its properties and methods
-- `None` if the spell is not found
+!!! note "Returns"
+    - A `Spell` object with all its properties and methods
+    - `None` if the spell is not found
 
 ---
 
@@ -124,9 +125,9 @@ if longbow.weapon_range:
     print(f"Range: {longbow.weapon_range}")
 ```
 
-**Returns:**
-- A `Weapon` object with all its properties and methods
-- `None` if the weapon is not found
+!!! note "Returns"
+    - A `Weapon` object with all its properties and methods
+    - `None` if the weapon is not found
 
 ---
 
@@ -353,7 +354,7 @@ categories = {
     "Very Strong (CR 11+)": loader.search_monsters(min_cr=11, max_cr=30),
 }
 
-print("📚 D&D 5e BESTIARY")
+print("D&D 5e BESTIARY")
 for category, monsters in categories.items():
     print(f"\n{category}:")
     for monster in sorted(monsters, key=lambda m: m.challenge_rating):

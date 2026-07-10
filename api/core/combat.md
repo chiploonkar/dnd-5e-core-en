@@ -17,30 +17,50 @@ from dnd_5e_core.combat import CombatSystem
 
 **Creation:**
 
-```python
-from dnd_5e_core.entities import Character
-from dnd_5e_core.data import load_monster
+=== "Basic Initialization"
 
-# Create the party and monsters
-party = [
-    Character.generate_random_character(level=5, class_name="fighter"),
-    Character.generate_random_character(level=5, class_name="wizard"),
-]
+    ```python
+    from dnd_5e_core.entities import Character
+    from dnd_5e_core.data import load_monster
 
-monsters = [
-    load_monster("goblin"),
-    load_monster("goblin"),
-]
+    # Create the party and monsters
+    party = [
+        Character.generate_random_character(level=5, class_name="fighter"),
+        Character.generate_random_character(level=5, class_name="wizard"),
+    ]
 
-# Initialize combat
-combat = CombatSystem(verbose=True)
+    monsters = [
+        load_monster("goblin"),
+        load_monster("goblin"),
+    ]
 
-# Or with callback for custom UI
-def message_handler(msg):
-    print(f"[COMBAT] {msg}")
+    # Initialize combat
+    combat = CombatSystem(verbose=True)
+    ```
 
-combat = CombatSystem(verbose=False, message_callback=message_handler)
-```
+=== "Custom UI Callback"
+
+    ```python
+    from dnd_5e_core.entities import Character
+    from dnd_5e_core.data import load_monster
+
+    # Create the party and monsters
+    party = [
+        Character.generate_random_character(level=5, class_name="fighter"),
+        Character.generate_random_character(level=5, class_name="wizard"),
+    ]
+
+    monsters = [
+        load_monster("goblin"),
+        load_monster("goblin"),
+    ]
+
+    # Initialize with callback for custom UI
+    def message_handler(msg):
+        print(f"[COMBAT] {msg}")
+
+    combat = CombatSystem(verbose=False, message_callback=message_handler)
+    ```
 
 **Core Methods:**
 
@@ -132,17 +152,18 @@ class ActionType(Enum):
     SPECIAL = "special"
 ```
 
-**Properties:**
-- `name: str` - Action name
-- `action_type: ActionType` - Action type
-- `attack_bonus: int` - Attack bonus
-- `damage: Damage` - Damage dealt
-- `range_type: RangeType` - Range type (melee/ranged)
-- `normal_range: int` - Normal range
-- `long_range: int` - Long range
-- `dc_type: str` - Saving throw type (optional)
-- `dc_value: int` - Saving throw DC (optional)
-- `dc_success: str` - Effect on success (optional)
+| Property | Type | Description |
+|---|---|---|
+| `name` | `str` | Action name |
+| `action_type` | `ActionType` | Action type |
+| `attack_bonus` | `int` | Attack bonus |
+| `damage` | `Damage` | Damage dealt |
+| `range_type` | `RangeType` | Range type (melee/ranged) |
+| `normal_range` | `int` | Normal range |
+| `long_range` | `int` | Long range |
+| `dc_type` | `str` | Saving throw type (optional) |
+| `dc_value` | `int` | Saving throw DC (optional) |
+| `dc_success` | `str` | Effect on success (optional) |
 
 **Example:**
 ```python
@@ -173,9 +194,10 @@ Represents damage with a type and dice.
 from dnd_5e_core.combat import Damage
 ```
 
-**Properties:**
-- `damage_dice: DamageDice` - Damage dice
-- `damage_type: str` - Damage type (slashing, piercing, fire, etc.)
+| Property | Type | Description |
+|---|---|---|
+| `damage_dice` | `DamageDice` | Damage dice |
+| `damage_type` | `str` | Damage type (slashing, piercing, fire, etc.) |
 
 **Usage:**
 ```python
@@ -253,13 +275,14 @@ Special abilities of monsters.
 from dnd_5e_core.combat import SpecialAbility
 ```
 
-**Properties:**
-- `name: str` - Ability name
-- `desc: str` - Description
-- `damage: Optional[Damage]` - Damage (if applicable)
-- `dc_type: str` - Saving throw type
-- `dc_value: int` - Saving throw DC
-- `usage: Optional[dict]` - Usage limitations
+| Property | Type | Description |
+|---|---|---|
+| `name` | `str` | Ability name |
+| `desc` | `str` | Description |
+| `damage` | `Optional[Damage]` | Damage (if applicable) |
+| `dc_type` | `str` | Saving throw type |
+| `dc_value` | `int` | Saving throw DC |
+| `usage` | `Optional[dict]` | Usage limitations |
 
 **Example:**
 ```python
@@ -297,7 +320,7 @@ monsters = [
 combat = CombatSystem(verbose=True)
 
 # Roll initiative
-print("🎲 Rolling initiative...")
+print("Rolling initiative...")
 # (Initiative is generally handled by your UI)
 
 # Combat loop
@@ -307,11 +330,11 @@ while True:
     alive_monsters = [m for m in monsters if m.is_alive]
     
     if not alive_party:
-        print("💀 Defeat! All heroes have fallen.")
+        print("Defeat! All heroes have fallen.")
         break
     
     if not alive_monsters:
-        print("🎉 Victory! All monsters are defeated.")
+        print("Victory! All monsters are defeated.")
         # Distribute rewards
         xp, gold = combat.distribute_rewards(party, monsters)
         print(f"XP Gained: {xp}, Gold: {gold}")
@@ -456,36 +479,36 @@ hero.remove_condition(Condition.POISONED)
 The combat system implements the following D&D 5e rules:
 
 ### Attack
-- ✅ Attack rolls with attack bonuses
-- ✅ Comparison with Armor Class (AC)
-- ✅ Critical hit (natural 20)
-- ✅ Critical miss (natural 1)
-- ✅ Melee and ranged attacks
-- ✅ Normal and long range
+- Attack rolls with attack bonuses
+- Comparison with Armor Class (AC)
+- Critical hit (natural 20)
+- Critical miss (natural 1)
+- Melee and ranged attacks
+- Normal and long range
 
 ### Damage
-- ✅ Damage dice rolling
-- ✅ Damage types (physical and magical)
-- ✅ Ability score modifier bonus
-- ✅ Doubled damage on critical hits
+- Damage dice rolling
+- Damage types (physical and magical)
+- Ability score modifier bonus
+- Doubled damage on critical hits
 
 ### Spells
-- ✅ Spell slots by level
-- ✅ Spell saving throws
-- ✅ Spell damage by level
-- ✅ Area of effect (AOE) spells
-- ✅ Healing spells
+- Spell slots by level
+- Spell saving throws
+- Spell damage by level
+- Area of effect (AOE) spells
+- Healing spells
 
 ### Monster AI
-- ✅ Smart target selection
-- ✅ Use of healing spells on injured allies
-- ✅ Use of special attacks
-- ✅ Spell slot management
+- Smart target selection
+- Use of healing spells on injured allies
+- Use of special attacks
+- Spell slot management
 
 ### Rewards
-- ✅ XP distribution according to CR
-- ✅ Random gold distribution
-- ✅ Automatic level up
+- XP distribution according to CR
+- Random gold distribution
+- Automatic level up
 
 ---
 

@@ -40,20 +40,21 @@ print(f"  Range: {fireball.range}")
 print(f"  Casting Time: {fireball.casting_time}")
 ```
 
-**Properties:**
-- `index: str` - Unique identifier
-- `name: str` - Spell name
-- `level: int` - Level (0-9)
-- `school: str` - School of magic
-- `casting_time: str` - Casting time
-- `range: str` - Range
-- `components: List[str]` - Components (V, S, M)
-- `duration: str` - Duration
-- `concentration: bool` - Requires concentration
-- `ritual: bool` - Can be cast as a ritual
-- `damage: Optional[Damage]` - Damage (if applicable)
-- `dc: Optional[dict]` - Saving throw
-- `heal_at_slot_level: Optional[dict]` - Healing by level
+| Property | Type | Description |
+|---|---|---|
+| `index` | `str` | Unique identifier |
+| `name` | `str` | Spell name |
+| `level` | `int` | Level (0-9) |
+| `school` | `str` | School of magic |
+| `casting_time` | `str` | Casting time |
+| `range` | `str` | Range |
+| `components` | `List[str]` | Components (V, S, M) |
+| `duration` | `str` | Duration |
+| `concentration` | `bool` | Requires concentration |
+| `ritual` | `bool` | Can be cast as a ritual |
+| `damage` | `Optional[Damage]` | Damage (if applicable) |
+| `dc` | `Optional[dict]` | Saving throw |
+| `heal_at_slot_level` | `Optional[dict]` | Healing by level |
 
 **Methods:**
 ```python
@@ -77,14 +78,15 @@ Management of spellcasting abilities.
 from dnd_5e_core.spells import SpellCaster
 ```
 
-**Properties:**
-- `ability: str` - Spellcasting ability ("int", "wis", "cha")
-- `ability_modifier: int` - Ability score modifier
-- `dc_value: int` - Spell save DC
-- `spell_attack_bonus: int` - Spell attack bonus
-- `spell_slots: List[int]` - Spell slots by level
-- `learned_spells: List[Spell]` - Known spells
-- `prepared_spells: List[Spell]` - Prepared spells
+| Property | Type | Description |
+|---|---|---|
+| `ability` | `str` | Spellcasting ability ("int", "wis", "cha") |
+| `ability_modifier` | `int` | Ability score modifier |
+| `dc_value` | `int` | Spell save DC |
+| `spell_attack_bonus` | `int` | Spell attack bonus |
+| `spell_slots` | `List[int]` | Spell slots by level |
+| `learned_spells` | `List[Spell]` | Known spells |
+| `prepared_spells` | `List[Spell]` | Prepared spells |
 
 **Usage:**
 ```python

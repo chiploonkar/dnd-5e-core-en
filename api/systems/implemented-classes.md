@@ -9,37 +9,37 @@ All domain classes from `dao_classes.py` have been migrated to `dnd-5e-core` by 
 ### Main Classes Already Migrated
 
 #### Entities (entities/)
-- ✅ `Sprite` - Base class for entities with coordinates/position
-- ✅ `Monster` - Class representing monsters
-- ✅ `Character` - Class representing player characters
+- `Sprite` - Base class for entities with coordinates/position
+- `Monster` - Class representing monsters
+- `Character` - Class representing player characters
 
 #### Equipment (equipment/)
-- ✅ `Cost` - Cost of an item
-- ✅ `Equipment` - Base class for equipment
-- ✅ `EquipmentCategory` - Equipment category
-- ✅ `Weapon` / `WeaponData` - Weapons
-- ✅ `Armor` / `ArmorData` - Armor
-- ✅ `Potion` - Base class for potions
-- ✅ `HealingPotion` - Healing potion
-- ✅ `SpeedPotion` - Speed potion
-- ✅ `StrengthPotion` - Strength potion
-- ✅ `PotionRarity` - Potion rarity
-- ✅ `Inventory` - **NEWLY IMPLEMENTED**
+- `Cost` - Cost of an item
+- `Equipment` - Base class for equipment
+- `EquipmentCategory` - Equipment category
+- `Weapon` / `WeaponData` - Weapons
+- `Armor` / `ArmorData` - Armor
+- `Potion` - Base class for potions
+- `HealingPotion` - Healing potion
+- `SpeedPotion` - Speed potion
+- `StrengthPotion` - Strength potion
+- `PotionRarity` - Potion rarity
+- `Inventory` - **NEWLY IMPLEMENTED**
 
 #### Races (races/)
-- ✅ `Language` - Languages
-- ✅ `Trait` - Racial traits
-- ✅ `SubRace` - Subraces
-- ✅ `Race` - Races
+- `Language` - Languages
+- `Trait` - Racial traits
+- `SubRace` - Subraces
+- `Race` - Races
 
 #### Classes (classes/)
-- ✅ `ProfType` - Proficiency types
-- ✅ `Proficiency` - Proficiencies
-- ✅ `ClassType` - Character classes
-- ✅ `Feature` - Class features
-- ✅ `Level` - Class level
-- ✅ `BackGround` - Backgrounds
-- ✅ **Multiclassing** - **NEWLY IMPLEMENTED**
+- `ProfType` - Proficiency types
+- `Proficiency` - Proficiencies
+- `ClassType` - Character classes
+- `Feature` - Class features
+- `Level` - Class level
+- `BackGround` - Backgrounds
+- **Multiclassing** - **NEWLY IMPLEMENTED**
   - `MulticlassRequirements`
   - `MULTICLASS_PREREQUISITES`
   - `can_multiclass_into()`
@@ -49,25 +49,25 @@ All domain classes from `dao_classes.py` have been migrated to `dnd-5e-core` by 
   - `calculate_hit_points_multiclass()`
 
 #### Abilities (abilities/)
-- ✅ `AbilityType` - Ability types
-- ✅ `Abilities` - The 6 abilities
-- ✅ **Skills** - **NEWLY IMPLEMENTED**
+- `AbilityType` - Ability types
+- `Abilities` - The 6 abilities
+- **Skills** - **NEWLY IMPLEMENTED**
   - `SkillType` - Skill types
   - `Skill` - Skills
   - `get_all_skills()`
-- ✅ **Saving Throws** - **NEWLY IMPLEMENTED**
+- **Saving Throws** - **NEWLY IMPLEMENTED**
   - `SavingThrowType` - Saving throw types
   - `SavingThrow` - Saving throws
   - `make_saving_throw()`
 
 #### Spells (spells/)
-- ✅ `Spell` - Spells
-- ✅ `SpellCaster` - Spellcaster
-- ✅ `AreaOfEffect` - Area of effect
-- ✅ **Spell Slots** - **NEWLY IMPLEMENTED**
+- `Spell` - Spells
+- `SpellCaster` - Spellcaster
+- `AreaOfEffect` - Area of effect
+- **Spell Slots** - **NEWLY IMPLEMENTED**
   - `SpellSlots` - Spell slot management
   - `get_spell_slots_by_level()`
-- ✅ **Cantrips** - **NEWLY IMPLEMENTED**
+- **Cantrips** - **NEWLY IMPLEMENTED**
   - `is_cantrip()`
   - `get_cantrip_damage_scaling()`
   - `get_cantrip_damage()`
@@ -77,18 +77,18 @@ All domain classes from `dao_classes.py` have been migrated to `dnd-5e-core` by 
   - `UTILITY_CANTRIPS`
 
 #### Combat (combat/)
-- ✅ `Damage` - Damage
-- ✅ `DamageType` - Damage types
-- ✅ `Condition` - Conditions/states
-- ✅ `ActionType` - Action types
-- ✅ `Action` - Actions
-- ✅ `SpecialAbility` - Special abilities
-- ✅ `RangeType` - Range types
-- ✅ `CategoryType` - Category types
+- `Damage` - Damage
+- `DamageType` - Damage types
+- `Condition` - Conditions/states
+- `ActionType` - Action types
+- `Action` - Actions
+- `SpecialAbility` - Special abilities
+- `RangeType` - Range types
+- `CategoryType` - Category types
 
 #### Game Mechanics (mechanics/)
-- ✅ `DamageDice` - Damage dice
-- ✅ **Experience System** - **NEWLY IMPLEMENTED**
+- `DamageDice` - Damage dice
+- **Experience System** - **NEWLY IMPLEMENTED**
   - `XP_LEVELS` - XP thresholds per level
   - `get_level_from_xp()`
   - `get_xp_for_level()`
@@ -96,14 +96,14 @@ All domain classes from `dao_classes.py` have been migrated to `dnd-5e-core` by 
   - `should_level_up()`
   - `calculate_proficiency_bonus()`
   - `get_cr_xp()`
-- ✅ **Level Up System** - **NEWLY IMPLEMENTED**
+- **Level Up System** - **NEWLY IMPLEMENTED**
   - `LevelUpResult` - Level up result
   - `calculate_hp_gain()`
   - `can_level_up()`
   - `get_ability_score_improvement_levels()`
   - `is_ability_score_improvement_level()`
   - `perform_level_up()`
-- ✅ **Challenge Rating** - **NEWLY IMPLEMENTED**
+- **Challenge Rating** - **NEWLY IMPLEMENTED**
   - `ChallengeRating` - Challenge rating
   - `EncounterDifficulty` - Encounter difficulty
   - `get_xp_thresholds_for_level()`
@@ -111,8 +111,8 @@ All domain classes from `dao_classes.py` have been migrated to `dnd-5e-core` by 
   - `get_appropriate_cr_range()`
 
 #### Utilities (utils/)
-- ✅ `token_downloader` - Token downloader
-- ✅ **Helpers** - **NEWLY IMPLEMENTED**
+- `token_downloader` - Token downloader
+- **Helpers** - **NEWLY IMPLEMENTED**
   - `roll_dice()`
   - `roll_with_advantage()`
   - `roll_with_disadvantage()`
@@ -131,19 +131,19 @@ All domain classes from `dao_classes.py` have been migrated to `dnd-5e-core` by 
   - `calculate_jump_distance()`
   - `format_modifier()`
   - `format_dice()`
-- ✅ **Constants** - **NEWLY IMPLEMENTED**
+- **Constants** - **NEWLY IMPLEMENTED**
   - Game constants for D&D 5e
   - Default values
   - Reference tables
 
 #### Data (data/)
-- ✅ `loader` - Data loading
-- ✅ `collections` - Data collections
-- ✅ **API Client** - **NEWLY IMPLEMENTED**
+- `loader` - Data loading
+- `collections` - Data collections
+- **API Client** - **NEWLY IMPLEMENTED**
   - `DndApiClient` - Client to access the D&D 5e API
   - `get_default_client()`
   - `set_default_client()`
-- ✅ **Serialization** - **NEWLY IMPLEMENTED**
+- **Serialization** - **NEWLY IMPLEMENTED**
   - `DndJSONEncoder` - Custom JSON encoder
   - `to_json()`
   - `from_json()`
@@ -284,11 +284,11 @@ monster_data = client.get_monster("adult-black-dragon")
 
 ## Next Steps
 
-- ✅ All empty classes have been implemented
-- ✅ Module exports have been updated
-- ✅ Documentation created
-- 🔄 Tests to be added for new features
-- 🔄 Full integration into frontends (main.py, main_ncurses.py, wizardry.py)
+- All empty classes have been implemented
+- Module exports have been updated
+- Documentation created
+- Tests to be added for new features
+- Full integration into frontends (main.py, main_ncurses.py, wizardry.py)
 
 ## Migration Date
 

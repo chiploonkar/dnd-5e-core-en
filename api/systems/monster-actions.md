@@ -1,12 +1,12 @@
-# ✅ Migration: get_special_monster_actions to dnd-5e-core
+# Migration: get_special_monster_actions to dnd-5e-core
 
-**Date:** January 20, 2026  
-**Package:** dnd-5e-core v0.4.0  
+**Date:** January 20, 2026
+**Package:** dnd-5e-core v0.4.0
 **Module:** `dnd_5e_core.entities.special_monster_actions`
 
 ---
 
-## 🎯 Objective
+## Objective
 
 Migrate the `get_special_monster_actions()` function from `populate_functions.py` to the `dnd-5e-core` package, with support for:
 1. **Manual definitions** - For monsters requiring custom logic
@@ -44,11 +44,11 @@ class JSONActionExtractor:
 ```
 
 **Features:**
-- ✅ Parses actions (melee/ranged attack)
-- ✅ Extracts attack bonus (regex "+X to hit")
-- ✅ Extracts ranges (regex "range X/Y ft")
-- ✅ Detects action types (MELEE, RANGED, MIXED, MULTIATTACK)
-- ✅ Parses special abilities
+- Parses actions (melee/ranged attack)
+- Extracts attack bonus (regex "+X to hit")
+- Extracts ranges (regex "range X/Y ft")
+- Detects action types (MELEE, RANGED, MIXED, MULTIATTACK)
+- Parses special abilities
 - ⚠️ Spellcasting (TODO - complex format)
 
 #### 2. SpecialMonsterActionsBuilder
@@ -122,7 +122,7 @@ actions, abilities, spellcaster = builder.get_monster_actions(
 
 ---
 
-## 📊 Supported Monsters
+## Supported Monsters
 
 ### With Manual Definitions (47 monsters)
 
@@ -193,7 +193,7 @@ All monsters in `bestiary-sublist-data.json` can be automatically extracted.
 
 ---
 
-## 🔄 Migration from populate_functions.py
+## Migration from populate_functions.py
 
 ### Before (DnD-5th-Edition-API)
 
@@ -217,32 +217,32 @@ actions, abilities, spellcaster = get_special_monster_actions("Goblin Boss")
 
 ---
 
-## ✨ Advantages
+## Advantages
 
 ### 1. Automatic Extraction
 
-✅ **Before:** Only 47 monsters with manual definitions  
-✅ **After:** 47 manual + hundreds via automatic JSON extraction
+**Before:** Only 47 monsters with manual definitions
+**After:** 47 manual + hundreds via automatic JSON extraction
 
 ### 2. Simplified Maintenance
 
-✅ **Before:** Adding a monster = manually coding all of its actions  
-✅ **After:** Most monsters = automatic extraction from JSON
+**Before:** Adding a monster = manually coding all of its actions
+**After:** Most monsters = automatic extraction from JSON
 
 ### 3. Centralization
 
-✅ **Before:** Logic scattered in populate_functions.py  
-✅ **After:** Everything in dnd-5e-core.entities.special_monster_actions
+**Before:** Logic scattered in populate_functions.py
+**After:** Everything in dnd-5e-core.entities.special_monster_actions
 
 ### 4. Flexibility
 
-✅ Can disable JSON fallback if needed  
-✅ Can add manual definitions for complex cases  
-✅ Compatible with extended_monsters.py
+Can disable JSON fallback if needed
+Can add manual definitions for complex cases
+Compatible with extended_monsters.py
 
 ---
 
-## 📝 5e.tools JSON Format
+## 5e.tools JSON Format
 
 ### Monster Structure
 
@@ -287,7 +287,7 @@ The extractor uses regex to extract:
 
 ---
 
-## 🧪 Testing
+## Testing
 
 ### Test File
 
@@ -320,13 +320,13 @@ python test_special_monster_actions.py
 
 ---
 
-## 🚀 Next Steps
+## Next Steps
 
 ### Short Term
 
-1. ✅ JSONActionExtractor created
-2. ✅ SpecialMonsterActionsBuilder updated
-3. ✅ get_special_monster_actions() exported
+1. JSONActionExtractor created
+2. SpecialMonsterActionsBuilder updated
+3. get_special_monster_actions() exported
 4. ⚠️ Tests to validate (needs JSON files)
 
 ### Medium Term
@@ -334,11 +334,11 @@ python test_special_monster_actions.py
 1. **Parse damage** from JSON
    - Complex 5e.tools format (`{@damage 1d6 + 2}`)
    - Requires advanced regex
-   
+
 2. **Parse spellcasting**
    - Highly variable format
    - Spell lists, slots, DC, etc.
-   
+
 3. **Improve action detection**
    - Multi-attacks
    - Conditions (grappled, restrained, etc.)
@@ -352,7 +352,7 @@ python test_special_monster_actions.py
 
 ---
 
-## 📄 Modified Files
+## Modified Files
 
 ```
 dnd-5e-core/
@@ -367,7 +367,7 @@ dnd-5e-core/
 
 ---
 
-## 📋 Checklist
+## Checklist
 
 - [x] JSONActionExtractor created
 - [x] SpecialMonsterActionsBuilder with JSON fallback
@@ -442,6 +442,6 @@ goblin_boss = Monster(
 
 ---
 
-**Status:** ✅ Complete migration - Ready for use  
-**Version:** dnd-5e-core v0.4.0  
+**Status:** Complete migration - Ready for use
+**Version:** dnd-5e-core v0.4.0
 **Date:** January 20, 2026

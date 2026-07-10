@@ -164,20 +164,33 @@ from dnd_5e_core.abilities import Abilities, AbilityType
 ```
 
 **Creation:**
+
+=== "Specific Values"
+
+    ```python
+    from dnd_5e_core.abilities import Abilities
+
+    abilities = Abilities(
+        str=16,  # Strength
+        dex=14,  # Dexterity
+        con=13,  # Constitution
+        int=12,  # Intelligence
+        wis=10,  # Wisdom
+        cha=8    # Charisma
+    )
+    ```
+
+=== "Random Rolling"
+
+    ```python
+    from dnd_5e_core.abilities import Abilities
+
+    abilities = Abilities.roll_abilities()
+    ```
+
+**Usage:**
+
 ```python
-# Method 1: Specific values
-abilities = Abilities(
-    str=16,  # Strength
-    dex=14,  # Dexterity
-    con=13,  # Constitution
-    int=12,  # Intelligence
-    wis=10,  # Wisdom
-    cha=8    # Charisma
-)
-
-# Method 2: Random rolling
-abilities = Abilities.roll_abilities()
-
 # Access to values
 print(f"Strength: {abilities.str}")
 print(f"Strength modifier: {abilities.str_mod}")

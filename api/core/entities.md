@@ -15,14 +15,15 @@ Base class for all living beings (characters and monsters).
 from dnd_5e_core.entities import Sprite
 ```
 
-**Properties:**
-- `id: int` - Unique identifier
-- `name: str` - Entity name
-- `position: tuple[int, int]` - Position (x, y) for UI
-- `hit_points: int` - Current hit points
-- `max_hit_points: int` - Maximum hit points
-- `armor_class: int` - Armor class
-- `speed: int` - Movement speed
+| Property | Type | Description |
+|---|---|---|
+| `id` | `int` | Unique identifier |
+| `name` | `str` | Entity name |
+| `position` | `tuple[int, int]` | Position (x, y) for UI |
+| `hit_points` | `int` | Current hit points |
+| `max_hit_points` | `int` | Maximum hit points |
+| `armor_class` | `int` | Armor class |
+| `speed` | `int` | Movement speed |
 
 **Methods:**
 - `is_alive() -> bool` - Checks if the entity is alive
@@ -42,44 +43,52 @@ from dnd_5e_core.entities import Character
 
 **Creation:**
 
-```python
-# Method 1: Random generation
-hero = Character.generate_random_character(
-    level=5,
-    class_name="wizard"
-)
+=== "Random Generation"
 
-# Method 2: Manual creation
-from dnd_5e_core.abilities import Abilities
-from dnd_5e_core.races import Race
-from dnd_5e_core.classes import ClassType
+    ```python
+    from dnd_5e_core.entities import Character
 
-abilities = Abilities(str=10, dex=14, con=12, int=16, wis=13, cha=8)
-race = Race.load_from_json("elf")
-char_class = ClassType.load_from_json("wizard")
+    hero = Character.generate_random_character(
+        level=5,
+        class_name="wizard"
+    )
+    ```
 
-wizard = Character(
-    id=1,
-    name="Gandalf",
-    abilities=abilities,
-    race=race,
-    classe=char_class,
-    level=5
-)
-```
+=== "Manual Creation"
 
-**Main Properties:**
-- `name: str` - Character name
-- `level: int` - Character level
-- `race: Race` - Character race
-- `classe: ClassType` - Character class
-- `abilities: Abilities` - The 6 ability scores (STR, DEX, CON, INT, WIS, CHA)
-- `hit_points: int` - Current hit points
-- `max_hit_points: int` - Maximum hit points
-- `armor_class: int` - Armor class
-- `proficiency_bonus: int` - Proficiency bonus
-- `experience_points: int` - Experience points
-- `inventory: Inventory` - Equipment inventory
+    ```python
+    from dnd_5e_core.entities import Character
+    from dnd_5e_core.abilities import Abilities
+    from dnd_5e_core.races import Race
+    from dnd_5e_core.classes import ClassType
+
+    abilities = Abilities(str=10, dex=14, con=12, int=16, wis=13, cha=8)
+    race = Race.load_from_json("elf")
+    char_class = ClassType.load_from_json("wizard")
+
+    wizard = Character(
+        id=1,
+        name="Gandalf",
+        abilities=abilities,
+        race=race,
+        classe=char_class,
+        level=5
+    )
+    ```
+
+| Property | Type | Description |
+|---|---|---|
+| `name` | `str` | Character name |
+| `level` | `int` | Character level |
+| `race` | `Race` | Character race |
+| `classe` | `ClassType` | Character class |
+| `abilities` | `Abilities` | The 6 ability scores (STR, DEX, CON, INT, WIS, CHA) |
+| `hit_points` | `int` | Current hit points |
+| `max_hit_points` | `int` | Maximum hit points |
+| `armor_class` | `int` | Armor class |
+| `proficiency_bonus` | `int` | Proficiency bonus |
+| `experience_points` | `int` | Experience points |
+| `inventory` | `Inventory` | Equipment inventory |
 
 **Core Methods:**
 
@@ -182,30 +191,41 @@ from dnd_5e_core.data import load_monster
 
 **Creation:**
 
-```python
-# Load from data
-goblin = load_monster("goblin")
-dragon = load_monster("ancient-red-dragon")
+=== "Loading from Data"
 
-# Create a copy
-goblin2 = copy(goblin)
-goblin2.hp_roll()  # Reroll HP
-```
+    ```python
+    from dnd_5e_core.data import load_monster
 
-**Main Properties:**
-- `index: str` - API identifier (e.g. "goblin")
-- `name: str` - Display name
-- `abilities: Abilities` - The 6 ability scores
-- `armor_class: int` - AC
-- `hit_points: int` - Current HP
-- `max_hit_points: int` - Maximum HP
-- `hit_dice: str` - Hit dice (e.g. "2d8+2")
-- `challenge_rating: float` - Challenge rating
-- `xp: int` - XP awarded on defeat
-- `speed: int` - Speed
-- `actions: List[Action]` - Combat actions
-- `sc: SpellCaster` - Spellcaster (optional)
-- `sa: List[SpecialAbility]` - Special abilities (optional)
+    goblin = load_monster("goblin")
+    dragon = load_monster("ancient-red-dragon")
+    ```
+
+=== "Creating a Copy"
+
+    ```python
+    from copy import copy
+    from dnd_5e_core.data import load_monster
+
+    goblin = load_monster("goblin")
+    goblin2 = copy(goblin)
+    goblin2.hp_roll()  # Reroll HP
+    ```
+
+| Property | Type | Description |
+|---|---|---|
+| `index` | `str` | API identifier (e.g. "goblin") |
+| `name` | `str` | Display name |
+| `abilities` | `Abilities` | The 6 ability scores |
+| `armor_class` | `int` | AC |
+| `hit_points` | `int` | Current HP |
+| `max_hit_points` | `int` | Maximum HP |
+| `hit_dice` | `str` | Hit dice (e.g. "2d8+2") |
+| `challenge_rating` | `float` | Challenge rating |
+| `xp` | `int` | XP awarded on defeat |
+| `speed` | `int` | Speed |
+| `actions` | `List[Action]` | Combat actions |
+| `sc` | `SpellCaster` | Spellcaster (optional) |
+| `sa` | `List[SpecialAbility]` | Special abilities (optional) |
 
 **Core Methods:**
 

@@ -1,6 +1,6 @@
 # Documentation dnd-5e-core - Complete Guide
 
-## 📋 Created Documentation Files
+## Created Documentation Files
 
 This complete documentation covers all modules of the `dnd-5e-core` package.
 
@@ -20,7 +20,7 @@ docs/api/
 └── ui-utils.md                      # UI and utilities
 ```
 
-## 📖 Content by File
+## Content by File
 
 ### README.md (Entry Point)
 - Complete table of contents
@@ -240,7 +240,7 @@ docs/api/
 - Colored menu system
 - Combat logger
 
-## 🎯 Using the Documentation
+## Using the Documentation
 
 ### For Beginners
 1. Read `README.md` to understand the organization
@@ -258,7 +258,7 @@ docs/api/
 2. Consult `ui-utils.md` for the interface
 3. Adapt the examples to your UI
 
-## 📊 Documentation Statistics
+## Documentation Statistics
 
 - **10 Markdown files** complete
 - **8 modules** documented
@@ -266,7 +266,7 @@ docs/api/
 - **100+ examples** of code
 - **All D&D 5e rules** covered
 
-## 🔗 Quick Links
+## Quick Links
 
 ### Documentation
 - [Entry Point](../index.md)
@@ -286,7 +286,7 @@ docs/api/
 - [Races, Classes, Abilities](../core/customization.md)
 - [UI and Utilities](../core/ui-utilities.md)
 
-## ✅ Reading Checklist
+## Reading Checklist
 
 - [ ] README.md - Understand the structure
 - [ ] INDEX.md - Quick start
@@ -299,7 +299,7 @@ docs/api/
 - [ ] races-classes-abilities.md - Customization
 - [ ] ui-utils.md - Interface
 
-## 🎓 Level of Detail by File
+## Level of Detail by File
 
 | File | Lines | Classes | Examples | Level |
 |---------|--------|---------|----------|--------|
@@ -314,7 +314,7 @@ docs/api/
 | races-classes-abilities.md | ~300 | 9 | 6+ | Intermediate |
 | ui-utils.md | ~250 | 2+API | 10+ | Beginner |
 
-## 📝 Maintenance
+## Maintenance
 
 To keep the documentation updated:
 
@@ -323,7 +323,7 @@ To keep the documentation updated:
 3. **New examples**: Test and add to the appropriate sections
 4. **Updates**: Synchronize with code changes
 
-## 🤝 Contributing
+## Contributing
 
 To contribute to the documentation:
 1. Verify that all examples work
@@ -333,5 +333,5 @@ To contribute to the documentation:
 
 ---
 
-**Documentation generated for dnd-5e-core v0.1.7+**  
+**Documentation generated for dnd-5e-core v0.1.7+**
 Last updated: January 2026

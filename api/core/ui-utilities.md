@@ -110,24 +110,24 @@ from dnd_5e_core.data import load_monster
 hero = Character.generate_random_character(level=5, class_name="fighter")
 goblin = load_monster("goblin")
 
-print(color("⚔️  COMBAT!", Color.BOLD, Color.YELLOW))
+print(color("COMBAT!", Color.BOLD, Color.YELLOW))
 print()
 
 # Display the combatants
-print(color(f"🦸 {hero.name}", Color.GREEN, Color.BOLD))
+print(color(f"{hero.name}", Color.GREEN, Color.BOLD))
 print(f"  HP: {color(str(hero.hit_points), Color.GREEN)}/{hero.max_hit_points}")
 print(f"  AC: {hero.armor_class}")
 print()
 
-print(color(f"👹 {goblin.name}", Color.RED, Color.BOLD))
+print(color(f"{goblin.name}", Color.RED, Color.BOLD))
 print(f"  HP: {color(str(goblin.hit_points), Color.RED)}/{goblin.max_hit_points}")
 print(f"  AC: {goblin.armor_class}")
 print()
 
 # Display an attack
 damage = 8
-print(color(f"⚔️  {hero.name} attacks!", Color.CYAN))
-print(color(f"💥 {damage} damage!", Color.YELLOW, Color.BOLD))
+print(color(f"{hero.name} attacks!", Color.CYAN))
+print(color(f"{damage} damage!", Color.YELLOW, Color.BOLD))
 ```
 
 ### Colored Hit Point Bar
@@ -302,7 +302,7 @@ for ability in abilities:
     print(f"{ability:2d} → {helpers.format_modifier(mod)}")
 
 # Output:
-#  8 → -1
+# 8 → -1
 # 10 → +0
 # 12 → +1
 # 14 → +2
@@ -326,7 +326,7 @@ dice_strings = [
 
 for dice in dice_strings:
     valid = helpers.is_valid_dice(dice)
-    status = "✅" if valid else "❌"
+    status = "Valid" if valid else "Invalid"
     print(f"{status} {dice}")
 ```
 
@@ -374,30 +374,30 @@ class CombatLogger:
     
     @staticmethod
     def attack(attacker, target, damage):
-        print(color(f"⚔️  {attacker} attacks {target}!", Color.CYAN))
+        print(color(f"{attacker} attacks {target}!", Color.CYAN))
         if damage > 0:
-            print(color(f"   💥 {damage} damage!", Color.YELLOW))
+            print(color(f"   {damage} damage!", Color.YELLOW))
         else:
-            print(color("   ✗ Missed!", Color.RED))
+            print(color("   Missed!", Color.RED))
     
     @staticmethod
     def heal(healer, target, hp):
-        print(color(f"✨ {healer} heals {target}", Color.GREEN))
-        print(color(f"   💚 +{hp} HP", Color.GREEN, Color.BOLD))
+        print(color(f"{healer} heals {target}", Color.GREEN))
+        print(color(f"   +{hp} HP", Color.GREEN, Color.BOLD))
     
     @staticmethod
     def spell(caster, spell_name):
-        print(color(f"🔮 {caster} casts {spell_name}!", Color.MAGENTA, Color.BOLD))
+        print(color(f"{caster} casts {spell_name}!", Color.MAGENTA, Color.BOLD))
     
     @staticmethod
     def death(name):
-        print(color(f"💀 {name} is defeated!", Color.RED, Color.BOLD))
+        print(color(f"{name} is defeated!", Color.RED, Color.BOLD))
     
     @staticmethod
     def victory():
         print()
         print(color("=" * 60, Color.GREEN))
-        print(color("  🎉 VICTORY!", Color.GREEN, Color.BOLD))
+        print(color("  VICTORY!", Color.GREEN, Color.BOLD))
         print(color("=" * 60, Color.GREEN))
 
 # Usage

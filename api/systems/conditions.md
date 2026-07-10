@@ -189,7 +189,7 @@ fighter = simple_character_generator(level=5, class_name='fighter', name='Conan'
 spider = load_monster('giant-spider')
 
 # Combat
-print(f"🕷️ {spider.name} attacks!")
+print(f"{spider.name} attacks!")
 
 # The spider uses its web attack
 web_action = [a for a in spider.actions if 'web' in a.name.lower()][0]
@@ -204,7 +204,7 @@ print(messages)
 # Check conditions
 if fighter.conditions:
     for condition in fighter.conditions:
-        print(f"✅ {condition.name} applied")
+        print(f"{condition.name} applied")
         print(f"   DC {condition.dc_value} {condition.dc_type.value} to escape")
         
         # Attempt to escape
@@ -237,7 +237,7 @@ messages, dmg, heal = wand.perform_action(action, goblin, wizard, verbose=True)
 
 # The goblin is paralyzed
 if goblin.conditions:
-    print(f"🔴 {goblin.name} is paralyzed!")
+    print(f"{goblin.name} is paralyzed!")
     
 # Recharge after rest
 wand.recharge_actions(recharge_type="dawn")
@@ -349,11 +349,11 @@ python tests/test_conditions_system.py
 ```
 
 Tests included:
-1. ✅ Automatic parsing of monsters
-2. ✅ Magic items with conditions
-3. ✅ Combat with condition application
-4. ✅ Using magic items in combat
-5. ✅ Direct condition parser
+1. Automatic parsing of monsters
+2. Magic items with conditions
+3. Combat with condition application
+4. Using magic items in combat
+5. Direct condition parser
 
 ## Performance Notes
 
@@ -364,7 +364,7 @@ Tests included:
 
 ## Compatibility
 
-✅ Compatible with:
+Compatible with:
 - All monsters from the D&D 5e API
 - Existing combat system
 - Custom magic items

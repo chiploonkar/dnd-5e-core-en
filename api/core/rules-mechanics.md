@@ -17,18 +17,31 @@ from dnd_5e_core.mechanics import DamageDice
 
 **Creation:**
 
-```python
-# Standard D&D notation
-damage = DamageDice("2d6+3")  # 2 six-sided dice + 3
-heal = DamageDice("1d8")      # 1 eight-sided die
-fireball = DamageDice("8d6")  # 8 six-sided dice
+=== "Standard Notation"
 
-# With separate bonus
-damage = DamageDice("2d6", bonus=3)
+    ```python
+    from dnd_5e_core.mechanics import DamageDice
 
-# With penalty
-damage = DamageDice("1d6-2")
-```
+    damage = DamageDice("2d6+3")  # 2 six-sided dice + 3
+    heal = DamageDice("1d8")      # 1 eight-sided die
+    fireball = DamageDice("8d6")  # 8 six-sided dice
+    ```
+
+=== "With Separate Bonus"
+
+    ```python
+    from dnd_5e_core.mechanics import DamageDice
+
+    damage = DamageDice("2d6", bonus=3)
+    ```
+
+=== "With Penalty"
+
+    ```python
+    from dnd_5e_core.mechanics import DamageDice
+
+    damage = DamageDice("1d6-2")
+    ```
 
 **Methods:**
 
@@ -315,7 +328,7 @@ for monster_name, cr in defeated_monsters:
     if new_level > hero.level:
         old_level = hero.level
         hero.level_up()
-        print(f"🎉 LEVEL UP! {old_level} -> {hero.level}")
+        print(f"LEVEL UP! {old_level} -> {hero.level}")
         print(f"   New max HP: {hero.max_hit_points}")
         print(f"   New proficiency bonus: {hero.proficiency_bonus}")
 
@@ -361,7 +374,7 @@ for monster_name in possible_monsters:
             encounter.append(load_monster(monster_name))
             total_xp += monster.xp
 
-print(f"\n🎲 Encounter generated (Total XP: {total_xp}):")
+print(f"\nEncounter generated (Total XP: {total_xp}):")
 from collections import Counter
 monster_counts = Counter([m.name for m in encounter])
 for monster_name, count in monster_counts.items():
@@ -399,11 +412,11 @@ defeated = [
 total_xp = sum([m.xp for m in defeated])
 xp_per_member = total_xp // len(party)
 
-print(f"💀 Defeated monsters:")
+print(f"Defeated monsters:")
 for monster in defeated:
     print(f"  - {monster.name} (CR {monster.challenge_rating}, {monster.xp} XP)")
 
-print(f"\n⭐ Total XP: {total_xp}")
+print(f"\nTotal XP: {total_xp}")
 print(f"   XP per member: {xp_per_member}")
 
 # Distribute XP

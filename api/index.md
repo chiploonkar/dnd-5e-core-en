@@ -1,12 +1,12 @@
-# 📚 dnd-5e-core Documentation
+# dnd-5e-core Documentation
 
 Welcome to the **dnd-5e-core** package documentation!
 
-## 📖 Main Documentation
+## Main Documentation
 
 ### Essentials
 - **[README.md](../README.md)** - Package overview and usage guide
-- **[AI_AGENT_GUIDE.md](https://github.com/codingame-team/dnd-5e-core/blob/main/AI_AGENT_GUIDE.md)** - 🤖 **Complete guide for agentic AIs**
+- **[AI_AGENT_GUIDE.md](https://github.com/codingame-team/dnd-5e-core/blob/main/AI_AGENT_GUIDE.md)** - **Complete guide for agentic AIs**
 - **[CHANGELOG.md](https://github.com/codingame-team/dnd-5e-core/blob/main/CHANGELOG.md)** - Version history and changes
 - **[CONTRIBUTING.md](https://github.com/codingame-team/dnd-5e-core/blob/main/CONTRIBUTING.md)** - Guide to contributing to the project
 - **[QUICK_START_DATA.md](https://github.com/codingame-team/dnd-5e-core/blob/main/archive/QUICK_START_DATA.md)** - Quick start with data
@@ -21,7 +21,7 @@ Welcome to the **dnd-5e-core** package documentation!
 
 ---
 
-## 🔄 Migration Documentation
+## Migration Documentation
 
 ### Collections Migration (December 2025)
 - **[COLLECTIONS_MIGRATION.md](../docs.en/COLLECTIONS_MIGRATION.md)** - Collections migration guide
@@ -32,7 +32,7 @@ See the `archive/migration/` directory for historical data migration documentati
 
 ---
 
-## 📁 Package Structure
+## Package Structure
 
 ```
 dnd-5e-core/
@@ -73,7 +73,7 @@ dnd-5e-core/
 
 ---
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Installation
 
@@ -111,7 +111,7 @@ character = Character(name="Aragorn", race=Race(...))
 
 ---
 
-## 📊 Package Content
+## Package Content
 
 ### Collections (26 files)
 - **332 monsters** indexed
@@ -138,7 +138,7 @@ character = Character(name="Aragorn", race=Race(...))
 
 ---
 
-## 🧪 Testing
+## Testing
 
 ```bash
 # Run all tests
@@ -153,7 +153,7 @@ pytest --cov=dnd_5e_core
 
 ---
 
-## 📝 Guides and Tutorials
+## Guides and Tutorials
 
 ### For Developers
 - **[CONTRIBUTING.md](https://github.com/codingame-team/dnd-5e-core/blob/main/CONTRIBUTING.md)** - How to contribute
@@ -166,7 +166,7 @@ pytest --cov=dnd_5e_core
 
 ---
 
-## 🗂️ Archive
+## Archive
 
 Historical development documentation is archived in `archive/`:
 
@@ -185,7 +185,7 @@ See **[archive/README.md](../docs.en/archive/README.md)** for more details.
 
 ---
 
-## 🔗 Useful Links
+## Useful Links
 
 ### D&D 5e Resources
 - [D&D 5e API](https://www.dnd5eapi.co/) - Source of data
@@ -197,21 +197,21 @@ See **[archive/README.md](../docs.en/archive/README.md)** for more details.
 
 ---
 
-## 📅 Version History
+## Version History
 
 See **[CHANGELOG.md](https://github.com/codingame-team/dnd-5e-core/blob/main/CHANGELOG.md)** for full version history.
 
 ### Current Version: Unreleased
 
 Latest features:
-- ✅ Collections migration (December 2025)
-- ✅ `collections.py` module to manage indexes
-- ✅ Convenience functions for quick access
-- ✅ Automatic path detection
+- Collections migration (December 2025)
+- `collections.py` module to manage indexes
+- Convenience functions for quick access
+- Automatic path detection
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 Contributions are welcome! See **[CONTRIBUTING.md](https://github.com/codingame-team/dnd-5e-core/blob/main/CONTRIBUTING.md)** for more details.
 
@@ -224,13 +224,13 @@ Contributions are welcome! See **[CONTRIBUTING.md](https://github.com/codingame-
 
 ---
 
-## 📄 License
+## License
 
 This project uses data under the **Open Gaming License (OGL)** and **System Reference Document (SRD)**.
 
 ---
 
-## 📧 Contact
+## Contact
 
 For any questions or suggestions, please feel free to open an issue on the GitHub repository.
 
